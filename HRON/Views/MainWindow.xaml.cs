@@ -201,7 +201,7 @@ namespace HRON.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UserEdit ue = new UserEdit(this, 1);
+            EmployeeEdit ue = new EmployeeEdit(this, 1);
             addTab(ue, "test 2");
         }
 

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HRON.Views.EmployeeViews.UserEdit"
+﻿<UserControl x:Class="HRON.Views.EmployeeViews.EmployeeEdit"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -25,6 +25,8 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="employeeEmplSalaryCarPolicyViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baCarPolicy}, CreateList=True}"/>
         <helper:VisibilityConverter x:Key="VisibilityConverter" />
+        <CollectionViewSource x:Key="employeeEmplDocumentationViewSource" Source="{Binding EmplDocumentation, Source={StaticResource employeeViewSource}}"/>
+        <CollectionViewSource x:Key="baDocumentationViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baDocumentation}, CreateList=True}"/>
     </UserControl.Resources>
 
     <DockPanel AllowDrop="True" Drop="DockPanel_Drop" Name="OuterDockPanel">
@@ -115,7 +117,7 @@
                                                     <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click" Visibility="{Binding}">
                                                         <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
                                                     </Button>
-                                                    </StackPanel>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -273,6 +275,31 @@
                                 <Label Content="{StaticResource employeeTableColumnemplWorkStartDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
                                 <DatePicker x:Name="emplWorkStartDateDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" SelectedDate="{Binding emplWorkStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
                             </Grid>
+                        </Expander>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Margin="5">
+                        <Expander IsExpanded="true">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="FileDocument" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowDocuments}"/>
+                                </StackPanel>
+                            </Expander.Header>
+                            <DataGrid x:Name="emplDocumentationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource employeeEmplDocumentationViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
+                                <DataGrid.Columns>
+                                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource baDocumentationViewSource}}" x:Name="documentationIDColumn" Header="Document" Width="SizeToHeader" DisplayMemberPath="documentationDescription" SelectedValuePath="documentationID" SelectedValueBinding="{Binding documentationID, UpdateSourceTrigger=PropertyChanged}" />
+                                    <DataGridCheckBoxColumn x:Name="requiredSignature" Binding="{Binding required}" Header="Signature Required" />
+                                    <DataGridTemplateColumn x:Name="dateSignatureColumn" Header="date Signature" Width="SizeToHeader">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <DatePicker SelectedDate="{Binding dateSignature, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding EmplFiles.Count}" Header="N° Files" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Expander>
                     </materialDesign:Card>
 

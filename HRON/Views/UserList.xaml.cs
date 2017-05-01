@@ -67,7 +67,7 @@ namespace HRON.Views
             if (item != null && item is Employee)
             {
                 Employee em = (Employee)item;
-                UserEdit ue = new UserEdit(this.mainWindow, em.emplID);
+                EmployeeEdit ue = new EmployeeEdit(this.mainWindow, em.emplID);
                 ue.UserSaved += Ue_UserSaved;
                 this.mainWindow.addTab(ue, ((em.emplKey != null) ? em.emplKey + ":" : "") + em.emplName + "  " + em.emplLastName);
             }

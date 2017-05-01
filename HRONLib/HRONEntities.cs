@@ -37,7 +37,6 @@ namespace HRONLib
         public virtual DbSet<EmplFamily> EmplFamily { get; set; }
         public virtual DbSet<EmplFiles> EmplFiles { get; set; }
         public virtual DbSet<EmplDocumentation> EmplDocumentation { get; set; }
-        public virtual DbSet<EmplDocumentationRequired> EmplDocumentationRequired { get; set; }
         public virtual DbSet<EmplFunctions> EmplFunctions { get; set; }
         public virtual DbSet<EmplWorkflows> EmplWorkflows { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
@@ -204,11 +203,6 @@ namespace HRONLib
 
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.EmplDocumentation)
-                .WithRequired(e => e.Employee)
-                .HasForeignKey(e => e.emplID);
-
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.EmplDocumentationRequired)
                 .WithRequired(e => e.Employee)
                 .HasForeignKey(e => e.emplID);
 

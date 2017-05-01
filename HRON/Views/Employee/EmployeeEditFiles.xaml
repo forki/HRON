@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HRON" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:HRONLib="clr-namespace:HRONLib;assembly=HRONLib" 
-             x:Class="HRON.Views.EmployeeViews.UserEditFiles"
+             x:Class="HRON.Views.EmployeeViews.EmployeeEditFiles"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <UserControl.Resources>

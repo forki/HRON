@@ -27,6 +27,8 @@ namespace HRONLib
 
         public DateTime? dateSignature { get; set; }
 
+        public bool required { get; set; }
+
         public virtual baDocumentation baDocumentation { get; set; }
 
         public virtual Employee Employee { get; set; }

@@ -25,13 +25,13 @@ namespace HRON.Views.EmployeeViews
     /// <summary>
     /// Interaktionslogik für UserEditFiles.xaml
     /// </summary>
-    public partial class UserEditFiles : UserControl
+    public partial class EmployeeEditFiles : UserControl
     {
         HRONEntities entities;
         Employee employee;
         MainWindow mainWindow;
 
-        public UserEditFiles(MainWindow main, HRONEntities _entities, Employee e)
+        public EmployeeEditFiles(MainWindow main, HRONEntities _entities, Employee e)
         {
             InitializeComponent();
 

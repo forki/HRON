@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HRON</RootNamespace>
-    <AssemblyName>GruberHR_1</AssemblyName>
+    <AssemblyName>HRON</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -58,7 +58,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-	  <ProjectConfigFileName>App.config</ProjectConfigFileName>
+    <ProjectConfigFileName>App.config</ProjectConfigFileName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dragablz, Version=0.0.3.186, Culture=neutral, processorArchitecture=MSIL">
@@ -142,11 +142,11 @@
     <Compile Include="Views\showHistory.xaml.cs">
       <DependentUpon>showHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Employee\UserEdit.xaml.cs">
-      <DependentUpon>UserEdit.xaml</DependentUpon>
+    <Compile Include="Views\Employee\EmployeeEdit.xaml.cs">
+      <DependentUpon>EmployeeEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Employee\UserEditFiles.xaml.cs">
-      <DependentUpon>UserEditFiles.xaml</DependentUpon>
+    <Compile Include="Views\Employee\EmployeeEditFiles.xaml.cs">
+      <DependentUpon>EmployeeEditFiles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
@@ -192,11 +192,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Employee\UserEdit.xaml">
+    <Page Include="Views\Employee\EmployeeEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Employee\UserEditFiles.xaml">
+    <Page Include="Views\Employee\EmployeeEditFiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,12 +253,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-	<None Include="App.Debug.config">
-     <DependentUpon>App.config</DependentUpon>
-   </None>
-   <None Include="App.Release.config">
-     <DependentUpon>App.config</DependentUpon>
-   </None>  </ItemGroup>
+    <None Include="App.Debug.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Contact.png" />
   </ItemGroup>

@@ -26,7 +26,7 @@ namespace HRON.Views.EmployeeViews
     /// <summary>
     /// Interaktionslogik für UserEdit.xaml
     /// </summary>
-    public partial class UserEdit : UserControl
+    public partial class EmployeeEdit : UserControl
     {
         protected HRONEntities entities = new HRONEntities();
         public ObservableCollection<baCarPolicy> carPolicy { get; set; }
@@ -56,7 +56,7 @@ namespace HRON.Views.EmployeeViews
             }
         }
 
-        public UserEdit(MainWindow main, int EmployeeId)
+        public EmployeeEdit(MainWindow main, int EmployeeId)
         {
             InitializeComponent();
             this.entities = new HRONEntities();
@@ -89,6 +89,11 @@ namespace HRON.Views.EmployeeViews
                 myemployeeEmplSalaryCarPolicyViewSource.Source = entities.baCarPolicy.Local;
 
                 entities.baFringeBenefit.Load();
+
+                System.Windows.Data.CollectionViewSource mybaDocumentationViewSourceViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["baDocumentationViewSource"];
+                entities.baDocumentation.Load();
+                mybaDocumentationViewSourceViewSource.Source = entities.baDocumentation.Local;
+                
                 /*
                 System.Windows.Data.CollectionViewSource myemployeebaFringeBenefitViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["employeebaFringeBenefitViewSource"];
                 myemployeebaFringeBenefitViewSource.Source = entities.baFringeBenefit.Local;
@@ -101,6 +106,7 @@ namespace HRON.Views.EmployeeViews
 
                 //outerGrid.DataContext = actualEmployee;
 
+                //Todo: CDC muss eine NxM werden
                 emplCdcIDComboBox.ItemsSource = entities.baCDC.ToList();
                 emplCdcIDComboBox.DisplayMemberPath = "cdcValue";
                 emplCdcIDComboBox.SelectedValuePath = "cdcID";
@@ -267,7 +273,7 @@ namespace HRON.Views.EmployeeViews
 
         private void showFiles_Click(object sender, RoutedEventArgs e)
         {
-            DialogHost.Show(new UserEditFiles(mainWindow, entities, actualEmployee));
+            DialogHost.Show(new EmployeeEditFiles(mainWindow, entities, actualEmployee));
         }
 
         private void DockPanel_Drop(object sender, DragEventArgs e)
@@ -279,7 +285,7 @@ namespace HRON.Views.EmployeeViews
 
                 // Assuming you have one file that you care about, pass it off to whatever
                 // handling code you have defined.
-                UserEditFiles uef = new UserEditFiles(mainWindow, entities, actualEmployee);
+                EmployeeEditFiles uef = new EmployeeEditFiles(mainWindow, entities, actualEmployee);
                 DialogHost.Show(uef);
 
                 uef.loadFiles(files);

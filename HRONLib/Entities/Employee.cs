@@ -19,6 +19,7 @@ namespace HRONLib
             EmplFunctions = new ObservableCollection<EmplFunctions>();
             Employee1 = new ObservableCollection<Employee>();
             EmplSalary = new ObservableCollection<EmplSalary>();
+            EmplDocumentation = new ObservableCollection<EmplDocumentation>();
             EmplFiles = new ObservableCollection<EmplFiles>();
         }
 
@@ -127,10 +128,6 @@ namespace HRONLib
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmplDocumentation> EmplDocumentation { get; set; }
-
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmplDocumentationRequired> EmplDocumentationRequired { get; set; }
 
         public override int[] getKey()
         {
