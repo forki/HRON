@@ -1,0 +1,275 @@
+﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p1:TextExpression.Namespaces="{x:Reference __ReferenceID2}" p1:TextExpression.References="{x:Reference __ReferenceID3}" ConfigurationName="EmployeeOnBoardingService" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="EmployeeOnBoardingService"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:g="clr-namespace:HRONLib;assembly=HRONLib"
+ xmlns:ha="clr-namespace:HRONWorkflowService.Activities;assembly=HRONWorkflowService"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://HRONLib.Contracts/2017/04"
+ xmlns:p1="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ssx="clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p1:Sequence p1:TextExpression.Namespaces="{x:Reference __ReferenceID2}" p1:TextExpression.References="{x:Reference __ReferenceID3}" DisplayName="OuterSequence" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <p1:Sequence.Variables>
+      <p1:Variable x:TypeArguments="g:Employee" Name="data" />
+      <p1:Variable x:TypeArguments="x:String" Name="actualStatus" />
+      <p1:Variable x:TypeArguments="scg:List(x:String)" Name="passedStatuses">
+        <p1:Variable.Default>
+          <mca:CSharpValue x:TypeArguments="scg:List(x:String)">new List&lt;string&gt;();</mca:CSharpValue>
+        </p1:Variable.Default>
+      </p1:Variable>
+      <p1:Variable x:TypeArguments="s:Byte[]" Name="Workflow" />
+      <p1:Variable x:TypeArguments="CorrelationHandle" Name="handle" />
+    </p1:Sequence.Variables>
+    <p1:Sequence DisplayName="Sequential Service" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <p1:TextExpression.Namespaces>
+        <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID2">
+          <x:String>System</x:String>
+          <x:String>System.Collections.Generic</x:String>
+          <x:String>System.Data</x:String>
+          <x:String>System.Linq</x:String>
+          <x:String>System.Text</x:String>
+          <x:String>HRONLib</x:String>
+          <x:String>System.Activities.Statements</x:String>
+          <x:String>System.ServiceModel.Activities</x:String>
+          <x:String>HRONWorkflowService.Contract</x:String>
+        </sco:Collection>
+      </p1:TextExpression.Namespaces>
+      <p1:TextExpression.References>
+        <sco:Collection x:TypeArguments="p1:AssemblyReference" x:Name="__ReferenceID3">
+          <p1:AssemblyReference>EntityFramework</p1:AssemblyReference>
+          <p1:AssemblyReference>EntityFramework.MappingAPI</p1:AssemblyReference>
+          <p1:AssemblyReference>EntityFramework.SqlServer</p1:AssemblyReference>
+          <p1:AssemblyReference>Microsoft.CSharp</p1:AssemblyReference>
+          <p1:AssemblyReference>Microsoft.Exchange.WebServices</p1:AssemblyReference>
+          <p1:AssemblyReference>Microsoft.Exchange.WebServices.Auth</p1:AssemblyReference>
+          <p1:AssemblyReference>PresentationCore</p1:AssemblyReference>
+          <p1:AssemblyReference>PresentationFramework</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Activities.Presentation</p1:AssemblyReference>
+          <p1:AssemblyReference>System.ComponentModel.DataAnnotations</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Data.DataSetExtensions</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Security</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Drawing</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Web.DynamicData</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Web.Entity</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Web.ApplicationServices</p1:AssemblyReference>
+          <p1:AssemblyReference>System</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Data</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Runtime.Serialization</p1:AssemblyReference>
+          <p1:AssemblyReference>System.ServiceModel</p1:AssemblyReference>
+          <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
+          <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Web</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Web.Extensions</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Xaml</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Xml</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
+          <p1:AssemblyReference>TrackerEnabledDbContext</p1:AssemblyReference>
+          <p1:AssemblyReference>TrackerEnabledDbContext.Common</p1:AssemblyReference>
+          <p1:AssemblyReference>WindowsBase</p1:AssemblyReference>
+          <p1:AssemblyReference>HRONLib</p1:AssemblyReference>
+          <p1:AssemblyReference>System.Core</p1:AssemblyReference>
+          <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
+          <p1:AssemblyReference>HRONWorkflowService</p1:AssemblyReference>
+        </sco:Collection>
+      </p1:TextExpression.References>
+      <p1:Sequence.Variables>
+        <p1:Variable x:TypeArguments="p1:CompensationToken" Name="EmployeeId" />
+        <p1:Variable x:TypeArguments="s:Guid" Name="WFID" />
+        <p1:Variable x:TypeArguments="CorrelationHandle" Name="StartProcessHandle" />
+      </p1:Sequence.Variables>
+      <Receive x:Name="__ReferenceID0" Action="http://HRONLib.Contracts/2017/04/IOnBoardingService/StartProcess" CanCreateInstance="True" DisplayName="StartProcess_Receive" sap2010:WorkflowViewState.IdRef="Receive_3" OperationName="StartProcess" ProtectionLevel="None" ServiceContractName="p:IOnBoardingService">
+        <Receive.CorrelatesWith>
+          <p1:InArgument x:TypeArguments="CorrelationHandle">
+            <mca:CSharpValue x:TypeArguments="CorrelationHandle">StartProcessHandle</mca:CSharpValue>
+          </p1:InArgument>
+        </Receive.CorrelatesWith>
+        <ReceiveParametersContent>
+          <p1:OutArgument x:TypeArguments="g:Employee" x:Key="Employee">
+            <mca:CSharpReference x:TypeArguments="g:Employee">data</mca:CSharpReference>
+          </p1:OutArgument>
+          <p1:OutArgument x:TypeArguments="s:Byte[]" x:Key="workflow">
+            <mca:CSharpReference x:TypeArguments="s:Byte[]">Workflow</mca:CSharpReference>
+          </p1:OutArgument>
+        </ReceiveParametersContent>
+      </Receive>
+      <ha:getWorkflowID ActivityInstanceID="{x:Null}" sap2010:WorkflowViewState.IdRef="getWorkflowID_1">
+        <ha:getWorkflowID.WFID>
+          <p1:OutArgument x:TypeArguments="s:Guid">
+            <mca:CSharpReference x:TypeArguments="s:Guid">WFID</mca:CSharpReference>
+          </p1:OutArgument>
+        </ha:getWorkflowID.WFID>
+      </ha:getWorkflowID>
+      <p1:AddToCollection x:TypeArguments="x:String" DisplayName="AddToCollection&lt;String&gt;" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1">
+        <p1:AddToCollection.Item>
+          <p1:InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">"Called Workflow (" + DateTime.Now.ToString("u") + ")"</mca:CSharpValue>
+          </p1:InArgument>
+        </p1:AddToCollection.Item>
+        <p1:InArgument x:TypeArguments="scg:ICollection(x:String)">
+          <mca:CSharpValue x:TypeArguments="scg:ICollection(x:String)">passedStatuses</mca:CSharpValue>
+        </p1:InArgument>
+      </p1:AddToCollection>
+      <SendReply Request="{x:Reference __ReferenceID0}" Action="http://HRONLib.Contracts/2017/04/IOnBoardingService/StartProcessResponse" DisplayName="StartProcess_SendReply" sap2010:WorkflowViewState.IdRef="SendReply_3">
+        <SendParametersContent>
+          <p1:InArgument x:TypeArguments="s:Guid" x:Key="StartProcessResult">
+            <mca:CSharpValue x:TypeArguments="s:Guid">WFID</mca:CSharpValue>
+          </p1:InArgument>
+        </SendParametersContent>
+      </SendReply>
+      <InitializeCorrelation sap2010:WorkflowViewState.IdRef="InitializeCorrelation_1">
+        <InitializeCorrelation.Correlation>
+          <p1:InArgument x:TypeArguments="CorrelationHandle">
+            <mca:CSharpValue x:TypeArguments="CorrelationHandle">StartProcessHandle</mca:CSharpValue>
+          </p1:InArgument>
+        </InitializeCorrelation.Correlation>
+        <p1:InArgument x:TypeArguments="x:String" x:Key="key1">
+          <mca:CSharpValue x:TypeArguments="x:String">WFID.ToString()</mca:CSharpValue>
+        </p1:InArgument>
+      </InitializeCorrelation>
+      <p1:Pick sap2010:WorkflowViewState.IdRef="Pick_1">
+        <p1:PickBranch DisplayName="Branch1" sap2010:WorkflowViewState.IdRef="PickBranch_1">
+          <p1:PickBranch.Trigger>
+            <p1:Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <ha:loadDynamicActivity sap2010:WorkflowViewState.IdRef="loadDynamicActivity_1">
+                <ha:loadDynamicActivity.WFID>
+                  <p1:InArgument x:TypeArguments="s:Guid">
+                    <mca:CSharpValue x:TypeArguments="s:Guid">WFID</mca:CSharpValue>
+                  </p1:InArgument>
+                </ha:loadDynamicActivity.WFID>
+                <ha:loadDynamicActivity.XAML_WF>
+                  <p1:InArgument x:TypeArguments="s:Byte[]">
+                    <mca:CSharpValue x:TypeArguments="s:Byte[]">Workflow</mca:CSharpValue>
+                  </p1:InArgument>
+                </ha:loadDynamicActivity.XAML_WF>
+                <ha:loadDynamicActivity.employee>
+                  <p1:InArgument x:TypeArguments="g:Employee">
+                    <mca:CSharpValue x:TypeArguments="g:Employee">data</mca:CSharpValue>
+                  </p1:InArgument>
+                </ha:loadDynamicActivity.employee>
+              </ha:loadDynamicActivity>
+              <p1:Delay sap2010:WorkflowViewState.IdRef="Delay_1">
+                <p1:InArgument x:TypeArguments="x:TimeSpan">
+                  <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 10, 0);</mca:CSharpValue>
+                </p1:InArgument>
+              </p1:Delay>
+            </p1:Sequence>
+          </p1:PickBranch.Trigger>
+          <ha:SendEmail result="{x:Null}" sap2010:WorkflowViewState.IdRef="SendEmail_1" body="BASTA" subject="Ok - Fertig" to="***REMOVED***" />
+        </p1:PickBranch>
+        <p1:PickBranch DisplayName="Branch2" sap2010:WorkflowViewState.IdRef="PickBranch_2">
+          <p1:PickBranch.Trigger>
+            <p1:DoWhile sap2010:WorkflowViewState.IdRef="DoWhile_1" Condition="True">
+              <p1:Sequence sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <Receive x:Name="__ReferenceID1" Action="http://HRONLib.Contracts/2017/04/IOnBoardingService/getWorkflowStatus" DisplayName="getWorkflowStatus_Receive" sap2010:WorkflowViewState.IdRef="Receive_4" OperationName="getWorkflowStatus" ProtectionLevel="None" ServiceContractName="p:IOnBoardingService">
+                  <Receive.CorrelatesOn>
+                    <XPathMessageQuery x:Key="key1">
+                      <XPathMessageQuery.Namespaces>
+                        <ssx:XPathMessageContextMarkup>
+                          <x:String x:Key="xgSc">http://HRONLib.Contracts/2017/04</x:String>
+                        </ssx:XPathMessageContextMarkup>
+                      </XPathMessageQuery.Namespaces>sm:body()/xgSc:getWorkflowStatus/xgSc:WFID</XPathMessageQuery>
+                  </Receive.CorrelatesOn>
+                  <Receive.CorrelatesWith>
+                    <p1:InArgument x:TypeArguments="CorrelationHandle">
+                      <mca:CSharpValue x:TypeArguments="CorrelationHandle">handle</mca:CSharpValue>
+                    </p1:InArgument>
+                  </Receive.CorrelatesWith>
+                  <ReceiveParametersContent>
+                    <p1:OutArgument x:TypeArguments="s:Guid" x:Key="WFID">
+                      <mca:CSharpReference x:TypeArguments="s:Guid">WFID</mca:CSharpReference>
+                    </p1:OutArgument>
+                  </ReceiveParametersContent>
+                </Receive>
+                <p1:AddToCollection x:TypeArguments="x:String" DisplayName="AddToCollection&lt;String&gt;" sap2010:WorkflowViewState.IdRef="AddToCollection`1_4">
+                  <p1:AddToCollection.Item>
+                    <p1:InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String">"Received getWFStatus (" + DateTime.Now.ToString("u") + ")"</mca:CSharpValue>
+                    </p1:InArgument>
+                  </p1:AddToCollection.Item>
+                  <p1:InArgument x:TypeArguments="scg:ICollection(x:String)">
+                    <mca:CSharpValue x:TypeArguments="scg:ICollection(x:String)">passedStatuses</mca:CSharpValue>
+                  </p1:InArgument>
+                </p1:AddToCollection>
+                <SendReply Request="{x:Reference __ReferenceID1}" Action="http://HRONLib.Contracts/2017/04/IOnBoardingService/getWorkflowStatusResponse" DisplayName="getWorkflowStatus_SendReply" sap2010:WorkflowViewState.IdRef="SendReply_4">
+                  <SendParametersContent>
+                    <p1:InArgument x:TypeArguments="scg:List(x:String)" x:Key="getWorkflowStatusResult">
+                      <mca:CSharpValue x:TypeArguments="scg:List(x:String)">passedStatuses</mca:CSharpValue>
+                    </p1:InArgument>
+                  </SendParametersContent>
+                </SendReply>
+              </p1:Sequence>
+            </p1:DoWhile>
+          </p1:PickBranch.Trigger>
+        </p1:PickBranch>
+      </p1:Pick>
+      <p1:AddToCollection x:TypeArguments="x:String" DisplayName="AddToCollection&lt;String&gt;" sap2010:WorkflowViewState.IdRef="AddToCollection`1_3">
+        <p1:AddToCollection.Item>
+          <p1:InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">"Finished WF (" + DateTime.Now.ToString("u") + ")"</mca:CSharpValue>
+          </p1:InArgument>
+        </p1:AddToCollection.Item>
+        <p1:InArgument x:TypeArguments="scg:ICollection(x:String)">
+          <mca:CSharpValue x:TypeArguments="scg:ICollection(x:String)">passedStatuses</mca:CSharpValue>
+        </p1:InArgument>
+      </p1:AddToCollection>
+    </p1:Sequence>
+    <sads:DebugSymbol.Symbol>d3RDOlxVc2Vyc1xiemVyYmd1ZVxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE1XFByb2plY3RzXEdydWJlckhSXzFcSFJXb3JrZmxvd1NlcnZpY2VcRW1wbG95ZWVPbkJvYXJkaW5nU2VydmljZS54YW1seC0RA+ABEQEBFwsXbAECHQXeARMBCFcHZRECtwFmB2waAq0BbQd2HAKaAXcHfRMCkAF+B4cBHwF9iAEH0wERARzUAQfdARwBCV8NX1kCygFaDVpmAsEBYg1iWwK4AWkNaVUCrgF0C3RoAqQBcA1wgQECmwF6DXpNApEBhQELhQFYAocBgQENgQFmAX6JAQmlARkBUaYBCdIBGQEd2wEL2wFoARPXAQ3XAX0BCosBDaIBGwFWpAELpAGlAQFSqAEN0AEaAR6MAQ+cASgBYZ0BD6EBGgFXpAFepAFlAVWkAX+kAaIBAVSkAW6kAXsBU6gBT6gBVQFQqQEPzwEdAR+ZARWZAVkBdJQBFZQBWwFrjwEVjwFVAWKfAROfAWoBWKoBEb0BGwE9vgERxwEmASrIARHOAR0BILUBF7UBZAFHugEXugFfAT7FARXFAXIBNMEBF8EBkAEBK8sBF8sBbQEh</sads:DebugSymbol.Symbol>
+  </p1:Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Receive_3" sap:VirtualizedContainerService.HintSize="900,86" />
+      <sap2010:ViewStateData Id="getWorkflowID_1" sap:VirtualizedContainerService.HintSize="900,22" />
+      <sap2010:ViewStateData Id="AddToCollection`1_1" sap:VirtualizedContainerService.HintSize="900,22" />
+      <sap2010:ViewStateData Id="SendReply_3" sap:VirtualizedContainerService.HintSize="900,86" />
+      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="900,97" />
+      <sap2010:ViewStateData Id="loadDynamicActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SendEmail_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="PickBranch_1" sap:VirtualizedContainerService.HintSize="252,820" />
+      <sap2010:ViewStateData Id="Receive_4" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="AddToCollection`1_4" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="SendReply_4" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DoWhile_1" sap:VirtualizedContainerService.HintSize="464,562" />
+      <sap2010:ViewStateData Id="PickBranch_2" sap:VirtualizedContainerService.HintSize="494,820" />
+      <sap2010:ViewStateData Id="Pick_1" sap:VirtualizedContainerService.HintSize="900,866" />
+      <sap2010:ViewStateData Id="AddToCollection`1_3" sap:VirtualizedContainerService.HintSize="900,22" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="922,1565">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="944,1689">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="974,1759" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</WorkflowService>

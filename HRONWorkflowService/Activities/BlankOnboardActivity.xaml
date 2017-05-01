@@ -1,0 +1,536 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="HRONWorkflowService.Activities.BlankOnboardActivity"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:g="clr-namespace:HRONLib;assembly=HRONLib"
+ xmlns:local="clr-namespace:HRONWorkflowService.Activities.Approve"
+ xmlns:local1="clr-namespace:HRONWorkflowService.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="employee" Type="InArgument(g:Employee)" />
+    <x:Property Name="test" Type="InArgument(x:String)" />
+    <x:Property Name="mailPrincipal" Type="InArgument(x:String)" />
+    <x:Property Name="activities" Type="InArgument(s:String[])" />
+  </x:Members>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>HRWorkflowService.Activities.BlankOnboardActivity_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>HRONLib</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>EntityFramework</AssemblyReference>
+      <AssemblyReference>EntityFramework.MappingAPI</AssemblyReference>
+      <AssemblyReference>EntityFramework.SqlServer</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices.Auth</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System.Activities.Presentation</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.DataAnnotations</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Security</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Web.DynamicData</AssemblyReference>
+      <AssemblyReference>System.Web.Entity</AssemblyReference>
+      <AssemblyReference>System.Web.ApplicationServices</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Channels</AssemblyReference>
+      <AssemblyReference>System.Web</AssemblyReference>
+      <AssemblyReference>System.Web.Extensions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>TrackerEnabledDbContext</AssemblyReference>
+      <AssemblyReference>TrackerEnabledDbContext.Common</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>HRONLib</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>HRWorkflowService</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Parallel sap2010:WorkflowViewState.IdRef="Parallel_1">
+      <If sap2010:WorkflowViewState.IdRef="If_1">
+        <If.Condition>
+          <InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">employee.EmplSalary.First().salCar.Value</mca:CSharpValue>
+          </InArgument>
+        </If.Condition>
+        <If.Then>
+          <local:StartApproval Body="Bitte Auto vorbereiten" DisplayName="StartApproval Macchina" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1" Mail="guenther.erb@gruber-logstics.com" ReminderHeader="Reminder!" Subject="Auto vorbereiten">
+            <local:StartApproval.MailPrincipal>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">mailPrincipal</mca:CSharpValue>
+              </InArgument>
+            </local:StartApproval.MailPrincipal>
+            <local:StartApproval.ReminderEvery>
+              <InArgument x:TypeArguments="x:TimeSpan">
+                <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 10, 0)</mca:CSharpValue>
+              </InArgument>
+            </local:StartApproval.ReminderEvery>
+            <local:StartApproval.ReminderStartTime>
+              <InArgument x:TypeArguments="x:TimeSpan">
+                <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 30, 0)</mca:CSharpValue>
+              </InArgument>
+            </local:StartApproval.ReminderStartTime>
+            <sap2010:WorkflowViewState.ViewStateManager>
+              <sap2010:ViewStateManager>
+                <sap2010:ViewStateData Id="getWorkflowID_1" sap2010:WorkflowViewState.IdRef="ViewStateData_1" />
+                <sap2010:ViewStateData Id="ApprovalProcessSaveToDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_2" />
+                <sap2010:ViewStateData Id="Assign_1" sap2010:WorkflowViewState.IdRef="ViewStateData_3" />
+                <sap2010:ViewStateData Id="SendEmail_1" sap2010:WorkflowViewState.IdRef="ViewStateData_4" />
+                <sap2010:ViewStateData Id="InitializeCorrelation_1" sap2010:WorkflowViewState.IdRef="ViewStateData_5" />
+                <sap2010:ViewStateData Id="Receive_1" sap2010:WorkflowViewState.IdRef="ViewStateData_6" />
+                <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_7" />
+                <sap2010:ViewStateData Id="SendReply_1" sap2010:WorkflowViewState.IdRef="ViewStateData_8" />
+                <sap2010:ViewStateData Id="Sequence_2" sap2010:WorkflowViewState.IdRef="ViewStateData_9" />
+                <sap2010:ViewStateData Id="PickBranch_1" sap2010:WorkflowViewState.IdRef="ViewStateData_10" />
+                <sap2010:ViewStateData Id="Delay_1" sap2010:WorkflowViewState.IdRef="ViewStateData_11" />
+                <sap2010:ViewStateData Id="SendEmail_3" sap2010:WorkflowViewState.IdRef="ViewStateData_12" />
+                <sap2010:ViewStateData Id="PickBranch_2" sap2010:WorkflowViewState.IdRef="ViewStateData_13" />
+                <sap2010:ViewStateData Id="Delay_2" sap2010:WorkflowViewState.IdRef="ViewStateData_14" />
+                <sap2010:ViewStateData Id="SendEmail_2" sap2010:WorkflowViewState.IdRef="ViewStateData_15" />
+                <sap2010:ViewStateData Id="Delay_3" sap2010:WorkflowViewState.IdRef="ViewStateData_16" />
+                <sap2010:ViewStateData Id="Sequence_3" sap2010:WorkflowViewState.IdRef="ViewStateData_17" />
+                <sap2010:ViewStateData Id="While_1" sap2010:WorkflowViewState.IdRef="ViewStateData_18" />
+                <sap2010:ViewStateData Id="Sequence_4" sap2010:WorkflowViewState.IdRef="ViewStateData_19" />
+                <sap2010:ViewStateData Id="PickBranch_3" sap2010:WorkflowViewState.IdRef="ViewStateData_20" />
+                <sap2010:ViewStateData Id="Pick_1" sap2010:WorkflowViewState.IdRef="ViewStateData_21" />
+                <sap2010:ViewStateData Id="Sequence_1" sap2010:WorkflowViewState.IdRef="ViewStateData_22" />
+                <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_2" sap2010:WorkflowViewState.IdRef="ViewStateData_23" />
+                <sap2010:ViewStateData Id="CancellationScope_1" sap2010:WorkflowViewState.IdRef="ViewStateData_24" />
+                <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap2010:WorkflowViewState.IdRef="ViewStateData_25" />
+              </sap2010:ViewStateManager>
+            </sap2010:WorkflowViewState.ViewStateManager>
+            <local:StartApproval.WaitTime>
+              <InArgument x:TypeArguments="x:TimeSpan">
+                <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(1, 0,0)</mca:CSharpValue>
+              </InArgument>
+            </local:StartApproval.WaitTime>
+          </local:StartApproval>
+        </If.Then>
+      </If>
+      <local:StartApproval Body="Bitte PC vorbereiten" DisplayName="StartApproval IT" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1" Mail="***REMOVED***" ReminderHeader="Reminder!" Subject="PC vorbereiten">
+        <local:StartApproval.MailPrincipal>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">mailPrincipal</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.MailPrincipal>
+        <local:StartApproval.ReminderEvery>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 10, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.ReminderEvery>
+        <local:StartApproval.ReminderStartTime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 30, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.ReminderStartTime>
+        <sap2010:WorkflowViewState.ViewStateManager>
+          <sap2010:ViewStateManager>
+            <sap2010:ViewStateData Id="getWorkflowID_1" sap2010:WorkflowViewState.IdRef="ViewStateData_26" />
+            <sap2010:ViewStateData Id="ApprovalProcessSaveToDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_27" />
+            <sap2010:ViewStateData Id="Assign_1" sap2010:WorkflowViewState.IdRef="ViewStateData_28" />
+            <sap2010:ViewStateData Id="SendEmail_1" sap2010:WorkflowViewState.IdRef="ViewStateData_29" />
+            <sap2010:ViewStateData Id="InitializeCorrelation_1" sap2010:WorkflowViewState.IdRef="ViewStateData_30" />
+            <sap2010:ViewStateData Id="Receive_1" sap2010:WorkflowViewState.IdRef="ViewStateData_31" />
+            <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_32" />
+            <sap2010:ViewStateData Id="SendReply_1" sap2010:WorkflowViewState.IdRef="ViewStateData_33" />
+            <sap2010:ViewStateData Id="Sequence_2" sap2010:WorkflowViewState.IdRef="ViewStateData_34" />
+            <sap2010:ViewStateData Id="PickBranch_1" sap2010:WorkflowViewState.IdRef="ViewStateData_35" />
+            <sap2010:ViewStateData Id="Delay_1" sap2010:WorkflowViewState.IdRef="ViewStateData_36" />
+            <sap2010:ViewStateData Id="SendEmail_3" sap2010:WorkflowViewState.IdRef="ViewStateData_37" />
+            <sap2010:ViewStateData Id="PickBranch_2" sap2010:WorkflowViewState.IdRef="ViewStateData_38" />
+            <sap2010:ViewStateData Id="Delay_2" sap2010:WorkflowViewState.IdRef="ViewStateData_39" />
+            <sap2010:ViewStateData Id="SendEmail_2" sap2010:WorkflowViewState.IdRef="ViewStateData_40" />
+            <sap2010:ViewStateData Id="Delay_3" sap2010:WorkflowViewState.IdRef="ViewStateData_41" />
+            <sap2010:ViewStateData Id="Sequence_3" sap2010:WorkflowViewState.IdRef="ViewStateData_42" />
+            <sap2010:ViewStateData Id="While_1" sap2010:WorkflowViewState.IdRef="ViewStateData_43" />
+            <sap2010:ViewStateData Id="Sequence_4" sap2010:WorkflowViewState.IdRef="ViewStateData_44" />
+            <sap2010:ViewStateData Id="PickBranch_3" sap2010:WorkflowViewState.IdRef="ViewStateData_45" />
+            <sap2010:ViewStateData Id="Pick_1" sap2010:WorkflowViewState.IdRef="ViewStateData_46" />
+            <sap2010:ViewStateData Id="Sequence_1" sap2010:WorkflowViewState.IdRef="ViewStateData_47" />
+            <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_2" sap2010:WorkflowViewState.IdRef="ViewStateData_48" />
+            <sap2010:ViewStateData Id="CancellationScope_1" sap2010:WorkflowViewState.IdRef="ViewStateData_49" />
+            <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap2010:WorkflowViewState.IdRef="ViewStateData_50" />
+          </sap2010:ViewStateManager>
+        </sap2010:WorkflowViewState.ViewStateManager>
+        <local:StartApproval.WaitTime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(1, 0,0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.WaitTime>
+      </local:StartApproval>
+      <local:StartApproval Body="Bitte vorbereiten" DisplayName="StartApproval Direction" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1" Mail="guenther.erb@gruber-logstics.com" ReminderHeader="Reminder!" Subject="PC vorbereiten">
+        <local:StartApproval.MailPrincipal>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">mailPrincipal</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.MailPrincipal>
+        <local:StartApproval.ReminderEvery>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 10, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.ReminderEvery>
+        <local:StartApproval.ReminderStartTime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 30, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.ReminderStartTime>
+        <sap2010:WorkflowViewState.ViewStateManager>
+          <sap2010:ViewStateManager>
+            <sap2010:ViewStateData Id="getWorkflowID_1" sap2010:WorkflowViewState.IdRef="ViewStateData_101" />
+            <sap2010:ViewStateData Id="ApprovalProcessSaveToDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_102" />
+            <sap2010:ViewStateData Id="Assign_1" sap2010:WorkflowViewState.IdRef="ViewStateData_103" />
+            <sap2010:ViewStateData Id="SendEmail_1" sap2010:WorkflowViewState.IdRef="ViewStateData_104" />
+            <sap2010:ViewStateData Id="InitializeCorrelation_1" sap2010:WorkflowViewState.IdRef="ViewStateData_105" />
+            <sap2010:ViewStateData Id="Receive_1" sap2010:WorkflowViewState.IdRef="ViewStateData_106" />
+            <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_107" />
+            <sap2010:ViewStateData Id="SendReply_1" sap2010:WorkflowViewState.IdRef="ViewStateData_108" />
+            <sap2010:ViewStateData Id="Sequence_2" sap2010:WorkflowViewState.IdRef="ViewStateData_109" />
+            <sap2010:ViewStateData Id="PickBranch_1" sap2010:WorkflowViewState.IdRef="ViewStateData_110" />
+            <sap2010:ViewStateData Id="Delay_1" sap2010:WorkflowViewState.IdRef="ViewStateData_111" />
+            <sap2010:ViewStateData Id="SendEmail_3" sap2010:WorkflowViewState.IdRef="ViewStateData_112" />
+            <sap2010:ViewStateData Id="PickBranch_2" sap2010:WorkflowViewState.IdRef="ViewStateData_113" />
+            <sap2010:ViewStateData Id="Delay_2" sap2010:WorkflowViewState.IdRef="ViewStateData_114" />
+            <sap2010:ViewStateData Id="SendEmail_2" sap2010:WorkflowViewState.IdRef="ViewStateData_115" />
+            <sap2010:ViewStateData Id="Delay_3" sap2010:WorkflowViewState.IdRef="ViewStateData_116" />
+            <sap2010:ViewStateData Id="Sequence_3" sap2010:WorkflowViewState.IdRef="ViewStateData_117" />
+            <sap2010:ViewStateData Id="While_1" sap2010:WorkflowViewState.IdRef="ViewStateData_118" />
+            <sap2010:ViewStateData Id="Sequence_4" sap2010:WorkflowViewState.IdRef="ViewStateData_119" />
+            <sap2010:ViewStateData Id="PickBranch_3" sap2010:WorkflowViewState.IdRef="ViewStateData_120" />
+            <sap2010:ViewStateData Id="Pick_1" sap2010:WorkflowViewState.IdRef="ViewStateData_121" />
+            <sap2010:ViewStateData Id="Sequence_1" sap2010:WorkflowViewState.IdRef="ViewStateData_122" />
+            <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_2" sap2010:WorkflowViewState.IdRef="ViewStateData_123" />
+            <sap2010:ViewStateData Id="CancellationScope_1" sap2010:WorkflowViewState.IdRef="ViewStateData_124" />
+            <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap2010:WorkflowViewState.IdRef="ViewStateData_125" />
+          </sap2010:ViewStateManager>
+        </sap2010:WorkflowViewState.ViewStateManager>
+        <local:StartApproval.WaitTime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(1, 0, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.WaitTime>
+      </local:StartApproval>
+    </Parallel>
+    <local1:SendEmail cc="{x:Null}" result="{x:Null}" DisplayName="SendEmail confirmation" sap2010:WorkflowViewState.IdRef="SendEmail_1" body="Everything is done!">
+      <local1:SendEmail.subject>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">"Everything is done for On Boarding of " + employee.emplName</mca:CSharpValue>
+        </InArgument>
+      </local1:SendEmail.subject>
+      <local1:SendEmail.to>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">mailPrincipal</mca:CSharpValue>
+        </InArgument>
+      </local1:SendEmail.to>
+    </local1:SendEmail>
+    <Sequence>
+      <Delay>
+        <InArgument x:TypeArguments="x:TimeSpan">
+          <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(1, 0,0,0)</mca:CSharpValue>
+        </InArgument>
+        <sap2010:WorkflowViewState.IdRef>Delay_1</sap2010:WorkflowViewState.IdRef>
+      </Delay>
+      <local:StartApproval Body="Bitte vorbereiten" DisplayName="StartApproval Probezeit" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1" Mail="guenther.erb@gruber-logstics.com" ReminderHeader="Reminder!">
+        <local:StartApproval.MailPrincipal>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">mailPrincipal</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.MailPrincipal>
+        <local:StartApproval.ReminderEvery>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 10, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.ReminderEvery>
+        <local:StartApproval.ReminderStartTime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(0, 30, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.ReminderStartTime>
+        <local:StartApproval.Subject>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">"Ende Probezeit " + employee.emplName</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.Subject>
+        <sap2010:WorkflowViewState.ViewStateManager>
+          <sap2010:ViewStateManager>
+            <sap2010:ViewStateData Id="getWorkflowID_1" sap2010:WorkflowViewState.IdRef="ViewStateData_126" />
+            <sap2010:ViewStateData Id="ApprovalProcessSaveToDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_127" />
+            <sap2010:ViewStateData Id="Assign_1" sap2010:WorkflowViewState.IdRef="ViewStateData_128" />
+            <sap2010:ViewStateData Id="SendEmail_1" sap2010:WorkflowViewState.IdRef="ViewStateData_129" />
+            <sap2010:ViewStateData Id="InitializeCorrelation_1" sap2010:WorkflowViewState.IdRef="ViewStateData_130" />
+            <sap2010:ViewStateData Id="Receive_1" sap2010:WorkflowViewState.IdRef="ViewStateData_131" />
+            <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_132" />
+            <sap2010:ViewStateData Id="SendReply_1" sap2010:WorkflowViewState.IdRef="ViewStateData_133" />
+            <sap2010:ViewStateData Id="Sequence_2" sap2010:WorkflowViewState.IdRef="ViewStateData_134" />
+            <sap2010:ViewStateData Id="PickBranch_1" sap2010:WorkflowViewState.IdRef="ViewStateData_135" />
+            <sap2010:ViewStateData Id="Delay_1" sap2010:WorkflowViewState.IdRef="ViewStateData_136" />
+            <sap2010:ViewStateData Id="SendEmail_3" sap2010:WorkflowViewState.IdRef="ViewStateData_137" />
+            <sap2010:ViewStateData Id="PickBranch_2" sap2010:WorkflowViewState.IdRef="ViewStateData_138" />
+            <sap2010:ViewStateData Id="Delay_2" sap2010:WorkflowViewState.IdRef="ViewStateData_139" />
+            <sap2010:ViewStateData Id="SendEmail_2" sap2010:WorkflowViewState.IdRef="ViewStateData_140" />
+            <sap2010:ViewStateData Id="Delay_3" sap2010:WorkflowViewState.IdRef="ViewStateData_141" />
+            <sap2010:ViewStateData Id="Sequence_3" sap2010:WorkflowViewState.IdRef="ViewStateData_142" />
+            <sap2010:ViewStateData Id="While_1" sap2010:WorkflowViewState.IdRef="ViewStateData_143" />
+            <sap2010:ViewStateData Id="Sequence_4" sap2010:WorkflowViewState.IdRef="ViewStateData_144" />
+            <sap2010:ViewStateData Id="PickBranch_3" sap2010:WorkflowViewState.IdRef="ViewStateData_145" />
+            <sap2010:ViewStateData Id="Pick_1" sap2010:WorkflowViewState.IdRef="ViewStateData_146" />
+            <sap2010:ViewStateData Id="Sequence_1" sap2010:WorkflowViewState.IdRef="ViewStateData_147" />
+            <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_2" sap2010:WorkflowViewState.IdRef="ViewStateData_148" />
+            <sap2010:ViewStateData Id="CancellationScope_1" sap2010:WorkflowViewState.IdRef="ViewStateData_149" />
+            <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap2010:WorkflowViewState.IdRef="ViewStateData_150" />
+          </sap2010:ViewStateManager>
+        </sap2010:WorkflowViewState.ViewStateManager>
+        <local:StartApproval.WaitTime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(1, 0, 0)</mca:CSharpValue>
+          </InArgument>
+        </local:StartApproval.WaitTime>
+      </local:StartApproval>
+      <sap2010:WorkflowViewState.IdRef>Sequence_2</sap2010:WorkflowViewState.IdRef>
+    </Sequence>
+    <sads:DebugSymbol.Symbol>d3lDOlxVc2Vyc1xiemVyYmd1ZVxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE1XFByb2plY3RzXEdydWJlckhSXzFcSFJXb3JrZmxvd1NlcnZpY2VcQWN0aXZpdGllc1xCbGFua09uYm9hcmRBY3Rpdml0eS54YW1sL0gDuwIOAgEBSQXsARACATLtAQX4ARgCASb5AQW5AhACAQJKB4UBDAIBZYYBB7gBHQIBTLkBB+sBHQIBM+0BjwHtAaQBAgEx9QEL9QFWAgEs8AEL8AGFAQIBJ/oBB/8BDwIBIIACB7cCHQIBA00NTXQCAWZRC4MBIQIBa5MBDZMBYwIBYLUBDbUBYQIBW4YBpQKGAbACAgFahgEhhgE3AgFZhgG5AoYByQICAViOAQ2OAWMCAVOGAfIBhgGVAgIBUokBDYkBWAIBTcYBDcYBYwIBR+gBDegBYgIBQrkBqAK5AbMCAgFBuQEhuQE0AgFAuQG8ArkBzAICAT/BAQ3BAWMCATq5AfYBuQGYAgIBObwBDbwBWAIBNPwBC/wBYQIBIY0CDY0CYwIBG7QCDbQCYgIBFoACqAKAArMCAgEVgAIhgAI0AgEUkgINkgJwAgEPiAINiAJjAgEKgAL2AYACmAICAQmDAg2DAlgCAQReEV5nAgF/gAERgAFlAgF6UbACUbsCAgF5USVRPQIBeFHEAlHWAgIBd1kRWWcCAXJR/gFRoAICAXFUEVRcAgFs</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="ViewStateData_1" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_2" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_3" sap:VirtualizedContainerService.HintSize="1247,62" />
+      <sap2010:ViewStateData Id="ViewStateData_4" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_5" sap:VirtualizedContainerService.HintSize="1247,97" />
+      <sap2010:ViewStateData Id="ViewStateData_6" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_7" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="ViewStateData_8" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_9" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_10" sap:VirtualizedContainerService.HintSize="307,812" />
+      <sap2010:ViewStateData Id="ViewStateData_11" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_12" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_13" sap:VirtualizedContainerService.HintSize="230,812" />
+      <sap2010:ViewStateData Id="ViewStateData_14" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="ViewStateData_15" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_16" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_17" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_18" sap:VirtualizedContainerService.HintSize="464,368" />
+      <sap2010:ViewStateData Id="ViewStateData_19" sap:VirtualizedContainerService.HintSize="486,554">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_20" sap:VirtualizedContainerService.HintSize="516,812" />
+      <sap2010:ViewStateData Id="ViewStateData_21" sap:VirtualizedContainerService.HintSize="1247,858" />
+      <sap2010:ViewStateData Id="ViewStateData_22" sap:VirtualizedContainerService.HintSize="1269,1407">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_23" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_24" sap:VirtualizedContainerService.HintSize="1305,1636" />
+      <sap2010:ViewStateData Id="ViewStateData_25" sap:VirtualizedContainerService.HintSize="1345,1716" />
+      <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="ViewStateData_26" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_27" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_28" sap:VirtualizedContainerService.HintSize="1247,62" />
+      <sap2010:ViewStateData Id="ViewStateData_29" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_30" sap:VirtualizedContainerService.HintSize="1247,97" />
+      <sap2010:ViewStateData Id="ViewStateData_31" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_32" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="ViewStateData_33" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_34" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_35" sap:VirtualizedContainerService.HintSize="307,812" />
+      <sap2010:ViewStateData Id="ViewStateData_36" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_37" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_38" sap:VirtualizedContainerService.HintSize="230,812" />
+      <sap2010:ViewStateData Id="ViewStateData_39" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="ViewStateData_40" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_41" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_42" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_43" sap:VirtualizedContainerService.HintSize="464,368" />
+      <sap2010:ViewStateData Id="ViewStateData_44" sap:VirtualizedContainerService.HintSize="486,554">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_45" sap:VirtualizedContainerService.HintSize="516,812" />
+      <sap2010:ViewStateData Id="ViewStateData_46" sap:VirtualizedContainerService.HintSize="1247,858" />
+      <sap2010:ViewStateData Id="ViewStateData_47" sap:VirtualizedContainerService.HintSize="1269,1407">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_48" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_49" sap:VirtualizedContainerService.HintSize="1305,1636" />
+      <sap2010:ViewStateData Id="ViewStateData_50" sap:VirtualizedContainerService.HintSize="1345,1716" />
+      <sap2010:ViewStateData Id="ViewStateData_101" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_102" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_103" sap:VirtualizedContainerService.HintSize="1247,62" />
+      <sap2010:ViewStateData Id="ViewStateData_104" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_105" sap:VirtualizedContainerService.HintSize="1247,97" />
+      <sap2010:ViewStateData Id="ViewStateData_106" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_107" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="ViewStateData_108" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_109" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_110" sap:VirtualizedContainerService.HintSize="307,812" />
+      <sap2010:ViewStateData Id="ViewStateData_111" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_112" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_113" sap:VirtualizedContainerService.HintSize="230,812" />
+      <sap2010:ViewStateData Id="ViewStateData_114" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="ViewStateData_115" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_116" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_117" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_118" sap:VirtualizedContainerService.HintSize="464,368" />
+      <sap2010:ViewStateData Id="ViewStateData_119" sap:VirtualizedContainerService.HintSize="486,554">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_120" sap:VirtualizedContainerService.HintSize="516,812" />
+      <sap2010:ViewStateData Id="ViewStateData_121" sap:VirtualizedContainerService.HintSize="1247,858" />
+      <sap2010:ViewStateData Id="ViewStateData_122" sap:VirtualizedContainerService.HintSize="1269,1407">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_123" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_124" sap:VirtualizedContainerService.HintSize="1305,1636" />
+      <sap2010:ViewStateData Id="ViewStateData_125" sap:VirtualizedContainerService.HintSize="1345,1716" />
+      <sap2010:ViewStateData Id="Parallel_1" sap:VirtualizedContainerService.HintSize="1058,256" />
+      <sap2010:ViewStateData Id="SendEmail_1" sap:VirtualizedContainerService.HintSize="1058,22" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_126" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_127" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_128" sap:VirtualizedContainerService.HintSize="1247,62" />
+      <sap2010:ViewStateData Id="ViewStateData_129" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_130" sap:VirtualizedContainerService.HintSize="1247,97" />
+      <sap2010:ViewStateData Id="ViewStateData_131" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_132" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="ViewStateData_133" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_134" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_135" sap:VirtualizedContainerService.HintSize="307,812" />
+      <sap2010:ViewStateData Id="ViewStateData_136" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_137" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_138" sap:VirtualizedContainerService.HintSize="230,812" />
+      <sap2010:ViewStateData Id="ViewStateData_139" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="ViewStateData_140" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_141" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_142" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_143" sap:VirtualizedContainerService.HintSize="464,368" />
+      <sap2010:ViewStateData Id="ViewStateData_144" sap:VirtualizedContainerService.HintSize="486,554">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_145" sap:VirtualizedContainerService.HintSize="516,812" />
+      <sap2010:ViewStateData Id="ViewStateData_146" sap:VirtualizedContainerService.HintSize="1247,858" />
+      <sap2010:ViewStateData Id="ViewStateData_147" sap:VirtualizedContainerService.HintSize="1269,1407">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_148" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_149" sap:VirtualizedContainerService.HintSize="1305,1636" />
+      <sap2010:ViewStateData Id="ViewStateData_150" sap:VirtualizedContainerService.HintSize="1345,1716" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="1058,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1080,690">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="HRWorkflowService.Activities.BlankOnboardActivity_1" sap:VirtualizedContainerService.HintSize="1120,770" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e3c3479c-765f-4b90-ba66-2f6e9eef24e8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="StartApprovalProcessWCF.xsd" MetadataType="Schema" ID="3dd4387d-c39a-451f-a2d7-0bc64f789f6f" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?xsd=xsd1" />
+    <MetadataFile FileName="StartApprovalProcessWCF1.xsd" MetadataType="Schema" ID="5aea96f4-9e02-497b-ab8a-096b2cebc039" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?xsd=xsd0" />
+    <MetadataFile FileName="StartApprovalProcessWCF2.xsd" MetadataType="Schema" ID="c812db1f-770e-4d2e-ab88-850afa0c48f3" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?xsd=xsd2" />
+    <MetadataFile FileName="StartApprovalProcessWCF.disco" MetadataType="Disco" ID="0425895f-0f6f-491e-8a1b-6232d63a415c" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?disco" />
+    <MetadataFile FileName="StartApprovalProcessWCF.wsdl" MetadataType="Wsdl" ID="95430a6e-1959-4acf-b404-b28539e599ab" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?wsdl=wsdl0" />
+    <MetadataFile FileName="StartApprovalProcess1.wsdl" MetadataType="Wsdl" ID="3bd700f9-2201-4807-b0cc-8e54e1dca0ea" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

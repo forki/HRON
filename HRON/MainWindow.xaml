@@ -1,0 +1,131 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HRON"
+        xmlns:localLib="clr-namespace:HRONLib;assembly=HRONLib"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Properties="clr-namespace:HRON.Properties" xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="HRON.MainWindow"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+          Title="MainWindow" Height="1050" Width="825">
+    <Window.Resources>
+        <CollectionViewSource x:Key="wfViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baWorkflows}, CreateList=True}"/>
+    </Window.Resources>
+    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Right" Margin="16"
+                                    IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <StackPanel>
+                        <Expander Header="{DynamicResource MasterDataTables}">
+                            <ListBox x:Name="MasterdataListBox" Margin="32 0 32 0" SelectionChanged="MasterdataListBox_SelectionChanged">
+                                <ListBoxItem Name="baBusinessUnitID">Business Unit</ListBoxItem>
+                                <ListBoxItem Name="baCarPolicy">Car Policy</ListBoxItem>
+                                <ListBoxItem Name="baCDC">CDC</ListBoxItem>
+                                <ListBoxItem Name="baCompanyRights">Company Rights</ListBoxItem>
+                                <ListBoxItem Name="baContractType">Contract Type</ListBoxItem>
+                                <ListBoxItem Name="baCountry">Country</ListBoxItem>
+                                <ListBoxItem Name="baFringeBenefit">Fringe Benefit</ListBoxItem>
+                                <ListBoxItem Name="baFunctions">Functions</ListBoxItem>
+                                <ListBoxItem Name="baJobTitle">Job Title</ListBoxItem>
+                                <ListBoxItem Name="baLevel">Level</ListBoxItem>
+                                <ListBoxItem Name="baNationality">Nationality</ListBoxItem>
+                                <ListBoxItem Name="baSpecialization">Specialization</ListBoxItem>
+                                <ListBoxItem Name="baStudyTitle">Study Title</ListBoxItem>
+                                <ListBoxItem Name="baTimeType">Time Type</ListBoxItem>
+                                <ListBoxItem Name="baType">Type</ListBoxItem>
+                                <ListBoxItem Name="baWorkPlace">Work Place</ListBoxItem>
+                                <ListBoxItem Name="baDocumentation">Documentation</ListBoxItem>
+                            </ListBox>
+                        </Expander>
+                        <Button Content="Employee's" HorizontalAlignment="Left" Margin="8 32" FontSize="15" Style="{StaticResource MaterialDesignFlatButton}" Click="btnEmploy_click" />
+                        <Expander Header="{DynamicResource Workflows}" DataContext="{StaticResource wfViewSource}">
+                            <ListBox IsSynchronizedWithCurrentItem="False" x:Name="WFListBox" SelectedIndex="-1" Margin="32 0 32 0" ItemsSource="{Binding}" SelectionChanged="WFListBox_SelectionChanged" DisplayMemberPath="wfName" />
+                        </Expander>
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <DockPanel>
+                <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" DockPanel.Dock="Top">
+                    <DockPanel>
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                        x:Name="MenuToggleButton"/>
+                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Padding="20">
+                            <StackPanel>
+                                <Button Content="test" Click="Button_Click"></Button>
+                                <Separator></Separator>
+                                <Label x:Name="lblUser" Content="User"/>
+                                <Label x:Name="lblUserRight" Content="Admin"/>
+                                <Separator/>
+                                <ComboBox Name="lblUserLocale" SelectionChanged="lblUserLocale_SelectionChanged">
+                                    <ComboBoxItem Tag="de">Deutsch</ComboBoxItem>
+                                    <ComboBoxItem Tag="it">Italiano</ComboBoxItem>
+                                    <ComboBoxItem Tag="en">English</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{DynamicResource AppTitle}"></TextBlock>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+                <Grid>
+                    <dragablz:TabablzControl x:Name="tabControl" SelectedIndex="0" ShowDefaultCloseButton="True">
+                        <dragablz:TabablzControl.InterTabController>
+                            <dragablz:InterTabController  />
+                        </dragablz:TabablzControl.InterTabController>
+                        <TabItem Header="Home">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:Card Width="420" Margin="4 2 8 16" Height="270" Grid.Column="1" Grid.Row="1">
+                                    <StackPanel>
+                                        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="Light">
+                                            <StackPanel Orientation="Horizontal" >
+                                                <materialDesign:PackIcon Kind="AccountCircle" Height="48" Width="48" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="10">Employee Dashboard</TextBlock>
+                                            </StackPanel>
+                                        </materialDesign:ColorZone>
+                                        <TextBlock TextWrapping="Wrap" Margin="25 30 25 8" Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center">An intelligent dashboard provides employees information at glance</TextBlock>
+                                        </StackPanel>
+                                </materialDesign:Card>
+                                <materialDesign:Card Width="420" Margin="4 2 8 16" Height="270" Grid.Column="3" Grid.Row="1">
+                                    <StackPanel>
+                                        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="Dark">
+                                            <StackPanel Orientation="Horizontal" >
+                                                <materialDesign:PackIcon Kind="AccountPlus" Height="48" Width="48" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="10">Onboarding</TextBlock>
+                                            </StackPanel>
+                                        </materialDesign:ColorZone>
+                                        <TextBlock TextWrapping="Wrap" Margin="25 30 25 8" Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center">Make onboarding process simple and easy. Create tasks to onboard the newly hired employee with a few clicks.</TextBlock>
+                                    </StackPanel>
+                                </materialDesign:Card>
+                            </Grid>
+                        </TabItem>
+                    </dragablz:TabablzControl>
+                </Grid>
+            </DockPanel>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
+</Window>

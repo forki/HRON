@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/HRONLib" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HRONLib" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfWFApprovals">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WFApprovals" nillable="true" type="tns:WFApprovals" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWFApprovals" nillable="true" type="tns:ArrayOfWFApprovals" />
+  <xs:complexType name="WFApprovals">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="approved" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="approverActivityID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="approverWFID" type="ser:guid" />
+      <xs:element minOccurs="0" name="body" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="endtime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="mail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="note" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="starttime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WFApprovals" nillable="true" type="tns:WFApprovals" />
+</xs:schema>

@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="HRON.UserList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRON"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="employeeViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Employee}, CreateList=True}"/>
+        <DataTemplate x:Key="ArrowUp">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" 
+                 Text="{Binding}" />
+                <Path VerticalAlignment="Center" 
+            Fill="Black" 
+            Data="M 5,5 15,5 10,0 5,5" />
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ArrowDown">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" 
+                 Text="{Binding}" />
+                <Path VerticalAlignment="Center" 
+            Fill="Black" 
+            Data="M 5,0 10,5 15,0 5,0" />
+            </DockPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <DockPanel DataContext="{StaticResource employeeViewSource}">
+        <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Center" Orientation="Horizontal">
+            <ToolBar>
+                <ListBox SelectedIndex="0" SelectionChanged="ListBox_SelectionChanged">
+                    <ListBoxItem Name="LstBox_Grid">
+                        <materialDesign:PackIcon Kind="FormatListBulletedType"/>
+                    </ListBoxItem>
+                    <ListBoxItem Name="LstBox_Card">
+                        <materialDesign:PackIcon Kind="ContactMail"/>
+                    </ListBoxItem>
+                </ListBox>
+                <Separator></Separator>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center"></materialDesign:PackIcon>
+                    <TextBox Name="txtSearch" TextChanged="txtSearch_TextChanged" MinWidth="90" VerticalAlignment="Center"></TextBox>
+                </StackPanel>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid DockPanel.Dock="Bottom" Name="grdUserListCard" Visibility="Collapsed">
+            <ItemsControl Name="userListControl" ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card Margin="6">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="Light" Grid.RowSpan="2" VerticalAlignment="Stretch">
+                                    <materialDesign:PackIcon Kind="Account" Height="32" Width="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </materialDesign:ColorZone>
+                                <Label Content="{Binding emplName}" Grid.Column="1" Padding="5"></Label>
+                                <Label Content="{Binding emplLastName}" Grid.Column="1" Grid.Row="1" Padding="5"></Label>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Name="grdUserListGrid">
+            <ListView Name="lstGridView" ItemsSource="{Binding}" PreviewMouseLeftButtonUp="lstGridView_PreviewMouseLeftButtonUp" GridViewColumnHeader.Click="lstGridView_Click">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplID}}" Width="120" DisplayMemberBinding="{Binding emplID}" />
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplLastName}}" Width="120" DisplayMemberBinding="{Binding emplLastName}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplKey}}" Width="120" DisplayMemberBinding="{Binding emplKey}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplCdcID}}" Width="120" DisplayMemberBinding="{Binding baCDC.cdcDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplCountryID}}" Width="120" DisplayMemberBinding="{Binding baCountry.countryISOCode}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplWorkPlaceID}}" Width="120" DisplayMemberBinding="{Binding baWorkPlace.workPlaceCity}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplBusinessUnitID}}" Width="120" DisplayMemberBinding="{Binding baBusinessUnitID.businessUnitDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplJobTitleID}}" Width="120" DisplayMemberBinding="{Binding baJobTitle.jobTitleDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplSpecializationID}}" Width="120" DisplayMemberBinding="{Binding baSpecialization.specializationDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplManagerID}}" Width="120" DisplayMemberBinding="{Binding emplManagerID}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplTimeTypeID}}" Width="120" DisplayMemberBinding="{Binding baTimeType.timeTypeDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplGender}}" Width="120" DisplayMemberBinding="{Binding emplGender}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplTypeID}}" Width="120" DisplayMemberBinding="{Binding baType.typeDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplLevelID}}" Width="120" DisplayMemberBinding="{Binding baLevel.levelDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplProbationaryEnd}}" Width="120" DisplayMemberBinding="{Binding emplProbationaryEnd}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplContractTypeID}}" Width="120" DisplayMemberBinding="{Binding baContractType.contractTypeDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplWorkEndDate}}" Width="120" DisplayMemberBinding="{Binding emplWorkEndDate}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplWorkStartDate}}" Width="120" DisplayMemberBinding="{Binding emplWorkStartDate}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplBirthPlace}}" Width="120" DisplayMemberBinding="{Binding emplBirthPlace}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplBirthDay}}" Width="120" DisplayMemberBinding="{Binding emplBirthDay}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplFiscalCode}}" Width="120" DisplayMemberBinding="{Binding emplFiscalCode}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplNationalityID}}" Width="120" DisplayMemberBinding="{Binding baNationality.nationalityDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplStudyTitleID}}" Width="120" DisplayMemberBinding="{Binding baStudyTitle.studyTitleDescription}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplFiscalCodePartner}}" Width="120" DisplayMemberBinding="{Binding emplFiscalCodePartner}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplLivingPlace}}" Width="120" DisplayMemberBinding="{Binding emplLivingPlace}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplMobileNumberPrivate}}" Width="120" DisplayMemberBinding="{Binding emplMobileNumberPrivate}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplName}}" Width="120" DisplayMemberBinding="{Binding emplName}"/>
+                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplTimePercentage}}" Width="120" DisplayMemberBinding="{Binding emplTimePercentage}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </DockPanel>
+</UserControl>

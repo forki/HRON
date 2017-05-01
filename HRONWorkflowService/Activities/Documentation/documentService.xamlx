@@ -1,0 +1,123 @@
+﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p1:TextExpression.Namespaces="{x:Reference __ReferenceID1}" p1:TextExpression.References="{x:Reference __ReferenceID2}" ConfigurationName="documentService" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="documentService"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:g="clr-namespace:HRONLib;assembly=HRONLib"
+ xmlns:had="clr-namespace:HRONWorkflowService.Activities.Documentation;assembly=HRONWorkflowService"
+ xmlns:hc="clr-namespace:HRONWorkflowService.Contract;assembly=HRONWorkflowService"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://HRONLib.Contracts/2017/04"
+ xmlns:p1="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p1:Sequence DisplayName="addDocument_ReceiveAndSendReply" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <p1:TextExpression.Namespaces>
+      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID1">
+        <x:String>System</x:String>
+        <x:String>System.Collections.Generic</x:String>
+        <x:String>System.Data</x:String>
+        <x:String>System.Linq</x:String>
+        <x:String>System.Text</x:String>
+        <x:String>HRONLib</x:String>
+      </sco:Collection>
+    </p1:TextExpression.Namespaces>
+    <p1:TextExpression.References>
+      <sco:Collection x:TypeArguments="p1:AssemblyReference" x:Name="__ReferenceID2">
+        <p1:AssemblyReference>EntityFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework.MappingAPI</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework.SqlServer</p1:AssemblyReference>
+        <p1:AssemblyReference>Microsoft.CSharp</p1:AssemblyReference>
+        <p1:AssemblyReference>Microsoft.Exchange.WebServices</p1:AssemblyReference>
+        <p1:AssemblyReference>Microsoft.Exchange.WebServices.Auth</p1:AssemblyReference>
+        <p1:AssemblyReference>PresentationCore</p1:AssemblyReference>
+        <p1:AssemblyReference>PresentationFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities.Presentation</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ComponentModel.DataAnnotations</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Data.DataSetExtensions</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Security</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Drawing</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.DynamicData</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.Entity</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.ApplicationServices</p1:AssemblyReference>
+        <p1:AssemblyReference>System</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Data</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Runtime.Serialization</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.Extensions</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xaml</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xml</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
+        <p1:AssemblyReference>TrackerEnabledDbContext</p1:AssemblyReference>
+        <p1:AssemblyReference>TrackerEnabledDbContext.Common</p1:AssemblyReference>
+        <p1:AssemblyReference>WindowsBase</p1:AssemblyReference>
+        <p1:AssemblyReference>HRONLib</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Core</p1:AssemblyReference>
+        <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
+        <p1:AssemblyReference>HRONWorkflowService</p1:AssemblyReference>
+      </sco:Collection>
+    </p1:TextExpression.References>
+    <p1:Sequence.Variables>
+      <p1:Variable x:TypeArguments="x:Int32" Name="eId" />
+      <p1:Variable x:TypeArguments="x:Int32" Name="dId" />
+      <p1:Variable x:TypeArguments="g:EmplFiles" Name="file" />
+    </p1:Sequence.Variables>
+    <Receive x:Name="__ReferenceID0" Action="http://HRONLib.Contracts/2017/04/IDocumentService/addDocument" CanCreateInstance="True" DisplayName="addDocument_Receive" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="addDocument" ProtectionLevel="None" ServiceContractName="p:IDocumentService">
+      <ReceiveParametersContent>
+        <p1:OutArgument x:TypeArguments="x:Int32" x:Key="EmployeeId">
+          <mca:CSharpReference x:TypeArguments="x:Int32">eId</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:Int32" x:Key="DocumentId">
+          <mca:CSharpReference x:TypeArguments="x:Int32">dId</mca:CSharpReference>
+        </p1:OutArgument>
+      </ReceiveParametersContent>
+    </Receive>
+    <had:addDocument sap2010:WorkflowViewState.IdRef="addDocument_1">
+      <had:addDocument.documentId>
+        <p1:InArgument x:TypeArguments="x:Int32">
+          <mca:CSharpValue x:TypeArguments="x:Int32">dId</mca:CSharpValue>
+        </p1:InArgument>
+      </had:addDocument.documentId>
+      <had:addDocument.emplFiles>
+        <p1:OutArgument x:TypeArguments="g:EmplFiles">
+          <mca:CSharpReference x:TypeArguments="g:EmplFiles">file</mca:CSharpReference>
+        </p1:OutArgument>
+      </had:addDocument.emplFiles>
+      <had:addDocument.employeeId>
+        <p1:InArgument x:TypeArguments="x:Int32">
+          <mca:CSharpValue x:TypeArguments="x:Int32">eId</mca:CSharpValue>
+        </p1:InArgument>
+      </had:addDocument.employeeId>
+    </had:addDocument>
+    <SendReply Request="{x:Reference __ReferenceID0}" Action="http://HRONLib.Contracts/2017/04/IDocumentService/addDocumentResponse" DisplayName="addDocument_SendReply" sap2010:WorkflowViewState.IdRef="SendReply_1">
+      <SendParametersContent>
+        <p1:InArgument x:TypeArguments="g:EmplFiles" x:Key="addDocumentResult">
+          <mca:CSharpValue x:TypeArguments="g:EmplFiles">file</mca:CSharpValue>
+        </p1:InArgument>
+      </SendParametersContent>
+    </SendReply>
+    <sads:DebugSymbol.Symbol>d4MBQzpcVXNlcnNcYnplcmJndWVcRG9jdW1lbnRzXFZpc3VhbCBTdHVkaW8gMjAxNVxQcm9qZWN0c1xHcnViZXJIUl8xXEhSV29ya2Zsb3dTZXJ2aWNlXEFjdGl2aXRpZXNcRG9jdW1lbnRhdGlvblxkb2N1bWVudFNlcnZpY2UueGFtbHgKEANqEQEBRwVQDwEUUQVhFwEHYgVoEQECSgtKUwEZTQtNUwEVWQtZWAEQVAtUSwEMXgteSwEIZQtlUAED</sads:DebugSymbol.Symbol>
+  </p1:Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Receive_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="addDocument_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Type Type="hc:IDocumentService" x:Key="contractType" />
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="307,468" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</WorkflowService>

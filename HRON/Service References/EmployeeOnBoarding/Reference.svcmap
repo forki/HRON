@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="af20fad6-4080-4ce4-8255-233d6053dc59" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50728/EmployeeOnBoardingService.xamlx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="EmployeeOnBoardingService.disco" MetadataType="Disco" ID="5329c407-adce-4a3a-948c-33aa9d29124c" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?disco" />
+    <MetadataFile FileName="EmployeeOnBoardingService.wsdl" MetadataType="Wsdl" ID="a3b6a9e9-166a-440f-90bf-848ee66867b4" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?wsdl" />
+    <MetadataFile FileName="EmployeeOnBoardingService.xsd" MetadataType="Schema" ID="ce1bf1b8-5620-4815-b908-26c1142bb383" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?xsd=xsd2" />
+    <MetadataFile FileName="EmployeeOnBoardingService1.xsd" MetadataType="Schema" ID="5169ebcd-d471-4666-83ac-cce55369aa0b" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?xsd=xsd1" />
+    <MetadataFile FileName="EmployeeOnBoardingService1.wsdl" MetadataType="Wsdl" ID="dea7eebe-6890-48bf-a340-54d307da6a1c" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?wsdl=wsdl0" />
+    <MetadataFile FileName="EmployeeOnBoardingService2.xsd" MetadataType="Schema" ID="80b699c0-2fd3-45cd-986b-0a8a2056b192" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?xsd=xsd0" />
+    <MetadataFile FileName="EmployeeOnBoardingService4.xsd" MetadataType="Schema" ID="0e6bdb2b-e61b-4d7e-8db3-e5a32d0414a2" SourceId="1" SourceUrl="http://localhost:50728/EmployeeOnBoardingService.xamlx?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

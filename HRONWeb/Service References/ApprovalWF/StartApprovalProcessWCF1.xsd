@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://HRONLib.Contracts/2017/04" elementFormDefault="qualified" targetNamespace="http://HRONLib.Contracts/2017/04" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:50728/Activities/Approve/StartApprovalProcessWCF.xamlx?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/HRWorkflowService.Contract" />
+  <xs:element name="startApprovalProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MailAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MailBody" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MailSubject" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="WaitTime" type="q1:duration" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="startApprovalProcessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/HRWorkflowService.Contract" minOccurs="0" name="startApprovalProcessResult" nillable="true" type="q2:WFIdentification" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendApprovalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/HRWorkflowService.Contract" minOccurs="0" name="wfIdentification" nillable="true" type="q3:WFIdentification" />
+        <xs:element minOccurs="0" name="approved" type="xs:boolean" />
+        <xs:element minOccurs="0" name="note" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendApprovalResponseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sendApprovalResponseResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,427 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="HRONWorkflowService.Activities.Approve.StartApproval" local1:StartApproval.ReminderHeader="Your Activity is late..."
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:local="clr-namespace:HRONWorkflowService.Activities"
+ xmlns:local1="clr-namespace:HRONWorkflowService.Activities.Approve"
+ xmlns:local2="clr-namespace:HRONWorkflowService.Contract"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://HRONLib.Contracts/2017/04"
+ xmlns:p1="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ssx="clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Body" Type="InArgument(x:String)" />
+    <x:Property Name="Subject" Type="InArgument(x:String)" />
+    <x:Property Name="Mail" Type="InArgument(x:String)" />
+    <x:Property Name="WaitTime" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="ReminderStartTime" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="ReminderEvery" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="ReminderHeader" Type="InArgument(x:String)" />
+    <x:Property Name="MailPrincipal" Type="InArgument(x:String)" />
+    <x:Property Name="ParentWorkflow" Type="InArgument(s:Guid)" />
+  </x:Members>
+  <local1:StartApproval.WaitTime>
+    <InArgument x:TypeArguments="x:TimeSpan">
+      <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(30, 0, 0, 0)</mca:CSharpValue>
+    </InArgument>
+  </local1:StartApproval.WaitTime>
+  <local1:StartApproval.ReminderStartTime>
+    <InArgument x:TypeArguments="x:TimeSpan">
+      <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(10, 0, 0,0)</mca:CSharpValue>
+    </InArgument>
+  </local1:StartApproval.ReminderStartTime>
+  <local1:StartApproval.ReminderEvery>
+    <InArgument x:TypeArguments="x:TimeSpan">
+      <mca:CSharpValue x:TypeArguments="x:TimeSpan">new TimeSpan(1, 0, 0, 0)</mca:CSharpValue>
+    </InArgument>
+  </local1:StartApproval.ReminderEvery>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>HRWorkflowService.Activities.Approve.StartApproval_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.ServiceModel.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>EntityFramework</AssemblyReference>
+      <AssemblyReference>EntityFramework.MappingAPI</AssemblyReference>
+      <AssemblyReference>EntityFramework.SqlServer</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices.Auth</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System.Activities.Presentation</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.DataAnnotations</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Security</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Web.DynamicData</AssemblyReference>
+      <AssemblyReference>System.Web.Entity</AssemblyReference>
+      <AssemblyReference>System.Web.ApplicationServices</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Channels</AssemblyReference>
+      <AssemblyReference>System.Web</AssemblyReference>
+      <AssemblyReference>System.Web.Extensions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>TrackerEnabledDbContext</AssemblyReference>
+      <AssemblyReference>TrackerEnabledDbContext.Common</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>HRONLib</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>HRWorkflowService</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <CancellationScope sap2010:WorkflowViewState.IdRef="CancellationScope_1">
+    <CancellationScope.Variables>
+      <Variable x:TypeArguments="s:Guid" Name="WFID" />
+      <Variable x:TypeArguments="x:String" Name="ActivityId" />
+      <Variable x:TypeArguments="p1:CorrelationHandle" Name="handle" />
+      <Variable x:TypeArguments="s:DateTime" Name="WFEndExpected" />
+    </CancellationScope.Variables>
+    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <local:getWorkflowID sap2010:WorkflowViewState.IdRef="getWorkflowID_1">
+        <local:getWorkflowID.ActivityInstanceID>
+          <OutArgument x:TypeArguments="x:String">
+            <mca:CSharpReference x:TypeArguments="x:String">ActivityId</mca:CSharpReference>
+          </OutArgument>
+        </local:getWorkflowID.ActivityInstanceID>
+        <local:getWorkflowID.WFID>
+          <OutArgument x:TypeArguments="s:Guid">
+            <mca:CSharpReference x:TypeArguments="s:Guid">WFID</mca:CSharpReference>
+          </OutArgument>
+        </local:getWorkflowID.WFID>
+      </local:getWorkflowID>
+      <local1:ApprovalProcessSaveToDB sap2010:WorkflowViewState.IdRef="ApprovalProcessSaveToDB_1">
+        <local1:ApprovalProcessSaveToDB.ActivityId>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">ActivityId</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.ActivityId>
+        <local1:ApprovalProcessSaveToDB.WFId>
+          <InArgument x:TypeArguments="s:Guid">
+            <mca:CSharpValue x:TypeArguments="s:Guid">WFID</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.WFId>
+        <local1:ApprovalProcessSaveToDB.body>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">Body</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.body>
+        <local1:ApprovalProcessSaveToDB.parentWFId>
+          <InArgument x:TypeArguments="s:Guid">
+            <mca:CSharpValue x:TypeArguments="s:Guid">ParentWorkflow</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.parentWFId>
+        <local1:ApprovalProcessSaveToDB.subject>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">Subject</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.subject>
+        <local1:ApprovalProcessSaveToDB.to>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">Mail</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.to>
+        <local1:ApprovalProcessSaveToDB.waittime>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan">WaitTime</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessSaveToDB.waittime>
+      </local1:ApprovalProcessSaveToDB>
+      <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">
+            <mca:CSharpReference x:TypeArguments="s:DateTime">WFEndExpected</mca:CSharpReference>
+          </OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">
+            <mca:CSharpValue x:TypeArguments="s:DateTime">DateTime.Now +WaitTime</mca:CSharpValue>
+          </InArgument>
+        </Assign.Value>
+      </Assign>
+      <local:SendEmail attachmentBytes="{x:Null}" attachmentNames="{x:Null}" result="{x:Null}" sap2010:WorkflowViewState.IdRef="SendEmail_1">
+        <local:SendEmail.body>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">Body + Environment.NewLine + Environment.NewLine + "&lt;a href=\"http://localhost:54562/Approve.aspx?WFID="+WFID+"&amp;AID="+ActivityId+"\"&gt;Vedi attivita&lt;/a&gt;"</mca:CSharpValue>
+          </InArgument>
+        </local:SendEmail.body>
+        <local:SendEmail.cc>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">MailPrincipal</mca:CSharpValue>
+          </InArgument>
+        </local:SendEmail.cc>
+        <local:SendEmail.subject>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">Subject</mca:CSharpValue>
+          </InArgument>
+        </local:SendEmail.subject>
+        <local:SendEmail.to>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">Mail</mca:CSharpValue>
+          </InArgument>
+        </local:SendEmail.to>
+      </local:SendEmail>
+      <p1:InitializeCorrelation sap2010:WorkflowViewState.IdRef="InitializeCorrelation_1">
+        <p1:InitializeCorrelation.Correlation>
+          <InArgument x:TypeArguments="p1:CorrelationHandle">
+            <mca:CSharpValue x:TypeArguments="p1:CorrelationHandle">handle</mca:CSharpValue>
+          </InArgument>
+        </p1:InitializeCorrelation.Correlation>
+        <InArgument x:TypeArguments="x:String" x:Key="key1">
+          <mca:CSharpValue x:TypeArguments="x:String">WFID.ToString()</mca:CSharpValue>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="key2">
+          <mca:CSharpValue x:TypeArguments="x:String">ActivityId</mca:CSharpValue>
+        </InArgument>
+      </p1:InitializeCorrelation>
+      <Pick sap2010:WorkflowViewState.IdRef="Pick_1">
+        <PickBranch DisplayName="Branch1" sap2010:WorkflowViewState.IdRef="PickBranch_1">
+          <PickBranch.Trigger>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:Boolean" Name="Approved" />
+                <Variable x:TypeArguments="x:String" Name="ApprovedNote" />
+                <Variable x:TypeArguments="x:Boolean" Name="UpdateResult" />
+                <Variable x:TypeArguments="local2:WFIdentification" Name="WFIdentification" />
+              </Sequence.Variables>
+              <p1:Receive x:Name="__ReferenceID0" Action="http://HRONLib.Contracts/2017/04/IApprovalService/sendApprovalResponse" DisplayName="sendApprovalResponse_Receive" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="sendApprovalResponse" ProtectionLevel="None" ServiceContractName="p:IApprovalService">
+                <p1:Receive.CorrelatesOn>
+                  <p1:XPathMessageQuery x:Key="key1">
+                    <p1:XPathMessageQuery.Namespaces>
+                      <ssx:XPathMessageContextMarkup>
+                        <x:String x:Key="xgSc">http://HRONLib.Contracts/2017/04</x:String>
+                      </ssx:XPathMessageContextMarkup>
+                    </p1:XPathMessageQuery.Namespaces>sm:body()/xgSc:sendApprovalResponse/xgSc:wfIdentification/xgSc:WFID</p1:XPathMessageQuery>
+                  <p1:XPathMessageQuery x:Key="key2">
+                    <p1:XPathMessageQuery.Namespaces>
+                      <ssx:XPathMessageContextMarkup>
+                        <x:String x:Key="xgSc">http://HRONLib.Contracts/2017/04</x:String>
+                      </ssx:XPathMessageContextMarkup>
+                    </p1:XPathMessageQuery.Namespaces>sm:body()/xgSc:sendApprovalResponse/xgSc:wfIdentification/xgSc:ActivityID</p1:XPathMessageQuery>
+                </p1:Receive.CorrelatesOn>
+                <p1:Receive.CorrelatesWith>
+                  <InArgument x:TypeArguments="p1:CorrelationHandle">
+                    <mca:CSharpValue x:TypeArguments="p1:CorrelationHandle">handle</mca:CSharpValue>
+                  </InArgument>
+                </p1:Receive.CorrelatesWith>
+                <p1:ReceiveParametersContent>
+                  <OutArgument x:TypeArguments="local2:WFIdentification" x:Key="wfIdentification">
+                    <mca:CSharpReference x:TypeArguments="local2:WFIdentification">WFIdentification</mca:CSharpReference>
+                  </OutArgument>
+                  <OutArgument x:TypeArguments="x:Boolean" x:Key="approved">
+                    <mca:CSharpReference x:TypeArguments="x:Boolean">Approved</mca:CSharpReference>
+                  </OutArgument>
+                  <OutArgument x:TypeArguments="x:String" x:Key="note">
+                    <mca:CSharpReference x:TypeArguments="x:String">ApprovedNote</mca:CSharpReference>
+                  </OutArgument>
+                </p1:ReceiveParametersContent>
+              </p1:Receive>
+              <local1:ApprovalProcessUpdateDB sap2010:WorkflowViewState.IdRef="ApprovalProcessUpdateDB_1">
+                <local1:ApprovalProcessUpdateDB.ActivityId>
+                  <InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">ActivityId</mca:CSharpValue>
+                  </InArgument>
+                </local1:ApprovalProcessUpdateDB.ActivityId>
+                <local1:ApprovalProcessUpdateDB.Note>
+                  <InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">ApprovedNote</mca:CSharpValue>
+                  </InArgument>
+                </local1:ApprovalProcessUpdateDB.Note>
+                <local1:ApprovalProcessUpdateDB.WFId>
+                  <InArgument x:TypeArguments="s:Guid">
+                    <mca:CSharpValue x:TypeArguments="s:Guid">WFID</mca:CSharpValue>
+                  </InArgument>
+                </local1:ApprovalProcessUpdateDB.WFId>
+                <local1:ApprovalProcessUpdateDB.approved>
+                  <InArgument x:TypeArguments="x:Boolean">
+                    <mca:CSharpValue x:TypeArguments="x:Boolean">Approved</mca:CSharpValue>
+                  </InArgument>
+                </local1:ApprovalProcessUpdateDB.approved>
+                <local1:ApprovalProcessUpdateDB.result>
+                  <OutArgument x:TypeArguments="x:Boolean">
+                    <mca:CSharpReference x:TypeArguments="x:Boolean">UpdateResult</mca:CSharpReference>
+                  </OutArgument>
+                </local1:ApprovalProcessUpdateDB.result>
+              </local1:ApprovalProcessUpdateDB>
+              <p1:SendReply Request="{x:Reference __ReferenceID0}" Action="http://HRONLib.Contracts/2017/04/IApprovalService/sendApprovalResponseResponse" DisplayName="sendApprovalResponse_SendReply" sap2010:WorkflowViewState.IdRef="SendReply_1">
+                <p1:SendParametersContent>
+                  <InArgument x:TypeArguments="x:Boolean" x:Key="sendApprovalResponseResult">
+                    <mca:CSharpValue x:TypeArguments="x:Boolean">UpdateResult</mca:CSharpValue>
+                  </InArgument>
+                </p1:SendParametersContent>
+              </p1:SendReply>
+            </Sequence>
+          </PickBranch.Trigger>
+        </PickBranch>
+        <PickBranch DisplayName="Branch2" sap2010:WorkflowViewState.IdRef="PickBranch_2">
+          <PickBranch.Trigger>
+            <Delay sap2010:WorkflowViewState.IdRef="Delay_1">
+              <InArgument x:TypeArguments="x:TimeSpan">
+                <mca:CSharpValue x:TypeArguments="x:TimeSpan">WaitTime</mca:CSharpValue>
+              </InArgument>
+            </Delay>
+          </PickBranch.Trigger>
+          <local:SendEmail attachmentBytes="{x:Null}" attachmentNames="{x:Null}" result="{x:Null}" DisplayName="SendEmail TimeOut" sap2010:WorkflowViewState.IdRef="SendEmail_3">
+            <local:SendEmail.body>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">Body + Environment.NewLine + Environment.NewLine + "&lt;a href=\"http://localhost:54562/Approve.aspx?WFID="+WFID+"&amp;AID="+ActivityId+"\"&gt;Vedi attivita&lt;/a&gt;"</mca:CSharpValue>
+              </InArgument>
+            </local:SendEmail.body>
+            <local:SendEmail.cc>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">Mail</mca:CSharpValue>
+              </InArgument>
+            </local:SendEmail.cc>
+            <local:SendEmail.subject>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">"Activity Timed Out: " + Subject</mca:CSharpValue>
+              </InArgument>
+            </local:SendEmail.subject>
+            <local:SendEmail.to>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">MailPrincipal</mca:CSharpValue>
+              </InArgument>
+            </local:SendEmail.to>
+          </local:SendEmail>
+        </PickBranch>
+        <PickBranch sap2010:WorkflowViewState.IdRef="PickBranch_3">
+          <PickBranch.Trigger>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Delay sap2010:WorkflowViewState.IdRef="Delay_2">
+                <InArgument x:TypeArguments="x:TimeSpan">
+                  <mca:CSharpValue x:TypeArguments="x:TimeSpan">ReminderStartTime</mca:CSharpValue>
+                </InArgument>
+              </Delay>
+              <While sap2010:WorkflowViewState.IdRef="While_1" Condition="True">
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <local:SendEmail attachmentBytes="{x:Null}" attachmentNames="{x:Null}" result="{x:Null}" DisplayName="SendEmail Reminder" sap2010:WorkflowViewState.IdRef="SendEmail_2">
+                    <local:SendEmail.body>
+                      <InArgument x:TypeArguments="x:String">
+                        <mca:CSharpValue x:TypeArguments="x:String">ReminderHeader + Environment.NewLine + Environment.NewLine + Body + Environment.NewLine + Environment.NewLine + "&lt;a href=\"http://localhost:54562/Approve.aspx?WFID="+WFID+"&amp;AID="+ActivityId+"\"&gt;Vedi attivita&lt;/a&gt;" + Environment.NewLine + "Deadline: " + WFEndExpected.ToString("dd/MM/yyyy")</mca:CSharpValue>
+                      </InArgument>
+                    </local:SendEmail.body>
+                    <local:SendEmail.cc>
+                      <InArgument x:TypeArguments="x:String">
+                        <mca:CSharpValue x:TypeArguments="x:String">MailPrincipal</mca:CSharpValue>
+                      </InArgument>
+                    </local:SendEmail.cc>
+                    <local:SendEmail.subject>
+                      <InArgument x:TypeArguments="x:String">
+                        <mca:CSharpValue x:TypeArguments="x:String">"Reminder: " + Subject</mca:CSharpValue>
+                      </InArgument>
+                    </local:SendEmail.subject>
+                    <local:SendEmail.to>
+                      <InArgument x:TypeArguments="x:String">
+                        <mca:CSharpValue x:TypeArguments="x:String">Mail</mca:CSharpValue>
+                      </InArgument>
+                    </local:SendEmail.to>
+                  </local:SendEmail>
+                  <Delay sap2010:WorkflowViewState.IdRef="Delay_3">
+                    <InArgument x:TypeArguments="x:TimeSpan">
+                      <mca:CSharpValue x:TypeArguments="x:TimeSpan">ReminderEvery</mca:CSharpValue>
+                    </InArgument>
+                  </Delay>
+                </Sequence>
+              </While>
+            </Sequence>
+          </PickBranch.Trigger>
+        </PickBranch>
+      </Pick>
+    </Sequence>
+    <CancellationScope.CancellationHandler>
+      <local1:ApprovalProcessUpdateDB result="{x:Null}" sap2010:WorkflowViewState.IdRef="ApprovalProcessUpdateDB_2" approved="False">
+        <local1:ApprovalProcessUpdateDB.ActivityId>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">ActivityId</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessUpdateDB.ActivityId>
+        <local1:ApprovalProcessUpdateDB.Note>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">"Cancelled on " + DateTime.Now.ToString("dd/MM/yyyy")</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessUpdateDB.Note>
+        <local1:ApprovalProcessUpdateDB.WFId>
+          <InArgument x:TypeArguments="s:Guid">
+            <mca:CSharpValue x:TypeArguments="s:Guid">WFID</mca:CSharpValue>
+          </InArgument>
+        </local1:ApprovalProcessUpdateDB.WFId>
+      </local1:ApprovalProcessUpdateDB>
+    </CancellationScope.CancellationHandler>
+    <sads:DebugSymbol.Symbol>d3pDOlxVc2Vyc1xiemVyYmd1ZVxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE1XFByb2plY3RzXEdydWJlckhSXzFcSFJXb3JrZmxvd1NlcnZpY2VcQWN0aXZpdGllc1xBcHByb3ZlXFN0YXJ0QXBwcm92YWwueGFtbEgkByRfAQUfBx9gAQQBjAEBpQEBAykHKV8BAl8D9QIXAgEBZgXgAhACAS7iAgfyAigCAQJnB3IdAwHyBHMHlwEoAwGPBJgBB6MBEAMB8gOkAQe5ARkDAbkDugEHxgEiAwGOA8cBB98CDgIBL+oCDeoCgAECASDlAg3lAlUCARLiAn7iAoUBAgER7wIN7wJNAgEDag1qXQMBgQVvDW9VAwHzBIUBDYUBVwMB5ASAAQ2AAU8DAdYElAENlAFVAwHIBHYNdlUDAboEjwENjwFPAwGsBHsNe00DAZ4EigENigFSAwGQBKABDaABYwMBgQSbAQ2bAWIDAfMDpwENpwHyAQMB5AO2AQ22AU8DAdYDsQENsQFSAwHIA6wBDawBWAMBugPEAQvEAVMDAasDwQELwQFYAwGdA70BDb0BXQMBjwPIAQmVAhYDAdUBlgIJtAIWAwGMAbUCCd4CFgIBMMoBDZMCGAMB1gGYAg2cAhUDAcYBngILswIdAwGNAbcCDdwCGAIBMdEBD/ABHAMBxQLxAQ+LAjADAeoBjAIPkgIeAwHXAZoCEZoCWQMBxwGhAhGhAvYBAwG4AbACEbACXAMBqgGrAhGrAm8DAZwBpgIRpgJTAwGOAbgCD7wCFwIBfb0CD9sCFwIBMuIBFeIBZQMB/ALtARXtAWcDAeoC6gEV6gFkAwHYAucBFecBegMBxgL5ARX5AV8DAbMC9AEV9AFdAwGhAogCFYgCaAMBjwKDAhWDAlwDAf0B/gEV/gFVAwHrAY8CFY8CYAMB2AG6AhO6AmQCAX6+AhHaAhwCATS9Akq9AlACATO/AhPUAiUCAUTVAhPZAhsCATXCAhnCAocDAgFv0QIZ0QJbAgFhzAIZzAJtAgFTxwIZxwJkAgFF1wIX1wJkAgE2</sads:DebugSymbol.Symbol>
+  </CancellationScope>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="getWorkflowID_1" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ApprovalProcessSaveToDB_1" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="1247,62" />
+      <sap2010:ViewStateData Id="SendEmail_1" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="1247,97" />
+      <sap2010:ViewStateData Id="Receive_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="PickBranch_1" sap:VirtualizedContainerService.HintSize="307,812" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="SendEmail_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="PickBranch_2" sap:VirtualizedContainerService.HintSize="230,812" />
+      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="SendEmail_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Delay_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="While_1" sap:VirtualizedContainerService.HintSize="464,368" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,554">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="PickBranch_3" sap:VirtualizedContainerService.HintSize="516,812" />
+      <sap2010:ViewStateData Id="Pick_1" sap:VirtualizedContainerService.HintSize="1247,858" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1269,1407">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="CancellationScope_1" sap:VirtualizedContainerService.HintSize="1305,1636" />
+      <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap:VirtualizedContainerService.HintSize="1345,1716" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

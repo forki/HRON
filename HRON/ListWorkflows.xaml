@@ -1,0 +1,108 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:HRON"
+             xmlns:HRONLib="clr-namespace:HRONLib;assembly=HRONLib" x:Class="HRON.ListWorkflows"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="600" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="emplWorkflowsViewSource" d:DesignSource="{d:DesignInstance {x:Type HRONLib:EmplWorkflows}, CreateList=True}"/>
+        <CollectionViewSource x:Key="wfViewSource" d:DesignSource="{d:DesignInstance {x:Type HRONLib:baWorkflows}, CreateList=True}"/>
+    </UserControl.Resources>
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Center" Orientation="Horizontal">
+            <ToolBar>
+                <ItemsControl ItemsSource="{Binding}" DataContext="{StaticResource wfViewSource}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Name="startWorkflow" Tag="{Binding wfID}" Click="startWorkflow_Click" VerticalAlignment="Stretch" Margin="5 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="ArrowAll"></materialDesign:PackIcon>
+                                    <TextBlock Text="{Binding wfName}" Margin="0 2" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid DataContext="{StaticResource emplWorkflowsViewSource}">
+
+                <DataGrid x:Name="emplWorkflowsDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn x:Name="wfProgressiveColumn" Header="wf Progressive">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding wfProgressive}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="wfTypeColumn" Header="wf Type">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding wfType.wfName}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="dateCreatedColumn" Header="date Created">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding dateCreated}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="userCreatedColumn" Header="user Created">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding userCreated}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="wfStatusColumn" Header="Status">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="1" Text="{Binding wfID}" MaxWidth="200"/>
+                                        <Button Grid.Column="0" Name="LoadStatus" Tag="" Click="LoadStatus_Click" Style="{StaticResource MaterialDesignFlatButton}">
+                                            <materialDesign:PackIcon Kind="Reload"/>
+                                        </Button>
+                                        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Tag, ElementName=LoadStatus}" MaxWidth="200" Foreground="Red"/>
+                                        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding wfStatus}" MaxWidth="200"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10" IsCancel="True">Cancel</Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

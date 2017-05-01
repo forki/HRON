@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6DF9C7FE-F262-4D9B-8216-108B7FE712D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HRONLib</RootNamespace>
+    <AssemblyName>HRONLib</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.MappingAPI, Version=6.1.0.9, Culture=neutral, PublicKeyToken=7ee2e825d201459e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.MappingAPI.6.1.0.9\lib\net45\EntityFramework.MappingAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TrackerEnabledDbContext, Version=3.6.1.0, Culture=neutral, PublicKeyToken=4f92af0b908c4a0a, processorArchitecture=MSIL">
+      <HintPath>..\packages\TrackerEnabledDbContext.3.6.1\lib\net45\TrackerEnabledDbContext.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TrackerEnabledDbContext.Common, Version=3.6.1.0, Culture=neutral, PublicKeyToken=4f92af0b908c4a0a, processorArchitecture=MSIL">
+      <HintPath>..\packages\TrackerEnabledDbContext.Common.3.6.1\lib\net45\TrackerEnabledDbContext.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\baseEntity.cs" />
+    <Compile Include="Entities\EmplDocumentation.cs" />
+    <Compile Include="Entities\EmplDocumentationRequired.cs" />
+    <Compile Include="Entities\baDocumentation.cs" />
+    <Compile Include="Entities\EmplFiles.cs" />
+    <Compile Include="Entities\baBusinessUnitID.cs" />
+    <Compile Include="Entities\baCarPolicy.cs" />
+    <Compile Include="Entities\baCDC.cs" />
+    <Compile Include="Entities\baCompanyRights.cs" />
+    <Compile Include="Entities\baContractType.cs" />
+    <Compile Include="Entities\baCountry.cs" />
+    <Compile Include="Entities\baFringeBenefit.cs" />
+    <Compile Include="Entities\baFunctions.cs" />
+    <Compile Include="Entities\baJobTitle.cs" />
+    <Compile Include="Entities\baLevel.cs" />
+    <Compile Include="Entities\baNationality.cs" />
+    <Compile Include="Entities\baSpecialization.cs" />
+    <Compile Include="Entities\baStudyTitle.cs" />
+    <Compile Include="Entities\baTimeType.cs" />
+    <Compile Include="Entities\baType.cs" />
+    <Compile Include="Entities\baUser.cs" />
+    <Compile Include="Entities\baUserGroup.cs" />
+    <Compile Include="Entities\baWorkPlace.cs" />
+    <Compile Include="Entities\EmplCompanyRights.cs" />
+    <Compile Include="Entities\EmplFamily.cs" />
+    <Compile Include="Entities\EmplFunctions.cs" />
+    <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\baWorkflows.cs" />
+    <Compile Include="Entities\EmplWorkflows.cs" />
+    <Compile Include="Entities\EmplSalary.cs" />
+    <Compile Include="Entities\EmplSalaryFringeBenefit.cs" />
+    <Compile Include="Entities\WFApprovals.cs" />
+    <Compile Include="HRONEntities.cs" />
+    <Compile Include="Migrations\201704211910099_***REMOVED***.cs" />
+    <Compile Include="Migrations\201704211910099_***REMOVED***.Designer.cs">
+      <DependentUpon>201704211910099_***REMOVED***.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704211925012_StartingFromDate.cs" />
+    <Compile Include="Migrations\201704211925012_StartingFromDate.Designer.cs">
+      <DependentUpon>201704211925012_StartingFromDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704232015121_EmplSalary_isActual.cs" />
+    <Compile Include="Migrations\201704232015121_EmplSalary_isActual.Designer.cs">
+      <DependentUpon>201704232015121_EmplSalary_isActual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704240854588_Documentation.cs" />
+    <Compile Include="Migrations\201704240854588_Documentation.Designer.cs">
+      <DependentUpon>201704240854588_Documentation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704241419457_baseEntity.cs" />
+    <Compile Include="Migrations\201704241419457_baseEntity.Designer.cs">
+      <DependentUpon>201704241419457_baseEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704241619527_Unicode.cs" />
+    <Compile Include="Migrations\201704241619527_Unicode.Designer.cs">
+      <DependentUpon>201704241619527_Unicode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704241631102_emplFiles_dateCreated.cs" />
+    <Compile Include="Migrations\201704241631102_emplFiles_dateCreated.Designer.cs">
+      <DependentUpon>201704241631102_emplFiles_dateCreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704241802589_documentationExpireInt.cs" />
+    <Compile Include="Migrations\201704241802589_documentationExpireInt.Designer.cs">
+      <DependentUpon>201704241802589_documentationExpireInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704242023192_emplWorkflow.cs" />
+    <Compile Include="Migrations\201704242023192_emplWorkflow.Designer.cs">
+      <DependentUpon>201704242023192_emplWorkflow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704242027590_emplWorkflow2.cs" />
+    <Compile Include="Migrations\201704242027590_emplWorkflow2.Designer.cs">
+      <DependentUpon>201704242027590_emplWorkflow2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704242120198_wfApproval.cs" />
+    <Compile Include="Migrations\201704242120198_wfApproval.Designer.cs">
+      <DependentUpon>201704242120198_wfApproval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704271827045_baWorkflow.cs" />
+    <Compile Include="Migrations\201704271827045_baWorkflow.Designer.cs">
+      <DependentUpon>201704271827045_baWorkflow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704271915003_baWorkflow2.cs" />
+    <Compile Include="Migrations\201704271915003_baWorkflow2.Designer.cs">
+      <DependentUpon>201704271915003_baWorkflow2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704272014001_emplWorkflow21.cs" />
+    <Compile Include="Migrations\201704272014001_emplWorkflow21.Designer.cs">
+      <DependentUpon>201704272014001_emplWorkflow21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704281827438_wfApprovals2.cs" />
+    <Compile Include="Migrations\201704281827438_wfApprovals2.Designer.cs">
+      <DependentUpon>201704281827438_wfApprovals2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704281837589_empfDocumentation_dateRegistration.cs" />
+    <Compile Include="Migrations\201704281837589_empfDocumentation_dateRegistration.Designer.cs">
+      <DependentUpon>201704281837589_empfDocumentation_dateRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704211910099_***REMOVED***.resx">
+      <DependentUpon>201704211910099_***REMOVED***.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704211925012_StartingFromDate.resx">
+      <DependentUpon>201704211925012_StartingFromDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704232015121_EmplSalary_isActual.resx">
+      <DependentUpon>201704232015121_EmplSalary_isActual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704240854588_Documentation.resx">
+      <DependentUpon>201704240854588_Documentation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704241419457_baseEntity.resx">
+      <DependentUpon>201704241419457_baseEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704241619527_Unicode.resx">
+      <DependentUpon>201704241619527_Unicode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704241631102_emplFiles_dateCreated.resx">
+      <DependentUpon>201704241631102_emplFiles_dateCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704241802589_documentationExpireInt.resx">
+      <DependentUpon>201704241802589_documentationExpireInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704242023192_emplWorkflow.resx">
+      <DependentUpon>201704242023192_emplWorkflow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704242027590_emplWorkflow2.resx">
+      <DependentUpon>201704242027590_emplWorkflow2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704242120198_wfApproval.resx">
+      <DependentUpon>201704242120198_wfApproval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704271827045_baWorkflow.resx">
+      <DependentUpon>201704271827045_baWorkflow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704271915003_baWorkflow2.resx">
+      <DependentUpon>201704271915003_baWorkflow2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704272014001_emplWorkflow21.resx">
+      <DependentUpon>201704272014001_emplWorkflow21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704281827438_wfApprovals2.resx">
+      <DependentUpon>201704281827438_wfApprovals2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704281837589_empfDocumentation_dateRegistration.resx">
+      <DependentUpon>201704281837589_empfDocumentation_dateRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,277 @@
+﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p1:TextExpression.Namespaces="{x:Reference __ReferenceID1}" p1:TextExpression.References="{x:Reference __ReferenceID2}" ConfigurationName="StartApprovalProcess" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="StartApprovalProcess"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:ha="clr-namespace:HRWorkflowService.Activities;assembly=HRWorkflowService"
+ xmlns:haa="clr-namespace:HRWorkflowService.Activities.Approve;assembly=HRWorkflowService"
+ xmlns:hc="clr-namespace:HRWorkflowService.Contract;assembly=HRWorkflowService"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://HRONLib.Contracts/2017/04"
+ xmlns:p1="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p1:Sequence DisplayName="Sequential Service" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <p1:TextExpression.Namespaces>
+      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID1">
+        <x:String>System</x:String>
+        <x:String>System.Collections.Generic</x:String>
+        <x:String>System.Data</x:String>
+        <x:String>System.Linq</x:String>
+        <x:String>System.Text</x:String>
+      </sco:Collection>
+    </p1:TextExpression.Namespaces>
+    <p1:TextExpression.References>
+      <sco:Collection x:TypeArguments="p1:AssemblyReference" x:Name="__ReferenceID2">
+        <p1:AssemblyReference>EntityFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework.MappingAPI</p1:AssemblyReference>
+        <p1:AssemblyReference>EntityFramework.SqlServer</p1:AssemblyReference>
+        <p1:AssemblyReference>Microsoft.CSharp</p1:AssemblyReference>
+        <p1:AssemblyReference>Microsoft.Exchange.WebServices</p1:AssemblyReference>
+        <p1:AssemblyReference>Microsoft.Exchange.WebServices.Auth</p1:AssemblyReference>
+        <p1:AssemblyReference>PresentationCore</p1:AssemblyReference>
+        <p1:AssemblyReference>PresentationFramework</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities.Presentation</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ComponentModel.DataAnnotations</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Data.DataSetExtensions</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Security</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Drawing</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.DynamicData</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.Entity</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.ApplicationServices</p1:AssemblyReference>
+        <p1:AssemblyReference>System</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Data</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Runtime.Serialization</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Activities</p1:AssemblyReference>
+        <p1:AssemblyReference>System.ServiceModel.Channels</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Web.Extensions</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xaml</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xml</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Xml.Linq</p1:AssemblyReference>
+        <p1:AssemblyReference>TrackerEnabledDbContext</p1:AssemblyReference>
+        <p1:AssemblyReference>TrackerEnabledDbContext.Common</p1:AssemblyReference>
+        <p1:AssemblyReference>WindowsBase</p1:AssemblyReference>
+        <p1:AssemblyReference>HRONLib</p1:AssemblyReference>
+        <p1:AssemblyReference>System.Core</p1:AssemblyReference>
+        <p1:AssemblyReference>mscorlib</p1:AssemblyReference>
+        <p1:AssemblyReference>HRWorkflowService</p1:AssemblyReference>
+      </sco:Collection>
+    </p1:TextExpression.References>
+    <p1:Sequence.Variables>
+      <p1:Variable x:TypeArguments="CorrelationHandle" Name="handle" />
+      <p1:Variable x:TypeArguments="x:Int32" Name="data" />
+      <p1:Variable x:TypeArguments="s:Guid" Name="WFID" />
+      <p1:Variable x:TypeArguments="x:String" Name="ActivityId" />
+      <p1:Variable x:TypeArguments="x:String" Name="Mail" />
+      <p1:Variable x:TypeArguments="x:String" Name="Body" />
+      <p1:Variable x:TypeArguments="x:String" Name="Subject" />
+      <p1:Variable x:TypeArguments="x:TimeSpan" Name="Waittime" />
+      <p1:Variable x:TypeArguments="x:TimeSpan" Name="ResendReminderAfter" />
+      <p1:Variable x:TypeArguments="x:TimeSpan" Name="SendFirstReminder" />
+      <p1:Variable x:TypeArguments="x:String" Name="ReminderHeader" />
+      <p1:Variable x:TypeArguments="x:String" Name="MailPrincipal" />
+    </p1:Sequence.Variables>
+    <Receive x:Name="__ReferenceID0" Action="http://HRONLib.Contracts/2017/04/IApprovalService/startApprovalProcess" CanCreateInstance="True" DisplayName="startApprovalProcess_Receive" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="startApprovalProcess" ProtectionLevel="None" ServiceContractName="p:IApprovalService">
+      <ReceiveParametersContent>
+        <p1:OutArgument x:TypeArguments="x:String" x:Key="MailAddress">
+          <mca:CSharpReference x:TypeArguments="x:String">Mail</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:String" x:Key="MailBody">
+          <mca:CSharpReference x:TypeArguments="x:String">Body</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:String" x:Key="MailSubject">
+          <mca:CSharpReference x:TypeArguments="x:String">Subject</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:TimeSpan" x:Key="WaitTime">
+          <mca:CSharpReference x:TypeArguments="x:TimeSpan">Waittime</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:TimeSpan" x:Key="SendFirstReminder">
+          <mca:CSharpReference x:TypeArguments="x:TimeSpan">SendFirstReminder</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:TimeSpan" x:Key="ResendReminderAfter">
+          <mca:CSharpReference x:TypeArguments="x:TimeSpan">ResendReminderAfter</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:String" x:Key="ReminderHeader">
+          <mca:CSharpReference x:TypeArguments="x:String">ReminderHeader</mca:CSharpReference>
+        </p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:String" x:Key="MailPrincipal">
+          <mca:CSharpReference x:TypeArguments="x:String">MailPrincipal</mca:CSharpReference>
+        </p1:OutArgument>
+      </ReceiveParametersContent>
+    </Receive>
+    <ha:getWorkflowID sap2010:WorkflowViewState.IdRef="getWorkflowID_1">
+      <ha:getWorkflowID.ActivityInstanceID>
+        <p1:OutArgument x:TypeArguments="x:String">
+          <mca:CSharpReference x:TypeArguments="x:String">ActivityId</mca:CSharpReference>
+        </p1:OutArgument>
+      </ha:getWorkflowID.ActivityInstanceID>
+      <ha:getWorkflowID.WFID>
+        <p1:OutArgument x:TypeArguments="s:Guid">
+          <mca:CSharpReference x:TypeArguments="s:Guid">WFID</mca:CSharpReference>
+        </p1:OutArgument>
+      </ha:getWorkflowID.WFID>
+    </ha:getWorkflowID>
+    <SendReply Request="{x:Reference __ReferenceID0}" Action="http://HRONLib.Contracts/2017/04/IApprovalService/startApprovalProcessResponse" DisplayName="startApprovalProcess_SendReply" sap2010:WorkflowViewState.IdRef="SendReply_1">
+      <SendParametersContent>
+        <p1:InArgument x:TypeArguments="hc:WFIdentification" x:Key="startApprovalProcessResult" />
+      </SendParametersContent>
+    </SendReply>
+    <InitializeCorrelation sap2010:WorkflowViewState.IdRef="InitializeCorrelation_1">
+      <InitializeCorrelation.Correlation>
+        <p1:InArgument x:TypeArguments="CorrelationHandle">
+          <mca:CSharpValue x:TypeArguments="CorrelationHandle">handle</mca:CSharpValue>
+        </p1:InArgument>
+      </InitializeCorrelation.Correlation>
+      <p1:InArgument x:TypeArguments="x:String" x:Key="key1">
+        <mca:CSharpValue x:TypeArguments="x:String">WFID.ToString()</mca:CSharpValue>
+      </p1:InArgument>
+      <p1:InArgument x:TypeArguments="x:String" x:Key="key2">
+        <mca:CSharpValue x:TypeArguments="x:String">ActivityId</mca:CSharpValue>
+      </p1:InArgument>
+    </InitializeCorrelation>
+    <haa:StartApproval sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1">
+      <haa:StartApproval.Body>
+        <p1:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">Body</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.Body>
+      <haa:StartApproval.Mail>
+        <p1:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">Mail</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.Mail>
+      <haa:StartApproval.MailPrincipal>
+        <p1:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">MailPrincipal</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.MailPrincipal>
+      <haa:StartApproval.ReminderEvery>
+        <p1:InArgument x:TypeArguments="x:TimeSpan">
+          <mca:CSharpValue x:TypeArguments="x:TimeSpan">ResendReminderAfter</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.ReminderEvery>
+      <haa:StartApproval.ReminderHeader>
+        <p1:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">ReminderHeader</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.ReminderHeader>
+      <haa:StartApproval.ReminderStartTime>
+        <p1:InArgument x:TypeArguments="x:TimeSpan">
+          <mca:CSharpValue x:TypeArguments="x:TimeSpan">SendFirstReminder</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.ReminderStartTime>
+      <haa:StartApproval.Subject>
+        <p1:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">Subject</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.Subject>
+      <sap2010:WorkflowViewState.ViewStateManager>
+        <sap2010:ViewStateManager>
+          <sap2010:ViewStateData Id="getWorkflowID_1" sap2010:WorkflowViewState.IdRef="ViewStateData_1" />
+          <sap2010:ViewStateData Id="ApprovalProcessSaveToDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_2" />
+          <sap2010:ViewStateData Id="Assign_1" sap2010:WorkflowViewState.IdRef="ViewStateData_3" />
+          <sap2010:ViewStateData Id="SendEmail_1" sap2010:WorkflowViewState.IdRef="ViewStateData_4" />
+          <sap2010:ViewStateData Id="InitializeCorrelation_1" sap2010:WorkflowViewState.IdRef="ViewStateData_5" />
+          <sap2010:ViewStateData Id="Receive_1" sap2010:WorkflowViewState.IdRef="ViewStateData_6" />
+          <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_1" sap2010:WorkflowViewState.IdRef="ViewStateData_7" />
+          <sap2010:ViewStateData Id="SendReply_1" sap2010:WorkflowViewState.IdRef="ViewStateData_8" />
+          <sap2010:ViewStateData Id="Sequence_2" sap2010:WorkflowViewState.IdRef="ViewStateData_9" />
+          <sap2010:ViewStateData Id="PickBranch_1" sap2010:WorkflowViewState.IdRef="ViewStateData_10" />
+          <sap2010:ViewStateData Id="Delay_1" sap2010:WorkflowViewState.IdRef="ViewStateData_11" />
+          <sap2010:ViewStateData Id="SendEmail_3" sap2010:WorkflowViewState.IdRef="ViewStateData_12" />
+          <sap2010:ViewStateData Id="PickBranch_2" sap2010:WorkflowViewState.IdRef="ViewStateData_13" />
+          <sap2010:ViewStateData Id="Delay_2" sap2010:WorkflowViewState.IdRef="ViewStateData_14" />
+          <sap2010:ViewStateData Id="SendEmail_2" sap2010:WorkflowViewState.IdRef="ViewStateData_15" />
+          <sap2010:ViewStateData Id="Delay_3" sap2010:WorkflowViewState.IdRef="ViewStateData_16" />
+          <sap2010:ViewStateData Id="Sequence_3" sap2010:WorkflowViewState.IdRef="ViewStateData_17" />
+          <sap2010:ViewStateData Id="While_1" sap2010:WorkflowViewState.IdRef="ViewStateData_18" />
+          <sap2010:ViewStateData Id="Sequence_4" sap2010:WorkflowViewState.IdRef="ViewStateData_19" />
+          <sap2010:ViewStateData Id="PickBranch_3" sap2010:WorkflowViewState.IdRef="ViewStateData_20" />
+          <sap2010:ViewStateData Id="Pick_1" sap2010:WorkflowViewState.IdRef="ViewStateData_21" />
+          <sap2010:ViewStateData Id="Sequence_1" sap2010:WorkflowViewState.IdRef="ViewStateData_22" />
+          <sap2010:ViewStateData Id="ApprovalProcessUpdateDB_2" sap2010:WorkflowViewState.IdRef="ViewStateData_23" />
+          <sap2010:ViewStateData Id="CancellationScope_1" sap2010:WorkflowViewState.IdRef="ViewStateData_24" />
+          <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap2010:WorkflowViewState.IdRef="ViewStateData_25" />
+        </sap2010:ViewStateManager>
+      </sap2010:WorkflowViewState.ViewStateManager>
+      <haa:StartApproval.WaitTime>
+        <p1:InArgument x:TypeArguments="x:TimeSpan">
+          <mca:CSharpValue x:TypeArguments="x:TimeSpan">Waittime</mca:CSharpValue>
+        </p1:InArgument>
+      </haa:StartApproval.WaitTime>
+    </haa:StartApproval>
+    <sads:DebugSymbol.Symbol>d4IBQzpcVXNlcnNcYnplcmJndWVcRG9jdW1lbnRzXFZpc3VhbCBTdHVkaW8gMjAxNVxQcm9qZWN0c1xHcnViZXJIUl8xXEhSV29ya2Zsb3dTZXJ2aWNlXEFjdGl2aXRpZXNcQXBwcm92ZVxTdGFydEFwcHJvdmFsUHJvY2Vzcy54YW1seBsRA9IBEQEBUAVrDwKvAWwFdxgClAF4BXwRApMBfQWJAR0Ba4oBBdABGQECXwtfZAKLAlwLXFsC/gFlC2VfAvEBVgtWVQLkAWILYmYC1wFTC1NVAsoBWQtZWAK9AWgLaF4CsAFvC29bAqIBdAt0UwKVAYcBCYcBUQKGAYQBCYQBVgF5gAELgAFYAWymAQumAVwBXs0BC80BUwFRoQELoQFXAUSNAQuNAU0BN6sBC6sBUAEqnAELnAFeAR2SAQuSAU0BEJcBC5cBVgED</sads:DebugSymbol.Symbol>
+  </p1:Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Receive_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="getWorkflowID_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="255,97" />
+      <sap2010:ViewStateData Id="ViewStateData_1" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_2" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_3" sap:VirtualizedContainerService.HintSize="1247,62" />
+      <sap2010:ViewStateData Id="ViewStateData_4" sap:VirtualizedContainerService.HintSize="1247,22" />
+      <sap2010:ViewStateData Id="ViewStateData_5" sap:VirtualizedContainerService.HintSize="1247,97" />
+      <sap2010:ViewStateData Id="ViewStateData_6" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_7" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="ViewStateData_8" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="ViewStateData_9" sap:VirtualizedContainerService.HintSize="277,398">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_10" sap:VirtualizedContainerService.HintSize="307,812" />
+      <sap2010:ViewStateData Id="ViewStateData_11" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_12" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_13" sap:VirtualizedContainerService.HintSize="230,812" />
+      <sap2010:ViewStateData Id="ViewStateData_14" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="ViewStateData_15" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_16" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_17" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_18" sap:VirtualizedContainerService.HintSize="464,368" />
+      <sap2010:ViewStateData Id="ViewStateData_19" sap:VirtualizedContainerService.HintSize="486,554">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_20" sap:VirtualizedContainerService.HintSize="516,812" />
+      <sap2010:ViewStateData Id="ViewStateData_21" sap:VirtualizedContainerService.HintSize="1247,858" />
+      <sap2010:ViewStateData Id="ViewStateData_22" sap:VirtualizedContainerService.HintSize="1269,1407">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ViewStateData_23" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ViewStateData_24" sap:VirtualizedContainerService.HintSize="1305,1636" />
+      <sap2010:ViewStateData Id="ViewStateData_25" sap:VirtualizedContainerService.HintSize="1345,1716" />
+      <sap2010:ViewStateData Id="HRWorkflowService.Activities.Approve.StartApproval_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="277,597">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="307,667" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</WorkflowService>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f67b1309-4bac-4c8b-8d0d-56dedec193f7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="getApprovalInstances.wsdl" MetadataType="Wsdl" ID="bdf6b722-9393-44c1-89b8-2bafb4c6a8c2" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?wsdl" />
+    <MetadataFile FileName="GetApprovalInstances.xsd" MetadataType="Schema" ID="4f887d4c-ce03-4617-8629-94c45c37aa45" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?xsd=xsd1" />
+    <MetadataFile FileName="GetApprovalInstances1.xsd" MetadataType="Schema" ID="0c1feee3-c0f8-4e04-a042-14c5d96c6433" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?xsd=xsd0" />
+    <MetadataFile FileName="GetApprovalInstances2.xsd" MetadataType="Schema" ID="57374c9c-af6d-43ee-ac30-891a6da9b6c9" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?xsd=xsd2" />
+    <MetadataFile FileName="GetApprovalInstances1.wsdl" MetadataType="Wsdl" ID="b963d936-da47-4092-890e-8b258887ccbd" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?wsdl=wsdl0" />
+    <MetadataFile FileName="GetApprovalInstances.disco" MetadataType="Disco" ID="82379865-42e4-458c-9e65-68cd23cd2699" SourceId="1" SourceUrl="http://localhost:50728/Activities/Approve/GetApprovalInstances.xamlx?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
