@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Activities;
+using System.Configuration;
 using Microsoft.Exchange.WebServices.Data;
 
 namespace HRONWorkflowService.Activities
@@ -42,7 +43,10 @@ namespace HRONWorkflowService.Activities
 
         string _createAppointment(string to, string subject, DateTime start, DateTime end, string body)
         {
-            ExchangeService exch = Exchange.create("***REMOVED***", "***REMOVED***");
+            string Username = ConfigurationManager.AppSettings["ExchangeUsername"].ToString();
+            string Password = ConfigurationManager.AppSettings["ExchangePassword"].ToString();
+
+            ExchangeService exch = Exchange.create(Username, Password);
 
             Appointment app = new Appointment(exch);
             app.RequiredAttendees.Add(to);

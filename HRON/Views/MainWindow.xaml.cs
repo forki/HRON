@@ -93,6 +93,7 @@ namespace HRON.Views
             setMasterdataSets("baUser", "masterDatabaUser");
             setMasterdataSets("baUserGroup", "masterDatabaUserGroup");
             setMasterdataSets("baDocumentation", "masterDatabaDocumentation");
+            setMasterdataSets("baWorkflows", "masterDatabaWorkflows");
         }
 
 
@@ -165,6 +166,7 @@ namespace HRON.Views
                 case "baType": addTabx<baType>(rg.Key); break;
                 case "baWorkPlace": addTabx<baWorkPlace>(rg.Key); break;
                 case "baUser": addTabx<baUser>(rg.Key); break;
+                case "baWorkflows": addTabx<baWorkflows>(rg.Key); break;
                 case "baUserGroup": addTabx<baUserGroup>(rg.Key); break;
                 case "baDocumentation": addTabx<baDocumentation>(rg.Key); break;
                 default: throw new Exception("MasterdataTable not implemented (" + rg.Key + ")");

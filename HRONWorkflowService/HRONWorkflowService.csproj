@@ -67,6 +67,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Security" />
     <Reference Include="System.Drawing" />
