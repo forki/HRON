@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="HRON.UserEdit"
+﻿<UserControl x:Class="HRON.Views.EmployeeViews.UserEdit"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HRON"
+             xmlns:helper="clr-namespace:HRON.Views.Helper"
              xmlns:localLib="clr-namespace:HRONLib;assembly=HRONLib"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              x:Name="UserEdit1"
@@ -13,7 +14,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="1750" d:DesignWidth="1412" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <local:EnumMatchToBooleanConverter x:Key="enumConverter" />
+        <helper:EnumMatchToBooleanConverter x:Key="enumConverter" />
         <CollectionViewSource x:Key="employeeViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:Employee}, CreateList=True}"/>
         <CollectionViewSource x:Key="employeeEmplFamilyViewSource" Source="{Binding EmplFamily, Source={StaticResource employeeViewSource}}"/>
         <CollectionViewSource x:Key="employeeEmplFunctionsViewSource" Source="{Binding EmplFunctions, Source={StaticResource employeeViewSource}}"/>
@@ -23,7 +24,7 @@
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="employeeEmplSalaryCarPolicyViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baCarPolicy}, CreateList=True}"/>
-        <local:VisibilityConverter x:Key="VisibilityConverter" />
+        <helper:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
 
     <DockPanel AllowDrop="True" Drop="DockPanel_Drop" Name="OuterDockPanel">

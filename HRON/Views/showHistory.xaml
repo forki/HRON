@@ -7,7 +7,7 @@
              xmlns:HRONLib="clr-namespace:HRONLib;assembly=HRONLib" 
              xmlns:local="clr-namespace:HRON"
              xmlns:Models="clr-namespace:TrackerEnabledDbContext.Common.Models;assembly=TrackerEnabledDbContext.Common" 
-             x:Class="HRON.showHistory"
+             x:Class="HRON.Views.showHistory"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <UserControl.Resources>

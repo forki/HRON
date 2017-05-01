@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace HRON
+namespace HRON.Views.Helper
 {
     public interface DetailControl
     {

@@ -1,4 +1,5 @@
-﻿using HRONLib;
+﻿using HRON.Views;
+using HRONLib;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HRON
+namespace HRON.Views.EmployeeViews
 {
     /// <summary>
     /// Interaktionslogik für UserEdit.xaml

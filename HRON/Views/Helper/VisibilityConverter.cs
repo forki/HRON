@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace HRON
+namespace HRON.Views.Helper
 {
     [ValueConversion(typeof(bool), typeof(Visibility))]
     public class VisibilityConverter : IValueConverter

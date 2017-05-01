@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
 
-namespace HRON
+namespace HRON.Views
 {
     /// <summary>
     /// Interaktionslogik für MasterDataDocumentations.xaml

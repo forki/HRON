@@ -1,4 +1,5 @@
-﻿using HRONLib;
+﻿using HRON.Views.Helper;
+using HRONLib;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HRON
+namespace HRON.Views
 {
     /// <summary>
     /// Interaktionslogik für Documentation.xaml

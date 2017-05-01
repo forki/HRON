@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HRON"
-             xmlns:HRONLib="clr-namespace:HRONLib;assembly=HRONLib" x:Class="HRON.ListWorkflows"
+             xmlns:HRONLib="clr-namespace:HRONLib;assembly=HRONLib" x:Class="HRON.Views.ListWorkflows"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600" Loaded="UserControl_Loaded">
     <UserControl.Resources>

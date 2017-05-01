@@ -119,45 +119,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DetailControl.cs" />
-    <Compile Include="Documentation.xaml.cs">
+    <Compile Include="Views\Helper\DetailControl.cs" />
+    <Compile Include="Views\Documentation.xaml.cs">
       <DependentUpon>Documentation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EnumMatchToBooleanConverter.cs" />
-    <Compile Include="ListWorkflows.xaml.cs">
+    <Compile Include="Views\Helper\EnumMatchToBooleanConverter.cs" />
+    <Compile Include="Views\ListWorkflows.xaml.cs">
       <DependentUpon>ListWorkflows.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MasterData.xaml.cs">
+    <Compile Include="Views\MasterData.xaml.cs">
       <DependentUpon>MasterData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MasterDataDocumentation.cs" />
+    <Compile Include="Views\MasterDataDocumentation.cs" />
     <Compile Include="Service References\EmployeeOnBoarding\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="showHistory.xaml.cs">
+    <Compile Include="Views\showHistory.xaml.cs">
       <DependentUpon>showHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserEdit.xaml.cs">
+    <Compile Include="Views\Employee\UserEdit.xaml.cs">
       <DependentUpon>UserEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserEditFiles.xaml.cs">
+    <Compile Include="Views\Employee\UserEditFiles.xaml.cs">
       <DependentUpon>UserEditFiles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserList.xaml.cs">
+    <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisibilityConverter.cs" />
-    <Page Include="Documentation.xaml">
+    <Compile Include="Views\Helper\VisibilityConverter.cs" />
+    <Page Include="Views\Documentation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ListWorkflows.xaml">
+    <Page Include="Views\ListWorkflows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -165,11 +165,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MasterData.xaml">
+    <Page Include="Views\MasterData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,19 +185,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="showHistory.xaml">
+    <Page Include="Views\showHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserEdit.xaml">
+    <Page Include="Views\Employee\UserEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserEditFiles.xaml">
+    <Page Include="Views\Employee\UserEditFiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserList.xaml">
+    <Page Include="Views\UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -288,6 +288,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

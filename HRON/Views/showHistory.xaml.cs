@@ -1,4 +1,5 @@
-﻿using HRONLib;
+﻿using HRON.Views;
+using HRONLib;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HRON
+namespace HRON.Views
 {
     /// <summary>
     /// Interaktionslogik für showHistory.xaml

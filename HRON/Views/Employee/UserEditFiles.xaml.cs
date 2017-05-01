@@ -18,8 +18,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HRON.Views;
 
-namespace HRON
+namespace HRON.Views.EmployeeViews
 {
     /// <summary>
     /// Interaktionslogik für UserEditFiles.xaml

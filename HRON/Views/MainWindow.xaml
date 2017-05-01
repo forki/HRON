@@ -7,11 +7,14 @@
         xmlns:localLib="clr-namespace:HRONLib;assembly=HRONLib"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:Properties="clr-namespace:HRON.Properties" xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="HRON.MainWindow"
+        xmlns:Properties="clr-namespace:HRON.Properties" xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        x:Class="HRON.Views.MainWindow"
+        x:Name="_mainWindow"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
+        Loaded="_mainWindow_Loaded"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
           Title="MainWindow" Height="1050" Width="825">
@@ -26,33 +29,36 @@
                                     DockPanel.Dock="Top"
                                     HorizontalAlignment="Right" Margin="16"
                                     IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    <StackPanel>
-                        <Expander Header="{DynamicResource MasterDataTables}">
-                            <ListBox x:Name="MasterdataListBox" Margin="32 0 32 0" SelectionChanged="MasterdataListBox_SelectionChanged">
-                                <ListBoxItem Name="baBusinessUnitID">Business Unit</ListBoxItem>
-                                <ListBoxItem Name="baCarPolicy">Car Policy</ListBoxItem>
-                                <ListBoxItem Name="baCDC">CDC</ListBoxItem>
-                                <ListBoxItem Name="baCompanyRights">Company Rights</ListBoxItem>
-                                <ListBoxItem Name="baContractType">Contract Type</ListBoxItem>
-                                <ListBoxItem Name="baCountry">Country</ListBoxItem>
-                                <ListBoxItem Name="baFringeBenefit">Fringe Benefit</ListBoxItem>
-                                <ListBoxItem Name="baFunctions">Functions</ListBoxItem>
-                                <ListBoxItem Name="baJobTitle">Job Title</ListBoxItem>
-                                <ListBoxItem Name="baLevel">Level</ListBoxItem>
-                                <ListBoxItem Name="baNationality">Nationality</ListBoxItem>
-                                <ListBoxItem Name="baSpecialization">Specialization</ListBoxItem>
-                                <ListBoxItem Name="baStudyTitle">Study Title</ListBoxItem>
-                                <ListBoxItem Name="baTimeType">Time Type</ListBoxItem>
-                                <ListBoxItem Name="baType">Type</ListBoxItem>
-                                <ListBoxItem Name="baWorkPlace">Work Place</ListBoxItem>
-                                <ListBoxItem Name="baDocumentation">Documentation</ListBoxItem>
-                            </ListBox>
-                        </Expander>
-                        <Button Content="Employee's" HorizontalAlignment="Left" Margin="8 32" FontSize="15" Style="{StaticResource MaterialDesignFlatButton}" Click="btnEmploy_click" />
-                        <Expander Header="{DynamicResource Workflows}" DataContext="{StaticResource wfViewSource}">
-                            <ListBox IsSynchronizedWithCurrentItem="False" x:Name="WFListBox" SelectedIndex="-1" Margin="32 0 32 0" ItemsSource="{Binding}" SelectionChanged="WFListBox_SelectionChanged" DisplayMemberPath="wfName" />
-                        </Expander>
-                    </StackPanel>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <Expander Header="{DynamicResource MasterDataTables}">
+                                <ListBox IsSynchronizedWithCurrentItem="False" x:Name="MasterdataListBox" SelectedIndex="-1" Margin="32 0 32 0" ItemsSource="{Binding}" DataContext="{Binding masterDataSets, ElementName=_mainWindow}" SelectionChanged="MasterdataListBox_SelectionChanged" DisplayMemberPath="Value"/>
+                                <!--                                <ListBox x:Name="MasterdataListBox" Margin="32 0 32 0" SelectionChanged="">
+                                    <ListBoxItem Name="baBusinessUnitID">Business Unit</ListBoxItem>
+                                    <ListBoxItem Name="baCarPolicy">Car Policy</ListBoxItem>
+                                    <ListBoxItem Name="baCDC">CDC</ListBoxItem>
+                                    <ListBoxItem Name="baCompanyRights">Company Rights</ListBoxItem>
+                                    <ListBoxItem Name="baContractType">Contract Type</ListBoxItem>
+                                    <ListBoxItem Name="baCountry">Country</ListBoxItem>
+                                    <ListBoxItem Name="baFringeBenefit">Fringe Benefit</ListBoxItem>
+                                    <ListBoxItem Name="baFunctions">Functions</ListBoxItem>
+                                    <ListBoxItem Name="baJobTitle">Job Title</ListBoxItem>
+                                    <ListBoxItem Name="baLevel">Level</ListBoxItem>
+                                    <ListBoxItem Name="baNationality">Nationality</ListBoxItem>
+                                    <ListBoxItem Name="baSpecialization">Specialization</ListBoxItem>
+                                    <ListBoxItem Name="baStudyTitle">Study Title</ListBoxItem>
+                                    <ListBoxItem Name="baTimeType">Time Type</ListBoxItem>
+                                    <ListBoxItem Name="baType">Type</ListBoxItem>
+                                    <ListBoxItem Name="baWorkPlace">Work Place</ListBoxItem>
+                                    <ListBoxItem Name="baDocumentation">Documentation</ListBoxItem>
+                                </ListBox>-->
+                            </Expander>
+                            <Button Content="Employee's" HorizontalAlignment="Left" Margin="8 32" FontSize="15" Style="{StaticResource MaterialDesignFlatButton}" Click="btnEmploy_click" />
+                            <Expander Header="{DynamicResource Workflows}" DataContext="{StaticResource wfViewSource}">
+                                <ListBox IsSynchronizedWithCurrentItem="False" x:Name="WFListBox" SelectedIndex="-1" Margin="32 0 32 0" ItemsSource="{Binding}" SelectionChanged="WFListBox_SelectionChanged" DisplayMemberPath="wfName" />
+                            </Expander>
+                        </StackPanel>
+                    </ScrollViewer>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
             <DockPanel>

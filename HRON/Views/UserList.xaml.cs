@@ -1,4 +1,6 @@
-﻿using HRONLib;
+﻿using HRON.Views;
+using HRON.Views.EmployeeViews;
+using HRONLib;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HRON
+namespace HRON.Views
 {
     /// <summary>
     /// Interaktionslogik für UserList.xaml
