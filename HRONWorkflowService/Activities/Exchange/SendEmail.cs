@@ -6,6 +6,7 @@ using System.Activities;
 using HRONLib;
 using Microsoft.Exchange.WebServices.Data;
 using System.ComponentModel;
+using System.Configuration;
 
 namespace HRONWorkflowService.Activities
 {
@@ -26,7 +27,10 @@ namespace HRONWorkflowService.Activities
 
         void _createEmail(string to, string subject, string body, string cc, string[] attachmentName, Byte[][] attachments)
         {
-            ExchangeService exch = Exchange.create("***REMOVED***", "***REMOVED***");
+            string Username = ConfigurationManager.AppSettings["ExchangeUsername"].ToString();
+            string Password = ConfigurationManager.AppSettings["ExchangePassword"].ToString();
+
+            ExchangeService exch = Exchange.create(Username, Password);
 
             EmailMessage app = new EmailMessage(exch);
             app.ToRecipients.Add(to);

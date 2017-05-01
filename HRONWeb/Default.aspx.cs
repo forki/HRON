@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.DirectoryServices;
 using System.Linq;
 using System.Web;
@@ -33,7 +34,8 @@ namespace HRONWeb
             DirectorySearcher search = new DirectorySearcher();
 
             // specify the search filter
-            search.Filter = "(&(objectClass=user)(sAMAccountName=" + account.ToLower().Replace("***REMOVED***\\", "") + "))";
+            string defaultDomain= ConfigurationManager.AppSettings["DefaultDomain"].ToString();
+            search.Filter = "(&(objectClass=user)(sAMAccountName=" + account.ToLower().Replace(defaultDomain + "\\", "") + "))";
 
             // specify which property values to return in the search
             search.PropertiesToLoad.Add("givenName");   // first name
