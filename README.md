@@ -1,4 +1,6 @@
-#![]({{site.baseurl}}//HRON.png) HRON
+
+![]({{site.baseurl}}/HRON.png)
+# HRON
 
 The application was build with the need of having a central database for all employee data, manage HR masterdata, design and start onboarding workflows as well as monitor the assigned Tasks
 
