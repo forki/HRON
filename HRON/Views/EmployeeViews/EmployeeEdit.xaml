@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HRON"
              xmlns:helper="clr-namespace:HRON.Views.Helper"
+             xmlns:emplViews="clr-namespace:HRON.Views.EmployeeViews"
              xmlns:localLib="clr-namespace:HRONLib;assembly=HRONLib"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              x:Name="UserEdit1"
@@ -27,6 +28,13 @@
         <helper:VisibilityConverter x:Key="VisibilityConverter" />
         <CollectionViewSource x:Key="employeeEmplDocumentationViewSource" Source="{Binding EmplDocumentation, Source={StaticResource employeeViewSource}}"/>
         <CollectionViewSource x:Key="baDocumentationViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baDocumentation}, CreateList=True}"/>
+        <CollectionViewSource x:Key="emplCDCViewSource" Source="{Binding EmplCDC, Source={StaticResource employeeViewSource}}" >
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="cdcStartingDate" Direction="Descending"></scm:SortDescription>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="baCDCViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baCDC}, CreateList=True}"/>
+        <DataGridComboBoxColumn x:Key="cdcColumn" x:Name="cdcColumn" ItemsSource="{Binding baCDC, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding cdc}" Header="CDC" Width="SizeToCells" DisplayMemberPath="cdcDescription" MinWidth="100"/>
     </UserControl.Resources>
 
     <DockPanel AllowDrop="True" Drop="DockPanel_Drop" Name="OuterDockPanel">
@@ -114,7 +122,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Style="{StaticResource VisibleOnHoverNoNewRow}">
-                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click" Visibility="{Binding}">
+                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click">
                                                         <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
                                                     </Button>
                                                 </StackPanel>
@@ -127,7 +135,7 @@
                     </materialDesign:Card>
 
                     <materialDesign:Card Margin="5" DataContext="{StaticResource employeeEmplSalaryViewSource}">
-                        <Expander IsExpanded="True" Name="salaryExpander">
+                        <Expander Name="salaryExpander">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal" >
                                     <Button Margin="5" Visibility="{Binding ElementName=salaryExpander, Path=IsExpanded, Converter={StaticResource VisibilityConverter}}" Click="AddSalaryButton_Click">
@@ -149,7 +157,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Style="{StaticResource VisibleOnHoverNoNewRow}">
-                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click" Visibility="{Binding}">
+                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click">
                                                         <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
                                                     </Button>
                                                 </StackPanel>
@@ -216,6 +224,44 @@
                                     </DataTemplate>
                                 </DataGrid.RowDetailsTemplate>
                             </DataGrid>
+                        </Expander>
+                    </materialDesign:Card>
+                    <materialDesign:Card Margin="5">
+                        <Expander IsExpanded="True" Name="CDCExpander">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Button Margin="5" Visibility="{Binding ElementName=CDCExpander, Path=IsExpanded, Converter={StaticResource VisibilityConverter}}" Click="AddCDCButton_Click">
+                                        <materialDesign:PackIcon Kind="PlusCircle"></materialDesign:PackIcon>
+                                    </Button>
+                                    <materialDesign:PackIcon Kind="AccountCardDetails" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowCostCenter}"/>
+                                </StackPanel>
+                            </Expander.Header>
+                            <StackPanel Orientation="Horizontal" DataContext="{Binding Source={StaticResource emplCDCViewSource}}">
+
+                                <DataGrid x:Name="emplCDCDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" SelectionChanged="emplCDCDataGrid_SelectionChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn x:Name="cdcStartingDateColumn" Header="cdc Starting Date" Width="SizeToHeader">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker SelectedDate="{Binding cdcStartingDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn x:Name="cdcEndDateColumn" Header="cdc End Date" Width="SizeToHeader" Binding="{Binding cdcEndDate, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                                        <DataGridTextColumn x:Name="cdcPercColumn" Header="%" Width="SizeToCells" Binding="{Binding Percentage}" IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Separator/>
+                                <StackPanel Orientation="Vertical">
+                                    <DataGrid x:Name="emplCDCDetailDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding SelectedItem.EmplCDCDetail, ElementName=emplCDCDataGrid}" SelectedCellsChanged="emplCDCDetailDataGrid_SelectedCellsChanged" Margin="100 0">
+                                        <DataGrid.Columns>
+                                            <StaticResource ResourceKey="cdcColumn"/>
+                                            <DataGridTextColumn x:Name="cdcPercentageColumn" Binding="{Binding cdcPercentage}" Header="CDC Percentage" Width="SizeToHeader" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </StackPanel>
                         </Expander>
                     </materialDesign:Card>
                 </StackPanel>
@@ -298,6 +344,13 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn IsReadOnly="True" Binding="{Binding EmplFiles.Count}" Header="N° Files" />
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="Files" Click="Files_Click" Content="Files"></Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Expander>

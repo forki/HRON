@@ -30,6 +30,8 @@ namespace HRONLib
 
         public virtual baCountry baCountry { get; set; }
 
+        public virtual baCompany baCompany { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }
 

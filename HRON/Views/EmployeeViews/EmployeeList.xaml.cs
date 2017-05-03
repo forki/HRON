@@ -20,19 +20,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HRON.Views
+namespace HRON.Views.EmployeeViews
 {
     /// <summary>
     /// Interaktionslogik für UserList.xaml
     /// </summary>
-    public partial class UserList : UserControl
+    public partial class EmployeeList : UserControl
     {
         protected HRONEntities entities;
         MainWindow mainWindow = null;
         private ListSortDirection _sortDirection;
         private GridViewColumn _sortColumn;
 
-        public UserList(MainWindow main)
+        public EmployeeList(MainWindow main)
         {
             InitializeComponent();
 
@@ -259,7 +259,7 @@ namespace HRON.Views
                 if (em.emplID.ToString().IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
                 if (em.emplLastName != null && em.emplLastName.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
                 if (em.emplKey != null && em.emplKey.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
-                if (em.baCDC!=null && em.baCDC.cdcDescription != null && em.baCDC.cdcDescription.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
+                //if (em.baCDC!=null && em.baCDC.cdcDescription != null && em.baCDC.cdcDescription.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
                 if (em.baCountry != null && em.baCountry.countryISOCode != null && em.baCountry.countryISOCode.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
                 if (em.baWorkPlace != null && em.baWorkPlace.workPlaceCity != null && em.baWorkPlace.workPlaceCity.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;
                 if (em.baBusinessUnitID != null && em.baBusinessUnitID.businessUnitDescription != null && em.baBusinessUnitID.businessUnitDescription.IndexOf(txtSearch.Text, 0, StringComparison.CurrentCultureIgnoreCase) != -1) return true;

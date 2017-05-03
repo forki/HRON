@@ -14,7 +14,7 @@ namespace HRONLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public baCDC()
         {
-            Employee = new ObservableCollection<Employee>();
+            EmplCDCDetail = new ObservableCollection<EmplCDCDetail>();
         }
 
         [Key]
@@ -27,7 +27,7 @@ namespace HRONLib
         public string cdcDescription { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual ICollection<EmplCDCDetail> EmplCDCDetail { get; set; }
 
         public override int[] getKey()
         {

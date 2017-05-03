@@ -21,6 +21,7 @@ namespace HRONLib
             EmplSalary = new ObservableCollection<EmplSalary>();
             EmplDocumentation = new ObservableCollection<EmplDocumentation>();
             EmplFiles = new ObservableCollection<EmplFiles>();
+            EmplCDC = new ObservableCollection<EmplCDC>();
         }
 
         [Key]
@@ -31,8 +32,6 @@ namespace HRONLib
         public string emplName { get; set; }
 
         public string emplKey { get; set; }
-
-        public int? emplCdcID { get; set; }
 
         public int? emplCountryID { get; set; }
 
@@ -83,8 +82,6 @@ namespace HRONLib
 
         public virtual baBusinessUnitID baBusinessUnitID { get; set; }
 
-        public virtual baCDC baCDC { get; set; }
-
         public virtual baContractType baContractType { get; set; }
 
         public virtual baCountry baCountry { get; set; }
@@ -125,6 +122,7 @@ namespace HRONLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmplSalary> EmplSalary { get; set; }
 
+        public virtual ICollection<EmplCDC> EmplCDC { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmplDocumentation> EmplDocumentation { get; set; }

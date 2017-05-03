@@ -207,7 +207,7 @@ namespace HRON.Views
 
         private void btnEmploy_click(object sender, RoutedEventArgs e)
         {
-            UserList ul = new UserList(this);
+            EmployeeList ul = new EmployeeList(this);
             addTab(ul, "Employee's");
         }
 

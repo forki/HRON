@@ -67,6 +67,7 @@
     <system:String x:Key="EmplloyeeWindowHistory">History</system:String>
     <system:String x:Key="EmplloyeeWindowFamily">Family</system:String>
     <system:String x:Key="EmplloyeeWindowPersonalData">Personal Data</system:String>
+    <system:String x:Key="EmplloyeeWindowCostCenter">Cost Center</system:String>
     <system:String x:Key="EmplloyeeWindowContract">Contract</system:String>
     <system:String x:Key="EmplloyeeWindowDocuments">Documents</system:String>
     <system:String x:Key="EmplloyeeWindowFunctions">Functions</system:String>

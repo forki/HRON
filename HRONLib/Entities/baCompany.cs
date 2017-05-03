@@ -8,12 +8,13 @@ namespace HRONLib
     using System.Data.Entity.Spatial;
 
     [TrackChanges]
-    public partial class baCompanyRights : baseEntity
+    public partial class baCompany : baseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public baCompanyRights()
+        public baCompany()
         {
-            EmplCompanyRights = new ObservableCollection<EmplCompanyRights>();
+            baCompanyRights = new ObservableCollection<baCompanyRights>();
+            baWorkPlace = new ObservableCollection<baWorkPlace>();
         }
 
         [Key]
@@ -21,10 +22,11 @@ namespace HRONLib
 
         public string compDescription { get; set; }
 
-        public baCompany compCompany { get; set; }
+        public short? compSocieta { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmplCompanyRights> EmplCompanyRights { get; set; }
+        public virtual ICollection<baCompanyRights> baCompanyRights { get; set; }
+
+        public virtual ICollection<baWorkPlace> baWorkPlace { get; set; }
 
         public override int[] getKey()
         {

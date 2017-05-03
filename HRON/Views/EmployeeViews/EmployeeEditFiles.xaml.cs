@@ -30,6 +30,7 @@ namespace HRON.Views.EmployeeViews
         HRONEntities entities;
         Employee employee;
         MainWindow mainWindow;
+        List<baseEntity> filters = new List<baseEntity>();
 
         public EmployeeEditFiles(MainWindow main, HRONEntities _entities, Employee e)
         {
@@ -38,6 +39,11 @@ namespace HRON.Views.EmployeeViews
             mainWindow = main;
             entities = _entities;
             employee = e;
+        }
+
+        public void addFilter(EmplDocumentation doc)
+        {
+            filters.Add(doc);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -57,6 +63,25 @@ namespace HRON.Views.EmployeeViews
                 entities.Employee.Where(m => m.emplID == employee.emplID).Load();
                 employeeViewSource.Source = entities.Employee.Local;
                 employeeViewSource.View.MoveCurrentToFirst();
+
+                foreach(baseEntity ent in filters)
+                {
+                    if (ent is EmplDocumentation)
+                    {
+                        EmplDocumentation doc = (EmplDocumentation)ent;
+                        System.Windows.Data.CollectionViewSource employeeEmplFilesViewSourceViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["employeeEmplFilesViewSource"];
+                        if (employeeEmplFilesViewSourceViewSource != null)
+                        {
+                            employeeEmplFilesViewSourceViewSource.View.Filter = item =>
+                            {
+                                EmplFiles f = (EmplFiles)item;
+                                if (f.EmplDocumentation == null)
+                                    return false;
+                                return f.EmplDocumentation.Equals(doc);
+                            };
+                        }
+                    }
+                }
             }
         }
 
@@ -84,6 +109,12 @@ namespace HRON.Views.EmployeeViews
                 file.Employee = employee;
                 file.FileContent = File.ReadAllBytes(f);
                 file.FileName = fi.Name;
+
+                foreach(baseEntity b in filters)
+                {
+                    if (b is EmplDocumentation)
+                        file.EmplDocumentation = b as EmplDocumentation;
+                }
 
                 employee.EmplFiles.Add(file);
             }

@@ -39,6 +39,8 @@ namespace HRONLib
         public virtual DbSet<EmplDocumentation> EmplDocumentation { get; set; }
         public virtual DbSet<EmplFunctions> EmplFunctions { get; set; }
         public virtual DbSet<EmplWorkflows> EmplWorkflows { get; set; }
+        public virtual DbSet<EmplCDC> EmplCDC { get; set; }
+        public virtual DbSet<EmplCDCDetail> EmplCDCDetail { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmplSalary> EmplSalary { get; set; }
         public virtual DbSet<WFApprovals> WFApprovals { get; set; }
@@ -56,11 +58,6 @@ namespace HRONLib
                 .WithOptional(e => e.baCarPolicy)
                 .HasForeignKey(e => e.salCarPolicyClass);
 
-            modelBuilder.Entity<baCDC>()
-                .HasMany(e => e.Employee)
-                .WithOptional(e => e.baCDC)
-                .HasForeignKey(e => e.emplCdcID);
-
             modelBuilder.Entity<baCompanyRights>()
                 .HasMany(e => e.EmplCompanyRights)
                 .WithOptional(e => e.baCompanyRights)
@@ -75,6 +72,14 @@ namespace HRONLib
                 .HasMany(e => e.baWorkPlace)
                 .WithOptional(e => e.baCountry)
                 .HasForeignKey(e => e.workPlaceCountryID);
+
+            modelBuilder.Entity<baCompany>()
+                .HasMany(e => e.baWorkPlace)
+                .WithOptional(e => e.baCompany);
+
+            modelBuilder.Entity<baCompany>()
+                .HasMany(e => e.baCompanyRights)
+                .WithOptional(e => e.compCompany);
 
             modelBuilder.Entity<baCountry>()
                 .HasMany(e => e.Employee)
@@ -205,6 +210,11 @@ namespace HRONLib
                 .HasMany(e => e.EmplDocumentation)
                 .WithRequired(e => e.Employee)
                 .HasForeignKey(e => e.emplID);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.EmplCDC)
+                .WithRequired(e => e.Employee)
+                .HasForeignKey(e => e.cdcEmplID);
 
         }
     }

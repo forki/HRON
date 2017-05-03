@@ -15,6 +15,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -142,14 +144,14 @@
     <Compile Include="Views\showHistory.xaml.cs">
       <DependentUpon>showHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Employee\EmployeeEdit.xaml.cs">
+    <Compile Include="Views\EmployeeViews\EmployeeEdit.xaml.cs">
       <DependentUpon>EmployeeEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Employee\EmployeeEditFiles.xaml.cs">
+    <Compile Include="Views\EmployeeViews\EmployeeEditFiles.xaml.cs">
       <DependentUpon>EmployeeEditFiles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserList.xaml.cs">
-      <DependentUpon>UserList.xaml</DependentUpon>
+    <Compile Include="Views\EmployeeViews\EmployeeList.xaml.cs">
+      <DependentUpon>EmployeeList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Helper\VisibilityConverter.cs" />
     <Page Include="Views\Documentation.xaml">
@@ -192,15 +194,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Employee\EmployeeEdit.xaml">
+    <Page Include="Views\EmployeeViews\EmployeeEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Employee\EmployeeEditFiles.xaml">
+    <Page Include="Views\EmployeeViews\EmployeeEditFiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserList.xaml">
+    <Page Include="Views\EmployeeViews\EmployeeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -227,6 +229,7 @@
     <None Include="Properties\DataSources\GruberHRLib.baDocumentation.datasource" />
     <None Include="Properties\DataSources\GruberHRLib.Employee.datasource" />
     <None Include="Properties\DataSources\GruberHRLib.EmplWorkflows.datasource" />
+    <None Include="Properties\DataSources\HRONLib.EmplCDC.datasource" />
     <None Include="Properties\DataSources\TrackerEnabledDbContext.Common.Models.AuditLog.datasource" />
     <None Include="Properties\DataSources\TrackerEnabledDbContext.Common.Models.AuditLogDetail.datasource" />
     <None Include="Properties\Settings.settings">
@@ -297,7 +300,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -101,11 +101,15 @@ namespace HRON.Views.EmployeeViews
 
                 entities.baCarPolicy.Load();
                 this.carPolicy = entities.baCarPolicy.Local;
-//                carPolicy.First().
+                entities.baCDC.Load();
+                DataGridComboBoxColumn cdcColumn = (DataGridComboBoxColumn)this.Resources["cdcColumn"];
+                cdcColumn.ItemsSource = entities.baCDC.Local;
+
                 this.DataContext = this;
 
                 //outerGrid.DataContext = actualEmployee;
 
+                
                 //Todo: CDC muss eine NxM werden
                 emplCdcIDComboBox.ItemsSource = entities.baCDC.ToList();
                 emplCdcIDComboBox.DisplayMemberPath = "cdcValue";
@@ -311,24 +315,97 @@ namespace HRON.Views.EmployeeViews
             }
         }
 
-        /*
-        private void CheckBoxBenefit_Checked(object sender, RoutedEventArgs e)
+        private void Files_Click(object sender, RoutedEventArgs e)
         {
-            CheckBox chk = (CheckBox)sender;
-            System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["employeeEmplSalaryViewSource"];
-            var o = myCollectionViewSource.View.CurrentItem;
-            if (o is EmplSalary)
+            EmplDocumentation doc = emplDocumentationDataGrid.SelectedItem as EmplDocumentation;
+            if(doc!=null)
             {
-                if(chk.IsChecked.HasValue && chk.IsChecked.Value)
-                   ((EmplSalary)o).baFringeBenefit.Add(new baFringeBenefit() { benefitID = (int)chk.Tag});
-                else
+                EmployeeEditFiles uef = new EmployeeEditFiles(mainWindow, entities, actualEmployee);
+                uef.addFilter(doc);
+                DialogHost.Show(uef);
+            }
+        }
+
+        private void AddCDCButton_Click(object sender, RoutedEventArgs e)
+        {
+            actualEmployee.EmplCDC.Add(new EmplCDC() { cdcStartingDate = DateTime.Now.Date });
+        }
+
+        private void emplCDCDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            createRestRow(dg);
+        }
+
+        private static void createRestRow(DataGrid dg)
+        {
+            if (dg.SelectedItem is EmplCDC)
+            {
+                EmplCDC ecdc = (EmplCDC)dg.SelectedItem;
+                decimal perc = ecdc.EmplCDCDetail.Where(e => e.cdc != null).Sum(em => em.cdcPercentage);
+                EmplCDCDetail d = ecdc.EmplCDCDetail.Where(e => e.cdc == null).FirstOrDefault();
+                if (perc != 100)
                 {
-                    var x = ((EmplSalary)o).baFringeBenefit.Where(f => f.benefitID == (int)chk.Tag);
-                    if (x.Count() > 0)
-                        ((EmplSalary)o).baFringeBenefit.Remove(x.First());
+                    if (d != null)
+                        d.cdcPercentage = 100 - perc;
+                    else
+                        ecdc.EmplCDCDetail.Add(new EmplCDCDetail() { cdcPercentage = 100 - perc, EmplCDC = ecdc });
+                }
+                else if (d != null)
+                    ecdc.EmplCDCDetail.Remove(d);
+            }
+        }
+
+        private void emplCDCDetailDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            createRestRow(emplCDCDataGrid);
+            //emplCDCDataGrid.Items.Refresh();
+        }
+
+        /*
+        private void emplCDCDetailDataGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            if (dg.SelectedItem is EmplCDCDetail)
+            {
+                EmplCDCDetail ecdc = (EmplCDCDetail)dg.SelectedItem;
+                if(ecdc.EmplCDC!=null && ecdc.EmplCDC.EmplCDCDetail!=null)
+                {
+                    decimal perc = ecdc.EmplCDC.EmplCDCDetail.Sum(em => em.cdcPercentage);
+                    if (perc < 100)
+                    {
+                        ecdc.EmplCDC.EmplCDCDetail.Add(new EmplCDCDetail() { cdcPercentage = 100 - perc, EmplCDC = ecdc.EmplCDC });
+                    }
                 }
             }
+        }
 
+        private void emplCDCDetailDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            if (dg.SelectedItem is EmplCDCDetail)
+            {
+                EmplCDCDetail ecdc = (EmplCDCDetail)dg.SelectedItem;
+                if (ecdc.EmplCDC != null && ecdc.EmplCDC.EmplCDCDetail != null)
+                {
+                    decimal perc = ecdc.EmplCDC.EmplCDCDetail.Sum(em => em.cdcPercentage);
+                    EmplCDCDetail d = ecdc.EmplCDC.EmplCDCDetail.Where(w => w.cdc == null).First();
+                    if (d != null)
+                    {
+                        d.cdcPercentage = 100 - perc;
+                    }
+                    else
+                    {
+                        if (perc < 100)
+                            ecdc.EmplCDC.EmplCDCDetail.Add(new EmplCDCDetail() { cdcPercentage = 100 - perc, EmplCDC = ecdc.EmplCDC });
+                        else
+                        {
+                            EmplCDCDetail oldRow = (EmplCDCDetail)e.OriginalSource;
+                            oldRow.cdcPercentage = 100 - perc;
+                        }
+                    }
+                }
+            }
         }
         */
     }

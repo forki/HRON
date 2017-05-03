@@ -36,5 +36,17 @@ namespace HRONLib
                 context.Configuration.ProxyCreationEnabled = proxyCreationEnabled;
             }
         }
+
+        public bool Equals(baseEntity e)
+        {
+            int[] keys = getKey();
+            int[] keys2 = e.getKey();
+            if (keys.Length != keys2.Length)
+                return false;
+            for (int i = 0; i < keys.Length; i++)
+                if (keys[i] != keys2[i])
+                    return false;
+            return true;
+        }
     }
 }
