@@ -1,5 +1,5 @@
 
-![]({{site.baseurl}}/HRON.png)
+![](HRON.png)
 # HRON
 
 The application was build with the need of having a central database for all employee data, manage HR masterdata, design and start onboarding workflows as well as monitor the assigned Tasks
@@ -10,4 +10,3 @@ The solution consists of 5 parts:
 - HRONWeb				Some Webpage for Approving pending Tasks
 - HRONWorkflowService	A WCF Project that hosts the main WF4.5 Workflows
 - [RehostedDesigner](https://github.com/orosandrei/Rehosted-Workflow-Designer/tree/master/RehostedDesigner)		A Project that permits designing the WF4.5 Workflows directly from the HRON main programm.
-
