@@ -1,13 +1,17 @@
 ﻿using HRON.Views;
 using HRONLib;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,10 +105,25 @@ namespace HRON.Views.EmployeeViews
 
                 entities.baCarPolicy.Load();
                 this.carPolicy = entities.baCarPolicy.Local;
+
                 entities.baCDC.Load();
                 DataGridComboBoxColumn cdcColumn = (DataGridComboBoxColumn)this.Resources["cdcColumn"];
                 cdcColumn.ItemsSource = entities.baCDC.Local;
 
+                entities.baWorkPlace.Load();
+                DataGridComboBoxColumn workPlaceColumn = (DataGridComboBoxColumn)this.Resources["workplaceColumn"];
+                workPlaceColumn.ItemsSource = entities.baWorkPlace.Local;
+
+                if (actualEmployee.emplPhoto != null && actualEmployee.emplPhoto.Length > 0)
+                    emplImage.Source = this.LoadImage(actualEmployee.emplPhoto);
+                else
+                {
+                    Bitmap bitmap = Properties.Resources.User;
+                    MemoryStream ms = new MemoryStream();
+                    ((System.Drawing.Bitmap)bitmap).Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    emplImage.Source = this.LoadImage(ms.ToArray());
+                    ms.Close();
+                }
                 this.DataContext = this;
 
                 //outerGrid.DataContext = actualEmployee;
@@ -328,7 +347,9 @@ namespace HRON.Views.EmployeeViews
 
         private void AddCDCButton_Click(object sender, RoutedEventArgs e)
         {
-            actualEmployee.EmplCDC.Add(new EmplCDC() { cdcStartingDate = DateTime.Now.Date });
+            EmplCDC c = new EmplCDC() { cdcStartingDate = DateTime.Now.Date };
+            actualEmployee.EmplCDC.Add(c);
+            this.emplCDCDataGrid.SelectedItem = c;
         }
 
         private void emplCDCDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -360,6 +381,46 @@ namespace HRON.Views.EmployeeViews
         {
             createRestRow(emplCDCDataGrid);
             //emplCDCDataGrid.Items.Refresh();
+        }
+
+        private BitmapImage LoadImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
+        }
+
+        private void btnEmpImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog newFile = new OpenFileDialog();
+            newFile.CheckFileExists = true;
+            newFile.Filter = "JPG|*.jpg;*.jpeg|PNG|*.png";
+            newFile.Multiselect = false;
+            newFile.Title = "Select an Image for your colleague";
+            if(newFile.ShowDialog().Value)
+            {
+                try
+                {
+                    byte[] b = File.ReadAllBytes(newFile.FileName);
+                    BitmapImage bi = LoadImage(b);
+                    emplImage.Source = bi;
+                    actualEmployee.emplPhoto = b;
+                }
+                catch (Exception){
+                    MessageBox.Show("File could not be loaded. Is this a Jpeg or Png document?");
+                }
+            }
         }
 
         /*
@@ -409,5 +470,5 @@ namespace HRON.Views.EmployeeViews
         }
         */
     }
-    
+
 }

@@ -20,6 +20,8 @@ namespace HRONLib
         [Key]
         public int workPlaceId { get; set; }
 
+        public string workPlaceCode { get; set; }
+
         public string workPlaceName { get; set; }
 
         public string workPlaceCity { get; set; }

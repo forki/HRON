@@ -92,6 +92,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -124,6 +125,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\Helper\ConfigHelper.cs" />
     <Compile Include="Views\Helper\DetailControl.cs" />
     <Compile Include="Views\Documentation.xaml.cs">
       <DependentUpon>Documentation.xaml</DependentUpon>
@@ -230,6 +232,7 @@
     <None Include="Properties\DataSources\GruberHRLib.Employee.datasource" />
     <None Include="Properties\DataSources\GruberHRLib.EmplWorkflows.datasource" />
     <None Include="Properties\DataSources\HRONLib.EmplCDC.datasource" />
+    <None Include="Properties\DataSources\HRONLib.EmplExpirations.datasource" />
     <None Include="Properties\DataSources\TrackerEnabledDbContext.Common.Models.AuditLog.datasource" />
     <None Include="Properties\DataSources\TrackerEnabledDbContext.Common.Models.AuditLogDetail.datasource" />
     <None Include="Properties\Settings.settings">
@@ -299,6 +302,15 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HRON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets" />

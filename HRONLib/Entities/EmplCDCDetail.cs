@@ -24,6 +24,11 @@ namespace HRONLib
         public EmplCDC EmplCDC { get; set; }
 
         [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public baWorkPlace EmplWorkplace { get; set; }
+
+        [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int cdcDetailRow { get; set; }

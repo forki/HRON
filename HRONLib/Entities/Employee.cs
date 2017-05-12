@@ -80,6 +80,8 @@ namespace HRONLib
 
         public string emplMobileNumberPrivate { get; set; }
 
+        public byte[] emplPhoto { get; set; }
+
         public virtual baBusinessUnitID baBusinessUnitID { get; set; }
 
         public virtual baContractType baContractType { get; set; }

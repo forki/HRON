@@ -44,7 +44,12 @@ namespace HRONLib
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmplSalary> EmplSalary { get; set; }
         public virtual DbSet<WFApprovals> WFApprovals { get; set; }
+        public virtual DbSet<baExpiration> baExpiration { get; set; }
+        public virtual DbSet<EmplExpirations> EmplExpirations { get; set; }
+        public virtual DbSet<EmplFringeBenefitDetail> EmplFringeBenefitDetail { get; set; }
         public virtual DbSet<EmplSalaryFringeBenefit> EmplSalaryFringeBenefit { get; set; }
+
+        public virtual DbSet<Config> Config { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -216,6 +221,21 @@ namespace HRONLib
                 .WithRequired(e => e.Employee)
                 .HasForeignKey(e => e.cdcEmplID);
 
+        }
+
+        public override int SaveChanges()
+        {
+            var trackables = ChangeTracker.Entries<baseEntity>();
+
+            if (trackables != null)
+            {
+                foreach (var item in trackables.Where(t => t.State == EntityState.Added))
+                    item.Entity.onInsert();
+                foreach (var item in trackables.Where(t => t.State == EntityState.Modified))
+                    item.Entity.onUpdate();
+            }
+
+            return base.SaveChanges();
         }
     }
 }

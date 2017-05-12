@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -18,9 +19,17 @@ namespace HRONLib
 
         public abstract int[] getKey();
 
+        [SkipTracking]
         public DateTime dateCreated { get; set; }
 
+        [SkipTracking]
         public string userCreated { get; set; }
+
+        [SkipTracking]
+        public DateTime dateModified { get; set; }
+
+        [SkipTracking]
+        public string userModified { get; set; }
 
         public virtual T UnProxy<T>(DbContext context) where T : class
         {
@@ -47,6 +56,18 @@ namespace HRONLib
                 if (keys[i] != keys2[i])
                     return false;
             return true;
+        }
+
+        public void onUpdate()
+        {
+            dateModified = DateTime.Now;
+            userModified = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+        }
+        public void onInsert()
+        {
+            dateCreated = DateTime.Now;
+            userCreated = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            onUpdate();
         }
     }
 }

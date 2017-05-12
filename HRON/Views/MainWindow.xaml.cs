@@ -25,6 +25,7 @@ using HRONLib;
 using System.IO;
 using RehostedWorkflowDesigner.Views;
 using HRON.Views.EmployeeViews;
+using HRON.Views.Helper;
 
 namespace HRON.Views
 {
@@ -59,6 +60,10 @@ namespace HRON.Views
                 System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["wfViewSource"];
                 entities.baWorkflows.Load();
                 myCollectionViewSource.Source = entities.baWorkflows.Local;
+
+                String o = ConfigHelper.getString("App", "Title");
+                if (o != null)
+                    AppTitle.Text = o;
             }
             catch (Exception e)
             {
@@ -94,6 +99,7 @@ namespace HRON.Views
             setMasterdataSets("baUserGroup", "masterDatabaUserGroup");
             setMasterdataSets("baDocumentation", "masterDatabaDocumentation");
             setMasterdataSets("baWorkflows", "masterDatabaWorkflows");
+            setMasterdataSets("Config", "Config");
         }
 
 
@@ -169,6 +175,7 @@ namespace HRON.Views
                 case "baWorkflows": addTabx<baWorkflows>(rg.Key); break;
                 case "baUserGroup": addTabx<baUserGroup>(rg.Key); break;
                 case "baDocumentation": addTabx<baDocumentation>(rg.Key); break;
+                case "Config": addTabx<Config>(rg.Key); break;
                 default: throw new Exception("MasterdataTable not implemented (" + rg.Key + ")");
             }
             lb.UnselectAll();

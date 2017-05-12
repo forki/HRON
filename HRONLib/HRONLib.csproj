@@ -93,9 +93,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\baExpiration.cs" />
+    <Compile Include="Entities\Config.cs" />
     <Compile Include="Entities\baCompany.cs" />
     <Compile Include="Entities\baseEntity.cs" />
     <Compile Include="Entities\EmplCDCDetail.cs" />
+    <Compile Include="Entities\EmplExpirations.cs" />
     <Compile Include="Entities\EmplDocumentation.cs" />
     <Compile Include="Entities\baDocumentation.cs" />
     <Compile Include="Entities\EmplFiles.cs" />
@@ -123,6 +126,7 @@
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\baWorkflows.cs" />
     <Compile Include="Entities\EmplCDC.cs" />
+    <Compile Include="Entities\EmplFringeBenefitDetail.cs" />
     <Compile Include="Entities\EmplWorkflows.cs" />
     <Compile Include="Entities\EmplSalary.cs" />
     <Compile Include="Entities\EmplSalaryFringeBenefit.cs" />
@@ -212,6 +216,18 @@
     <Compile Include="Migrations\201705031719597_bacompany2.Designer.cs">
       <DependentUpon>201705031719597_bacompany2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705052025285_config.cs" />
+    <Compile Include="Migrations\201705052025285_config.Designer.cs">
+      <DependentUpon>201705052025285_config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705121813458_expire.cs" />
+    <Compile Include="Migrations\201705121813458_expire.Designer.cs">
+      <DependentUpon>201705121813458_expire.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705121907198_EmployeeImage.cs" />
+    <Compile Include="Migrations\201705121907198_EmployeeImage.Designer.cs">
+      <DependentUpon>201705121907198_EmployeeImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -291,6 +307,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705031719597_bacompany2.resx">
       <DependentUpon>201705031719597_bacompany2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705052025285_config.resx">
+      <DependentUpon>201705052025285_config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121813458_expire.resx">
+      <DependentUpon>201705121813458_expire.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121907198_EmployeeImage.resx">
+      <DependentUpon>201705121907198_EmployeeImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

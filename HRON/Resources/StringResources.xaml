@@ -5,6 +5,7 @@
     <system:String x:Key="AppTitle">HR ON Boarding</system:String>
     <system:String x:Key="MasterDataTables">Master Data Tables</system:String>
     <system:String x:Key="Workflows">Workflows</system:String>
+    <system:String x:Key="Config">Configuration</system:String>
     <system:String x:Key="employeeTableColumnemplID">ID</system:String>
     <system:String x:Key="employeeTableColumnemplLastName">LastName</system:String>
     <system:String x:Key="employeeTableColumnemplFirstAndLastName">Firstname Lastname</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="EmplloyeeWindowCostCenter">Cost Center</system:String>
     <system:String x:Key="EmplloyeeWindowContract">Contract</system:String>
     <system:String x:Key="EmplloyeeWindowDocuments">Documents</system:String>
+    <system:String x:Key="EmplloyeeWindowExpiration">Expiration</system:String>
     <system:String x:Key="EmplloyeeWindowFunctions">Functions</system:String>
     <system:String x:Key="EmplloyeeWindowCompanyRights">Company Rights</system:String>
     <system:String x:Key="EmplloyeeWindowTimeData">Time Data</system:String>

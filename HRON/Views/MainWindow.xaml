@@ -63,7 +63,7 @@
             </materialDesign:DrawerHost.LeftDrawerContent>
             <DockPanel>
                 <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                            Mode="PrimaryMid" DockPanel.Dock="Top">
+                                            Mode="PrimaryDark" DockPanel.Dock="Top">
                     <DockPanel>
                         <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
                                         x:Name="MenuToggleButton"/>
@@ -81,7 +81,10 @@
                                 </ComboBox>
                             </StackPanel>
                         </materialDesign:PopupBox>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{DynamicResource AppTitle}"></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image Name="icon" Source="../Resources/HRON.png" Height="36" Margin="10 0"></Image>
+                            <TextBlock VerticalAlignment="Center" FontSize="22" Name="AppTitle" Text="{DynamicResource AppTitle}"></TextBlock>
+                        </StackPanel>
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <Grid>
@@ -105,10 +108,9 @@
 
                                 <materialDesign:Card Width="420" Margin="4 2 8 16" Height="270" Grid.Column="1" Grid.Row="1">
                                     <StackPanel>
-                                        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                            Mode="Light">
+                                        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryLight" >
                                             <StackPanel Orientation="Horizontal" >
-                                                <materialDesign:PackIcon Kind="AccountCircle" Height="48" Width="48" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                                <materialDesign:PackIcon  Kind="AccountCircle" Height="48" Width="48" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
                                                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="10">Employee Dashboard</TextBlock>
                                             </StackPanel>
                                         </materialDesign:ColorZone>
@@ -118,7 +120,7 @@
                                 <materialDesign:Card Width="420" Margin="4 2 8 16" Height="270" Grid.Column="3" Grid.Row="1">
                                     <StackPanel>
                                         <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                            Mode="Dark">
+                                            Mode="PrimaryLight">
                                             <StackPanel Orientation="Horizontal" >
                                                 <materialDesign:PackIcon Kind="AccountPlus" Height="48" Width="48" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
                                                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="10">Onboarding</TextBlock>

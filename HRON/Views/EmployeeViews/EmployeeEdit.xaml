@@ -35,15 +35,18 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="baCDCViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baCDC}, CreateList=True}"/>
         <DataGridComboBoxColumn x:Key="cdcColumn" x:Name="cdcColumn" ItemsSource="{Binding baCDC, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding cdc}" Header="CDC" Width="SizeToCells" DisplayMemberPath="cdcDescription" MinWidth="100"/>
+        <DataGridComboBoxColumn x:Key="workplaceColumn" x:Name="workplaceColumn" ItemsSource="{Binding baWorkPlace, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding EmplWorkplace}" Header="Workplace" Width="SizeToCells" DisplayMemberPath="workPlaceName" MinWidth="100"/>
+        <DataGridComboBoxColumn x:Key="expColumn" x:Name="expColumn" ItemsSource="{Binding baExpiration, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding baExpiration}" Header="Expiration" Width="SizeToCells" DisplayMemberPath="expDescription" MinWidth="100"/>
+        <CollectionViewSource x:Key="emplExpirationsViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:EmplExpirations}, CreateList=True}"/>
     </UserControl.Resources>
 
     <DockPanel AllowDrop="True" Drop="DockPanel_Drop" Name="OuterDockPanel">
         <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Center" Orientation="Horizontal">
             <ToolBar>
-                <Button Click="save_click">
+                <Button Click="save_click" Style="{StaticResource MaterialDesignRaisedButton}">
                     <materialDesign:PackIcon Kind="ContentSave"/>
                 </Button>
-                <Button Name="startWorkflow" Click="Workflow_Click">
+                <Button Name="startWorkflow" Click="Workflow_Click" >
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ArrowAll"></materialDesign:PackIcon>
                         <Label Content="{StaticResource Workflows}"/>
@@ -67,6 +70,7 @@
             <Grid x:Name="outerGrid" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{StaticResource employeeViewSource}" d:DataContext="{d:DesignInstance Type=localLib:Employee, IsDesignTimeCreatable=False}">
 
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -257,6 +261,7 @@
                                     <DataGrid x:Name="emplCDCDetailDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding SelectedItem.EmplCDCDetail, ElementName=emplCDCDataGrid}" SelectedCellsChanged="emplCDCDetailDataGrid_SelectedCellsChanged" Margin="100 0">
                                         <DataGrid.Columns>
                                             <StaticResource ResourceKey="cdcColumn"/>
+                                            <StaticResource ResourceKey="workplaceColumn"/>
                                             <DataGridTextColumn x:Name="cdcPercentageColumn" Binding="{Binding cdcPercentage}" Header="CDC Percentage" Width="SizeToHeader" />
                                         </DataGrid.Columns>
                                     </DataGrid>
@@ -266,248 +271,273 @@
                     </materialDesign:Card>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="0">
+                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                    <StackPanel>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="FileDocument" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowContract}"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <Grid x:Name="gridContract" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="{StaticResource employeeTableColumnemplTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="emplTypeIDComboBox" Grid.Column="1" SelectedValue="{Binding emplTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="3" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplLevelID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="emplLevelIDComboBox" Grid.Column="1" SelectedValue="{Binding emplLevelID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="1" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplProbationaryEnd}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                                    <DatePicker x:Name="emplProbationaryEndDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" SelectedDate="{Binding emplProbationaryEnd, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                                    <Label Content="{StaticResource employeeTableColumnemplContractTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="emplContractTypeIDComboBox" SelectedValue="{Binding emplContractTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplWorkEndDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                                    <DatePicker x:Name="emplWorkEndDateDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" SelectedDate="{Binding emplWorkEndDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                                    <Label Content="{StaticResource employeeTableColumnemplWorkStartDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+                                    <DatePicker x:Name="emplWorkStartDateDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" SelectedDate="{Binding emplWorkStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Expander>
+                        </materialDesign:Card>
 
-                    <materialDesign:Card Margin="5">
-                        <Expander>
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="FileDocument" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowContract}"/>
-                                </StackPanel>
-                            </Expander.Header>
-                            <Grid x:Name="gridContract" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Content="{StaticResource employeeTableColumnemplTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="emplTypeIDComboBox" Grid.Column="1" SelectedValue="{Binding emplTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="3" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplLevelID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="emplLevelIDComboBox" Grid.Column="1" SelectedValue="{Binding emplLevelID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="1" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplProbationaryEnd}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-                                <DatePicker x:Name="emplProbationaryEndDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" SelectedDate="{Binding emplProbationaryEnd, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                                <Label Content="{StaticResource employeeTableColumnemplContractTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="emplContractTypeIDComboBox" SelectedValue="{Binding emplContractTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="3" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplWorkEndDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-                                <DatePicker x:Name="emplWorkEndDateDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" SelectedDate="{Binding emplWorkEndDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                                <Label Content="{StaticResource employeeTableColumnemplWorkStartDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-                                <DatePicker x:Name="emplWorkStartDateDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" SelectedDate="{Binding emplWorkStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            </Grid>
-                        </Expander>
-                    </materialDesign:Card>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Timetable" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowTimeData}"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <Grid x:Name="gridTime" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="{StaticResource employeeTableColumnemplTimeTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="emplTimeTypeIDComboBox" Grid.Column="1" SelectedValue="{Binding emplTimeTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120" />
+                                    <Label Content="{StaticResource employeeTableColumnemplTimePercentage}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="emplTimePercentageTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding emplTimePercentage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                                </Grid>
+                            </Expander>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Briefcase" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource employeeTableColumnemplManagerID}"></TextBlock>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <Grid x:Name="GridOrga" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Content="{StaticResource employeeTableColumnemplCdcID}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0" Height="26" Width="77"/>
+                                    <ComboBox x:Name="emplCdcIDComboBox" Grid.Column="1" Grid.Row="0" SelectedValue="{Binding emplCdcID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="0" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplCountryID}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="99"/>
+                                    <ComboBox x:Name="emplCountryIDComboBox" Grid.Column="1" Grid.Row="1" SelectedValue="{Binding emplCountryID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplWorkPlaceID}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="116"/>
+                                    <ComboBox x:Name="emplWorkPlaceIDComboBox" Grid.Column="1" Grid.Row="2" SelectedValue="{Binding emplWorkPlaceID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplBusinessUnitID}" Grid.Column="0" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="emplBusinessUnitIDComboBox" Grid.Column="1" Grid.Row="3" SelectedValue="{Binding emplBusinessUnitID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplJobTitleID}" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="101"/>
+                                    <ComboBox x:Name="emplJobTitleIDComboBox" Grid.Column="1" Grid.Row="4" SelectedValue="{Binding emplJobTitleID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplSpecializationID}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="130"/>
+                                    <ComboBox x:Name="emplSpecializationIDComboBox" Grid.Column="1" Grid.Row="5" SelectedValue="{Binding emplSpecializationID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Label Content="{StaticResource employeeTableColumnemplManagerID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="emplManagerIDComboBox" Grid.Column="1" SelectedValue="{Binding emplManagerID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center" Width="120">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </Grid>
+                            </Expander>
+                        </materialDesign:Card>
 
-                    <materialDesign:Card Margin="5">
-                        <Expander IsExpanded="true">
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="FileDocument" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowDocuments}"/>
-                                </StackPanel>
-                            </Expander.Header>
-                            <DataGrid x:Name="emplDocumentationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource employeeEmplDocumentationViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
-                                <DataGrid.Columns>
-                                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource baDocumentationViewSource}}" x:Name="documentationIDColumn" Header="Document" Width="SizeToHeader" DisplayMemberPath="documentationDescription" SelectedValuePath="documentationID" SelectedValueBinding="{Binding documentationID, UpdateSourceTrigger=PropertyChanged}" />
-                                    <DataGridCheckBoxColumn x:Name="requiredSignature" Binding="{Binding required}" Header="Signature Required" />
-                                    <DataGridTemplateColumn x:Name="dateSignatureColumn" Header="date Signature" Width="SizeToHeader">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <DatePicker SelectedDate="{Binding dateSignature, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding EmplFiles.Count}" Header="N° Files" />
-                                    <DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Name="Files" Click="Files_Click" Content="Files"></Button>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Expander>
-                    </materialDesign:Card>
+                    </StackPanel>
+                    <StackPanel>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="FileDocument" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowDocuments}"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <DataGrid x:Name="emplDocumentationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource employeeEmplDocumentationViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
+                                    <DataGrid.Columns>
+                                        <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource baDocumentationViewSource}}" x:Name="documentationIDColumn" Header="Document" Width="SizeToHeader" DisplayMemberPath="documentationDescription" SelectedValuePath="documentationID" SelectedValueBinding="{Binding documentationID, UpdateSourceTrigger=PropertyChanged}" />
+                                        <DataGridCheckBoxColumn x:Name="requiredSignature" Binding="{Binding required}" Header="Signature Required" />
+                                        <DataGridTemplateColumn x:Name="dateSignatureColumn" Header="date Signature" Width="SizeToHeader">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker SelectedDate="{Binding dateSignature, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding EmplFiles.Count}" Header="N° Files" />
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Name="Files" Click="Files_Click" Content="Files"></Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </materialDesign:Card>
 
-                    <materialDesign:Card Margin="5">
-                        <Expander>
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="Function" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowFunctions}"/>
-                                </StackPanel>
-                            </Expander.Header>
-                            <StackPanel Margin="20,5,20,0" Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <!-- Comment Out for DesignSource error -->
-                                <ListBox ItemsSource="{Binding EmplFunctions}" HorizontalAlignment="Left" Margin="5" Name="listFunctions" VerticalAlignment="Top">
-                                    <ListBox.ItemTemplate>
-                                        <HierarchicalDataTemplate>
-                                            <CheckBox Content="{Binding baFunctions.funcDescription}" IsChecked="{Binding Path=value}" />
-                                        </HierarchicalDataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </Expander>
-                    </materialDesign:Card>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Timelapse" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowExpiration}"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <DataGrid x:Name="emplExpirationsDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected"  DataContext="{StaticResource emplExpirationsViewSource}">
+                                    <DataGrid.Columns>
+                                        <StaticResource ResourceKey="expColumn" />
+                                        <DataGridTemplateColumn x:Name="startDateColumn" Header="start Date" Width="SizeToHeader">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker SelectedDate="{Binding startDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </materialDesign:Card>
 
-                    <materialDesign:Card Margin="5">
-                        <Expander>
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="Earth" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowCompanyRights}"/>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Function" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowFunctions}"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <StackPanel Margin="20,5,20,0" Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+                                    <!-- Comment Out for DesignSource error -->
+                                    <ListBox ItemsSource="{Binding EmplFunctions}" HorizontalAlignment="Left" Margin="5" Name="listFunctions" VerticalAlignment="Top">
+                                        <ListBox.ItemTemplate>
+                                            <HierarchicalDataTemplate>
+                                                <CheckBox Content="{Binding baFunctions.funcDescription}" IsChecked="{Binding Path=value}" />
+                                            </HierarchicalDataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
                                 </StackPanel>
-                            </Expander.Header>
-                            <StackPanel Margin="20,5,20,0" Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <!-- Comment Out for DesignSource error -->
-                                <ListBox ItemsSource="{Binding EmplCompanyRights}" HorizontalAlignment="Left" Margin="5" Name="listCompanyRights" VerticalAlignment="Top">
-                                    <ListBox.ItemTemplate>
-                                        <HierarchicalDataTemplate>
-                                            <CheckBox Content="{Binding baCompanyRights.compDescription}" IsChecked="{Binding Path=value}" />
-                                        </HierarchicalDataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </Expander>
-                    </materialDesign:Card>
-                    <materialDesign:Card Margin="5">
-                        <Expander>
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="Timetable" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowTimeData}"/>
+                            </Expander>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="5">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Earth" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowCompanyRights}"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <StackPanel Margin="20,5,20,0" Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+                                    <!-- Comment Out for DesignSource error -->
+                                    <ListBox ItemsSource="{Binding EmplCompanyRights}" HorizontalAlignment="Left" Margin="5" Name="listCompanyRights" VerticalAlignment="Top">
+                                        <ListBox.ItemTemplate>
+                                            <HierarchicalDataTemplate>
+                                                <CheckBox Content="{Binding baCompanyRights.compDescription}" IsChecked="{Binding Path=value}" />
+                                            </HierarchicalDataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
                                 </StackPanel>
-                            </Expander.Header>
-                            <Grid x:Name="gridTime" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Content="{StaticResource employeeTableColumnemplTimeTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="emplTimeTypeIDComboBox" Grid.Column="1" SelectedValue="{Binding emplTimeTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120" />
-                                <Label Content="{StaticResource employeeTableColumnemplTimePercentage}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-                                <TextBox x:Name="emplTimePercentageTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding emplTimePercentage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-                            </Grid>
-                        </Expander>
-                    </materialDesign:Card>
-
-                    <materialDesign:Card Margin="5">
-                        <Expander>
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="Briefcase" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource employeeTableColumnemplManagerID}"></TextBlock>
-                                </StackPanel>
-                            </Expander.Header>
-                            <Grid x:Name="GridOrga" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Label Content="{StaticResource employeeTableColumnemplCdcID}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0" Height="26" Width="77"/>
-                                <ComboBox x:Name="emplCdcIDComboBox" Grid.Column="1" Grid.Row="0" SelectedValue="{Binding emplCdcID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="0" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplCountryID}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="99"/>
-                                <ComboBox x:Name="emplCountryIDComboBox" Grid.Column="1" Grid.Row="1" SelectedValue="{Binding emplCountryID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplWorkPlaceID}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="116"/>
-                                <ComboBox x:Name="emplWorkPlaceIDComboBox" Grid.Column="1" Grid.Row="2" SelectedValue="{Binding emplWorkPlaceID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplBusinessUnitID}" Grid.Column="0" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="emplBusinessUnitIDComboBox" Grid.Column="1" Grid.Row="3" SelectedValue="{Binding emplBusinessUnitID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplJobTitleID}" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="101"/>
-                                <ComboBox x:Name="emplJobTitleIDComboBox" Grid.Column="1" Grid.Row="4" SelectedValue="{Binding emplJobTitleID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplSpecializationID}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="130"/>
-                                <ComboBox x:Name="emplSpecializationIDComboBox" Grid.Column="1" Grid.Row="5" SelectedValue="{Binding emplSpecializationID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                                <Label Content="{StaticResource employeeTableColumnemplManagerID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="emplManagerIDComboBox" Grid.Column="1" SelectedValue="{Binding emplManagerID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center" Width="120">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                            </Grid>
-                        </Expander>
-                    </materialDesign:Card>
+                            </Expander>
+                        </materialDesign:Card>
+                    </StackPanel>
                 </StackPanel>
 
                 <materialDesign:Card Margin="5" Grid.Column="0">
@@ -598,6 +628,9 @@
                         </Grid>
                     </Expander>
                 </materialDesign:Card>
+                <Button Name="btnEmpImage" Grid.Column="2" Height="200" Width="200" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Top" Click="btnEmpImage_Click">
+                    <Image x:Name="emplImage" VerticalAlignment="Top"/>
+                </Button>
             </Grid>
         </ScrollViewer>
     </DockPanel>
