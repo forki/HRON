@@ -37,6 +37,7 @@ namespace HRON.Views.EmployeeViews
         MainWindow mainWindow = null;
         Employee actualEmployee = null;
         EmplSalary actualSalaryRow = null;
+        public static RoutedCommand saveCommand = new RoutedCommand();
 
         protected Visibility isInDesignerMode
         {
@@ -63,6 +64,8 @@ namespace HRON.Views.EmployeeViews
         public EmployeeEdit(MainWindow main, int EmployeeId)
         {
             InitializeComponent();
+            saveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+
             this.entities = new HRONEntities();
             this.mainWindow = main;
 
@@ -110,6 +113,10 @@ namespace HRON.Views.EmployeeViews
                 DataGridComboBoxColumn cdcColumn = (DataGridComboBoxColumn)this.Resources["cdcColumn"];
                 cdcColumn.ItemsSource = entities.baCDC.Local;
 
+                entities.baExpiration.Load();
+                DataGridComboBoxColumn expColumn = (DataGridComboBoxColumn)this.Resources["expColumn"];
+                expColumn.ItemsSource = entities.baExpiration.Local;
+
                 entities.baWorkPlace.Load();
                 DataGridComboBoxColumn workPlaceColumn = (DataGridComboBoxColumn)this.Resources["workplaceColumn"];
                 workPlaceColumn.ItemsSource = entities.baWorkPlace.Local;
@@ -127,12 +134,6 @@ namespace HRON.Views.EmployeeViews
                 this.DataContext = this;
 
                 //outerGrid.DataContext = actualEmployee;
-
-                
-                //Todo: CDC muss eine NxM werden
-                emplCdcIDComboBox.ItemsSource = entities.baCDC.ToList();
-                emplCdcIDComboBox.DisplayMemberPath = "cdcValue";
-                emplCdcIDComboBox.SelectedValuePath = "cdcID";
 
                 emplBusinessUnitIDComboBox.ItemsSource = entities.baBusinessUnitID.ToList();
                 emplBusinessUnitIDComboBox.DisplayMemberPath = "businessUnitDescription";
@@ -176,7 +177,11 @@ namespace HRON.Views.EmployeeViews
 
                 emplWorkPlaceIDComboBox.ItemsSource = entities.baWorkPlace.ToList();
                 emplWorkPlaceIDComboBox.DisplayMemberPath = "workPlaceName";
-                emplWorkPlaceIDComboBox.SelectedValuePath = "workPlaceID";
+                emplWorkPlaceIDComboBox.SelectedValuePath = "workPlaceId";
+
+                emplManagerIDComboBox.ItemsSource = entities.Employee.ToList().OrderBy(o => o.FullName);
+                emplManagerIDComboBox.DisplayMemberPath = "FullName";
+                emplManagerIDComboBox.SelectedValuePath = "emplID";
 
                 foreach (baFunctions f in entities.baFunctions)
                     if (actualEmployee.EmplFunctions.Where(x => x.emplFuncID == f.funcID).Count() == 0)
@@ -189,10 +194,18 @@ namespace HRON.Views.EmployeeViews
             }
         }
 
-        private void save_click(object sender, RoutedEventArgs e)
+        private void saveCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             try
             {
+                // Be shure that the actual field is saved...
+                // We leave the field and go to the next, so the binding will be updated
+                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+
+                if (keyboardFocus != null)
+                    keyboardFocus.MoveFocus(tRequest);
+
                 entities.SaveChanges();
                 mainWindow.closeTab(this);
             }
@@ -320,19 +333,24 @@ namespace HRON.Views.EmployeeViews
             DialogHost.Show(new showHistory(mainWindow, entities, actualEmployee.GetType().BaseType, actualEmployee.emplID.ToString()));
         }
 
-        private void FamiliyInfoButton_Click(object sender, RoutedEventArgs e)
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            if(emplFamilyDataGrid.SelectedItem is EmplFamily)
+            if (!(sender is DataGrid))
+                return;
+
+            DataGrid dg = (DataGrid)sender;
+            if (dg.SelectedItem is baseEntity)
             {
-                EmplFamily fam = (EmplFamily)emplFamilyDataGrid.SelectedItem;
-                DialogHost.Show(new showHistory(mainWindow, entities, fam.GetType().BaseType, showHistory.GetPrimaryKeyValuesOf(new string[] { fam.emplID.ToString(), fam.famID.ToString() })));
-            }
-            if (emplFamilyDataGrid.SelectedItem is EmplSalary)
-            {
-                EmplSalary fam = (EmplSalary)emplFamilyDataGrid.SelectedItem;
-                DialogHost.Show(new showHistory(mainWindow, entities, fam.GetType().BaseType, showHistory.GetPrimaryKeyValuesOf(new string[] { fam.salEmplID.ToString(), fam.salID.ToString() })));
+                baseEntity fam = (baseEntity)dg.SelectedItem;
+                int[] k = fam.getKey();
+                string[] keys = new string[k.Length];
+                int x = 0;
+                foreach (int i in k)
+                    keys[x++] = i.ToString();
+                DialogHost.Show(new showHistory(mainWindow, entities, fam.GetType().BaseType, showHistory.GetPrimaryKeyValuesOf(keys)));
             }
         }
+
 
         private void Files_Click(object sender, RoutedEventArgs e)
         {

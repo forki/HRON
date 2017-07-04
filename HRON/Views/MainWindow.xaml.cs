@@ -26,36 +26,76 @@ using System.IO;
 using RehostedWorkflowDesigner.Views;
 using HRON.Views.EmployeeViews;
 using HRON.Views.Helper;
+using System.ComponentModel;
+using MaterialDesignThemes.Wpf;
 
 namespace HRON.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         protected HRONEntities entities = new HRONEntities();
         public Dictionary<String, String> masterDataSets { get; set; }
+        public string lblUser { get; set; }
+        public string lblUserRight { get; set; }
+        private bool _isMenuOpen;
+        public Dictionary<string, string> languages { get; set; }
+
+        public SnackbarMessageQueue MyMessageQueue { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public static RoutedCommand searchCommand = new RoutedCommand();
+        public static RoutedCommand openEmployeeListCommand = new RoutedCommand();
+
+        public bool isMenuOpen {
+            get { return _isMenuOpen; }
+            set {
+                _isMenuOpen = value;
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("isMenuOpen"));
+            }
+        }
+        private string _actualLanguage;
+        public string actualLanguage
+        {
+            get { return _actualLanguage; }
+            set
+            {
+                _actualLanguage = value;
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("actualLanguage"));
+            }
+        }
 
         public MainWindow()
         {
-            masterDataSets= new Dictionary<string, String>();
+            MyMessageQueue = new SnackbarMessageQueue();
+            searchCommand.InputGestures.Add(new KeyGesture(Key.F, ModifierKeys.Control));
+            openEmployeeListCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
+            masterDataSets = new Dictionary<string, String>();
             SetLanguageDictionary();
             setMasterdataSets();
 
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             //FillAll(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             try
             {
                 string usr = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                var user = entities.baUser.Where(u => u.userID == usr).First();
+                var user = entities.baUser.Where(u => u.userID == usr).FirstOrDefault();
+                if (user == null)
+                    throw new Exception("Username not found!");
 
-                lblUser.Content = user.userID;
-                lblUserRight.Content = user.baUserGroup.userGroupDescription;
+                lblUser = user.userID;
+                lblUserRight = user.baUserGroup.userGroupDescription;
                 String lang = Thread.CurrentThread.CurrentCulture.ToString();
-                foreach (ComboBoxItem cbi in lblUserLocale.Items)
+                /*foreach (ComboBoxItem cbi in lblUserLocale.Items)
                     if (lang.StartsWith(cbi.Tag.ToString()))
                     {
                         lblUserLocale.SelectedItem = cbi;
                         break;
                     }
+                */
 
                 System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["wfViewSource"];
                 entities.baWorkflows.Load();
@@ -63,11 +103,11 @@ namespace HRON.Views
 
                 String o = ConfigHelper.getString("App", "Title");
                 if (o != null)
-                    AppTitle.Text = o;
+                    this.Title = o;
             }
             catch (Exception e)
             {
-                MessageBox.Show("Not autorized to access - " + e.Message);
+                MessageBox.Show("Not autorized to access - " + e.Message + Environment.NewLine + e.StackTrace);
                 //this.Close();
             }
         }
@@ -116,17 +156,22 @@ namespace HRON.Views
 
         private void SetLanguageDictionary()
         {
+            languages = new Dictionary<string, string>() { { "de", "Deutsch" }, { "it", "Italienisch" }, { "en", "English" }, };
+
             switch (Thread.CurrentThread.CurrentCulture.ToString())
             {
                 case "de-AT":
                 case "de-DE":
                     ChangeResources("de");
+                    actualLanguage = "de";
                     break;
                 case "it-IT":
                     ChangeResources("it");
+                    actualLanguage = "it";
                     break;
                 default:
                     ChangeResources("");
+                    actualLanguage = "en";
                     break;
             }
         }
@@ -141,7 +186,7 @@ namespace HRON.Views
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
 
-            MenuToggleButton.IsChecked = false;
+            //MenuToggleButton.IsChecked = false;
         }
 
         private void MasterdataListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -178,14 +223,14 @@ namespace HRON.Views
                 case "Config": addTabx<Config>(rg.Key); break;
                 default: throw new Exception("MasterdataTable not implemented (" + rg.Key + ")");
             }
+            isMenuOpen = false;
             lb.UnselectAll();
         }
 
         private void lblUserLocale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
-            ComboBoxItem cbi = ((ComboBoxItem)cb.SelectedItem);
-            ChangeResources(cbi.Tag.ToString());
+            ChangeResources((String)cb.SelectedValue);
         }
 
         private void ChangeResources(string cbi)
@@ -212,10 +257,10 @@ namespace HRON.Views
             addTab(ue, "test 2");
         }
 
-        private void btnEmploy_click(object sender, RoutedEventArgs e)
+        private EmployeeList OpenEmployeeTab()
         {
             EmployeeList ul = new EmployeeList(this);
-            addTab(ul, "Employee's");
+            return (EmployeeList)addTab(ul, "Employee's");
         }
 
         public void closeTab(UserControl ctr)
@@ -237,7 +282,7 @@ namespace HRON.Views
             addTab(new MasterData<DbSet<T>, T>((DbSet<T>)p.GetValue(ent), ent), masterDataSets[entity]);
         }
 
-        public void addTab(UserControl ctr, string header)
+        public object addTab(UserControl ctr, string header)
         {
             if(tabControl.Items!=null)
                 foreach(object o in tabControl.Items)
@@ -245,7 +290,7 @@ namespace HRON.Views
                     if(o is TabItem && ((TabItem)o).Header.ToString()==header)
                     {
                         tabControl.SelectedItem = o;
-                        return;
+                        return ((TabItem)o).Content;
                     }
                 }
 
@@ -254,6 +299,7 @@ namespace HRON.Views
             ti.Content = ctr;
 
             tabControl.SelectedIndex = tabControl.Items.Add(ti);
+            return ctr;
         }
 
         private void btnWfDesigner_Click(object sender, RoutedEventArgs e)
@@ -290,6 +336,60 @@ namespace HRON.Views
 
         private void _mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            Style _style = null;
+            if (Microsoft.Windows.Shell.SystemParameters2.Current.IsGlassEnabled == true)
+            {
+                _style = (Style)Resources["CustomWindowStyle"];
+            }
+            this.Style = _style;
+        }
+        private void PART_TITLEBAR_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void PART_CLOSE_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void PART_MAXIMIZE_RESTORE_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
+        }
+
+        private void PART_MINIMIZE_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
+        private void PART_TITLEBAR_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PART_MAXIMIZE_RESTORE_Click(sender, e);
+        }
+
+        private void searchCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            EmployeeList list = OpenEmployeeTab();
+            list.focusSearch();
+        }
+
+        private void openEmployeeListCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenEmployeeTab();
+        }
+
+        private void importPhotos_Click(object sender, RoutedEventArgs e)
+        {
+            ImportPhoto ip = new ImportPhoto();
+            DialogHost.Show(ip);
         }
     }
 }

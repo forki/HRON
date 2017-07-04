@@ -14,7 +14,7 @@ namespace HRONWorkflowService
             exch.UseDefaultCredentials = false;
             exch.Credentials = new WebCredentials(user, password);
             //exch.AutodiscoverUrl(user);
-            exch.Url = new Uri("https://mail.***REMOVED***/EWS/Exchange.asmx");
+            exch.Url = new Uri("https://mail.gruber-logistics.com/EWS/Exchange.asmx");
 
             return exch;
         }

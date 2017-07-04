@@ -52,7 +52,7 @@ namespace Test
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             ServiceReference2.ApprovalServiceClient cli = new ServiceReference2.ApprovalServiceClient();
-            var ret = cli.startApprovalProcess("***REMOVED***", "hallo Günther " + Environment.NewLine + "Wie gehts?", "New Approval Process", new TimeSpan(0, 30, 0));
+            var ret = cli.startApprovalProcess("guenther.erb@gruber-logistics.com", "hallo Günther " + Environment.NewLine + "Wie gehts?", "New Approval Process", new TimeSpan(0, 30, 0));
             id = ret.WFID;
             activityID = ret.ActivityID;
         }
@@ -68,7 +68,7 @@ namespace Test
         private void button4_Click(object sender, RoutedEventArgs e)
         {
             ServiceReference3.ApprovalServiceClient cli = new ServiceReference3.ApprovalServiceClient();
-            var x = cli.getApprovalInstances("***REMOVED***");
+            var x = cli.getApprovalInstances("guenther.erb@gruber-logistics.com");
             dataGrid.DataContext = x;
         }
 

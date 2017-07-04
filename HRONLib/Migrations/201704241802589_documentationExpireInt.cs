@@ -7,7 +7,8 @@ namespace HRONLib.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.baDocumentation", "documentationExpireTime", c => c.Int(nullable: false));
+            DropColumn("dbo.baDocumentation", "documentationExpireTime");
+            AddColumn("dbo.baDocumentation", "documentationExpireTime", c => c.Int(nullable: false));
         }
         
         public override void Down()

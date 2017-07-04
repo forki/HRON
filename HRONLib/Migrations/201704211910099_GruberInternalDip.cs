@@ -3,7 +3,7 @@ namespace HRONLib.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ***REMOVED*** : DbMigration
+    public partial class GruberInternalDip : DbMigration
     {
         public override void Up()
         {

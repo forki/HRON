@@ -65,12 +65,31 @@ namespace HRON.Views.EmployeeViews
         {
             var item = (sender as ListView).SelectedItem;
             if (item != null && item is Employee)
+                openEmployeeDetail((Employee)item);
+        }
+
+        private void openEmployeeDetail(Employee em)
+        {
+            EmployeeEdit ue = new EmployeeEdit(this.mainWindow, em.emplID);
+            ue.UserSaved += Ue_UserSaved;
+            this.mainWindow.addTab(ue, ((em.emplKey != null) ? em.emplKey + ":" : "") + em.emplName + "  " + em.emplLastName);
+        }
+
+        public void focusSearch()
+        {
+            if (!this.IsLoaded)
+                this.Loaded += EmployeeList_loaded_focusSearch;
+            else
             {
-                Employee em = (Employee)item;
-                EmployeeEdit ue = new EmployeeEdit(this.mainWindow, em.emplID);
-                ue.UserSaved += Ue_UserSaved;
-                this.mainWindow.addTab(ue, ((em.emplKey != null) ? em.emplKey + ":" : "") + em.emplName + "  " + em.emplLastName);
+                txtSearch.SelectAll();
+                txtSearch.Focus();
             }
+        }
+
+        private void EmployeeList_loaded_focusSearch(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= EmployeeList_loaded_focusSearch;
+            focusSearch();
         }
 
         private void Ue_UserSaved(object sender, EventArgs e)
@@ -89,6 +108,7 @@ namespace HRON.Views.EmployeeViews
 
                 orderGridBy(false);
             }
+            mainWindow.MyMessageQueue.Enqueue("User saved - Tab closed", "Reopen", () => openEmployeeDetail(em2));
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

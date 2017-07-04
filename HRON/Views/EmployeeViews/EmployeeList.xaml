@@ -43,7 +43,7 @@
                 <Separator></Separator>
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center"></materialDesign:PackIcon>
-                    <TextBox Name="txtSearch" TextChanged="txtSearch_TextChanged" MinWidth="90" VerticalAlignment="Center"></TextBox>
+                    <TextBox Name="txtSearch" TextChanged="txtSearch_TextChanged" MinWidth="90" VerticalAlignment="Center"  materialDesign:HintAssist.Hint="CTRL + F" materialDesign:HintAssist.HintOpacity="0.2"></TextBox>
                 </StackPanel>
             </ToolBar>
         </ToolBarTray>
@@ -67,7 +67,8 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="Light" Grid.RowSpan="2" VerticalAlignment="Stretch">
-                                    <materialDesign:PackIcon Kind="Account" Height="32" Width="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+<!--                                    <materialDesign:PackIcon Kind="Account" Height="32" Width="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                                    <Image x:Name="emplImage" Height="32" Width="32" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding emplPhoto}" />
                                 </materialDesign:ColorZone>
                                 <Label Content="{Binding emplName}" Grid.Column="1" Padding="5"></Label>
                                 <Label Content="{Binding emplLastName}" Grid.Column="1" Grid.Row="1" Padding="5"></Label>
@@ -84,7 +85,6 @@
                         <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplID}}" Width="120" DisplayMemberBinding="{Binding emplID}" />
                         <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplLastName}}" Width="120" DisplayMemberBinding="{Binding emplLastName}"/>
                         <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplKey}}" Width="120" DisplayMemberBinding="{Binding emplKey}"/>
-                        <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplCdcID}}" Width="120" DisplayMemberBinding="{Binding baCDC.cdcDescription}"/>
                         <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplCountryID}}" Width="120" DisplayMemberBinding="{Binding baCountry.countryISOCode}"/>
                         <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplWorkPlaceID}}" Width="120" DisplayMemberBinding="{Binding baWorkPlace.workPlaceCity}"/>
                         <GridViewColumn Header="{Binding Mode=OneWay, Source={StaticResource employeeTableColumnemplBusinessUnitID}}" Width="120" DisplayMemberBinding="{Binding baBusinessUnitID.businessUnitDescription}"/>

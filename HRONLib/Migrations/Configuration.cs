@@ -5,11 +5,18 @@ namespace HRONLib.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<HRONLib.HRONEntities>
+    public sealed class Configuration : DbMigrationsConfiguration<HRONLib.HRONEntities>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+
+            DbMigrator migrator = new DbMigrator(this);
+
+            if (migrator.GetPendingMigrations().Any())
+            {
+                migrator.Update();
+            }
         }
 
         protected override void Seed(HRONLib.HRONEntities context)

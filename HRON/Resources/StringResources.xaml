@@ -36,6 +36,9 @@
     <system:String x:Key="employeeTableColumnemplFiscalCodePartner">FiscalCodePartner</system:String>
     <system:String x:Key="employeeTableColumnemplLivingPlace">LivingPlace</system:String>
     <system:String x:Key="employeeTableColumnemplMobileNumberPrivate">MobileNumberPrivate</system:String>
+    <system:String x:Key="employeeTableColumnemplEmailPrivate">Email private</system:String>
+    <system:String x:Key="employeeTableColumnemplEmailWork">Email work</system:String>
+    <system:String x:Key="employeeTableColumnemplSamAccountName">AD Username</system:String>
     <system:String x:Key="employeeTableColumnemplName">Name</system:String>
     <system:String x:Key="employeeTableColumnemplTimePercentage">TimePercentage</system:String>
     <system:String x:Key="employeeFormOrganisation">Organisation</system:String>
@@ -65,6 +68,7 @@
 
     <system:String x:Key="startWorkflow">Start Workflow</system:String>
     <system:String x:Key="EmplloyeeWindowFiles">Files</system:String>
+    <system:String x:Key="EmplloyeeWindowNotes">Notes</system:String>
     <system:String x:Key="EmplloyeeWindowHistory">History</system:String>
     <system:String x:Key="EmplloyeeWindowFamily">Family</system:String>
     <system:String x:Key="EmplloyeeWindowPersonalData">Personal Data</system:String>

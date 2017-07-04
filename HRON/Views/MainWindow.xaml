@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HRON"
+        xmlns:localView="clr-namespace:HRON.Views"
         xmlns:localLib="clr-namespace:HRONLib;assembly=HRONLib"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Properties="clr-namespace:HRON.Properties" xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
         x:Class="HRON.Views.MainWindow"
@@ -15,78 +17,150 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         Loaded="_mainWindow_Loaded"
+        ResizeMode="CanResizeWithGrip" 
+        WindowStyle="None"
+        AllowsTransparency="True"
         TextElement.FontSize="14"
+        Icon="../Resources/HRON.png"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-          Title="MainWindow" Height="1050" Width="825">
+          Title="HR On Boarding" Height="1050" Width="825">
     <Window.Resources>
         <CollectionViewSource x:Key="wfViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baWorkflows}, CreateList=True}"/>
+        <Style x:Key="MetroWindowButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderBrush" Value="#FF707070"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="212">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static localView:MainWindow.searchCommand}" Executed="searchCommandExecuted"/>
+        <CommandBinding Command="{x:Static localView:MainWindow.openEmployeeListCommand}" Executed="openEmployeeListCommandExecuted"/>
+    </Window.CommandBindings>
+    <Window.Template>
+        <ControlTemplate TargetType="{x:Type localView:MainWindow}">
+            <DockPanel LastChildFill="True" >
+                <materialDesign:ColorZone Padding="2" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryDark" DockPanel.Dock="Top" MouseLeftButtonDown="PART_TITLEBAR_MouseLeftButtonDown" MouseDoubleClick="PART_TITLEBAR_MouseDoubleClick">
+                    <DockPanel>
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=isMenuOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="MenuToggleButton" Margin="16"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="16">
+                            <Image Name="icon" Source="../Resources/HRON.png" Height="36" Margin="10 0"></Image>
+                            <TextBlock VerticalAlignment="Center" FontSize="22" Name="AppTitle" Text="{TemplateBinding Title}"></TextBlock>
+                        </StackPanel>
+                        <DockPanel LastChildFill="False" DockPanel.Dock="Right">
+                            <Button x:Name="PART_CLOSE" DockPanel.Dock="Right" 
+                                                    VerticalAlignment="Top" Margin="5"
+                                                    Height="20" Width="20" 
+                                                    Style="{DynamicResource MetroWindowButtonStyle}"
+                                                    Click="PART_CLOSE_Click">
+                                <Path Data="F1M54.0573,47.8776L38.1771,31.9974 54.0547,16.1198C55.7604,14.4141 55.7604,11.6511 54.0573,9.94531 52.3516,8.23962 49.5859,8.23962 47.8802,9.94531L32.0026,25.8229 16.1224,9.94531C14.4167,8.23962 11.6511,8.23962 9.94794,9.94531 8.24219,11.6511 8.24219,14.4141 9.94794,16.1198L25.8255,32 9.94794,47.8776C8.24219,49.5834 8.24219,52.3477 9.94794,54.0534 11.6511,55.7572 14.4167,55.7585 16.1224,54.0534L32.0026,38.1745 47.8802,54.0534C49.5859,55.7585 52.3516,55.7572 54.0573,54.0534 55.7604,52.3477 55.763,49.5834 54.0573,47.8776z" 
+                                                      Stretch="Uniform" Fill="#FFAAAAAA" Width="10" Margin="0,0,0,0" ></Path>
+                            </Button>
+                            <Button x:Name="PART_MAXIMIZE_RESTORE" 
+                                                    DockPanel.Dock="Right" Margin="5"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                                    Height="20" Width="20" Style="{DynamicResource MetroWindowButtonStyle}"
+                                                    Click="PART_MAXIMIZE_RESTORE_Click">
+                                <Path Data="M4.3685131,23.127279L4.3685131,47.283243 47.117023,47.283243 47.117023,23.127279z M0,10.684L53.755001,10.684 53.755001,51.668001 0,51.668001z M8.5679998,0L58.668022,0 64,0 64,5.6864691 64,45.317999 58.668022,45.317999 58.668022,5.6864691 8.5679998,5.6864691z"
+                                                      Stretch="Uniform" Fill="#FFAAAAAA" Width="10" Margin="0,0,0,0" ></Path>
+                            </Button>
+                            <Button x:Name="PART_MINIMIZE" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Top" Margin="5"
+                                                    DockPanel.Dock="Right"
+                                                    Height="20" Width="20" Style="{DynamicResource MetroWindowButtonStyle}"
+                                                    Click="PART_MINIMIZE_Click" VerticalContentAlignment="Bottom">
+                                <Button.Content>
+                                    <Path Data="M0,20L53.333,20 53.333,8.888 0,8.888z" 
+                                                          Stretch="Uniform" Fill="#FFAAAAAA" Width="10" Margin="0,0,0,5"></Path>
+                                </Button.Content>
+                            </Button>
+                        </DockPanel>
+                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Padding="34" HorizontalAlignment="Right">
+                            <StackPanel>
+                                <Button Content="Employee's" Command="{x:Static localView:MainWindow.openEmployeeListCommand}"></Button>
+                                <Separator></Separator>
+                                <Label x:Name="lblUser" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=lblUser}"/>
+                                <Label x:Name="lblUserRight" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=lblUserRight}"/>
+                                <Separator/>
+                                <ComboBox Name="lblUserLocale" SelectionChanged="lblUserLocale_SelectionChanged" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=languages}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=actualLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+                <AdornerDecorator DockPanel.Dock="Bottom">
+                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}"/>
+                </AdornerDecorator>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Template>
+    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MySnackbar, Path=MessageQueue}">
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=_mainWindow, Path=isMenuOpen, UpdateSourceTrigger=PropertyChanged}">
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <DockPanel MinWidth="212">
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                     DockPanel.Dock="Top"
                                     HorizontalAlignment="Right" Margin="16"
-                                    IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                                    IsChecked="{Binding ElementName=_mainWindow, Path=isMenuOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <ScrollViewer>
                         <StackPanel>
                             <Expander Header="{DynamicResource MasterDataTables}">
                                 <ListBox IsSynchronizedWithCurrentItem="False" x:Name="MasterdataListBox" SelectedIndex="-1" Margin="32 0 32 0" ItemsSource="{Binding}" DataContext="{Binding masterDataSets, ElementName=_mainWindow}" SelectionChanged="MasterdataListBox_SelectionChanged" DisplayMemberPath="Value"/>
-                                <!--                                <ListBox x:Name="MasterdataListBox" Margin="32 0 32 0" SelectionChanged="">
-                                    <ListBoxItem Name="baBusinessUnitID">Business Unit</ListBoxItem>
-                                    <ListBoxItem Name="baCarPolicy">Car Policy</ListBoxItem>
-                                    <ListBoxItem Name="baCDC">CDC</ListBoxItem>
-                                    <ListBoxItem Name="baCompanyRights">Company Rights</ListBoxItem>
-                                    <ListBoxItem Name="baContractType">Contract Type</ListBoxItem>
-                                    <ListBoxItem Name="baCountry">Country</ListBoxItem>
-                                    <ListBoxItem Name="baFringeBenefit">Fringe Benefit</ListBoxItem>
-                                    <ListBoxItem Name="baFunctions">Functions</ListBoxItem>
-                                    <ListBoxItem Name="baJobTitle">Job Title</ListBoxItem>
-                                    <ListBoxItem Name="baLevel">Level</ListBoxItem>
-                                    <ListBoxItem Name="baNationality">Nationality</ListBoxItem>
-                                    <ListBoxItem Name="baSpecialization">Specialization</ListBoxItem>
-                                    <ListBoxItem Name="baStudyTitle">Study Title</ListBoxItem>
-                                    <ListBoxItem Name="baTimeType">Time Type</ListBoxItem>
-                                    <ListBoxItem Name="baType">Type</ListBoxItem>
-                                    <ListBoxItem Name="baWorkPlace">Work Place</ListBoxItem>
-                                    <ListBoxItem Name="baDocumentation">Documentation</ListBoxItem>
-                                </ListBox>-->
                             </Expander>
-                            <Button Content="Employee's" HorizontalAlignment="Left" Margin="8 32" FontSize="15" Style="{StaticResource MaterialDesignFlatButton}" Click="btnEmploy_click" />
+                            <Button Content="Employee's" HorizontalAlignment="Left" Margin="8 32" FontSize="15" Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static localView:MainWindow.openEmployeeListCommand}" />
                             <Expander Header="{DynamicResource Workflows}" DataContext="{StaticResource wfViewSource}">
                                 <ListBox IsSynchronizedWithCurrentItem="False" x:Name="WFListBox" SelectedIndex="-1" Margin="32 0 32 0" ItemsSource="{Binding}" SelectionChanged="WFListBox_SelectionChanged" DisplayMemberPath="wfName" />
                             </Expander>
+                            <Button Content="Import Photos" HorizontalAlignment="Left" Margin="8 32" FontSize="15" Style="{StaticResource MaterialDesignFlatButton}" Click="importPhotos_Click"/>
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
-            <DockPanel>
-                <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                            Mode="PrimaryDark" DockPanel.Dock="Top">
-                    <DockPanel>
-                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                        x:Name="MenuToggleButton"/>
-                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Padding="20">
-                            <StackPanel>
-                                <Button Content="test" Click="Button_Click"></Button>
-                                <Separator></Separator>
-                                <Label x:Name="lblUser" Content="User"/>
-                                <Label x:Name="lblUserRight" Content="Admin"/>
-                                <Separator/>
-                                <ComboBox Name="lblUserLocale" SelectionChanged="lblUserLocale_SelectionChanged">
-                                    <ComboBoxItem Tag="de">Deutsch</ComboBoxItem>
-                                    <ComboBoxItem Tag="it">Italiano</ComboBoxItem>
-                                    <ComboBoxItem Tag="en">English</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Image Name="icon" Source="../Resources/HRON.png" Height="36" Margin="10 0"></Image>
-                            <TextBlock VerticalAlignment="Center" FontSize="22" Name="AppTitle" Text="{DynamicResource AppTitle}"></TextBlock>
-                        </StackPanel>
-                    </DockPanel>
-                </materialDesign:ColorZone>
+                </materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel>
                 <Grid>
                     <dragablz:TabablzControl x:Name="tabControl" SelectedIndex="0" ShowDefaultCloseButton="True">
                         <dragablz:TabablzControl.InterTabController>
@@ -115,7 +189,7 @@
                                             </StackPanel>
                                         </materialDesign:ColorZone>
                                         <TextBlock TextWrapping="Wrap" Margin="25 30 25 8" Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center">An intelligent dashboard provides employees information at glance</TextBlock>
-                                        </StackPanel>
+                                    </StackPanel>
                                 </materialDesign:Card>
                                 <materialDesign:Card Width="420" Margin="4 2 8 16" Height="270" Grid.Column="3" Grid.Row="1">
                                     <StackPanel>
@@ -132,8 +206,9 @@
                             </Grid>
                         </TabItem>
                     </dragablz:TabablzControl>
+                    <materialDesign:Snackbar x:Name="MySnackbar" MessageQueue="{Binding ElementName=_mainWindow, Path=MyMessageQueue}" />
                 </Grid>
             </DockPanel>
-        </materialDesign:DrawerHost>
-    </materialDesign:DialogHost>
+            </materialDesign:DrawerHost>
+        </materialDesign:DialogHost>
 </Window>

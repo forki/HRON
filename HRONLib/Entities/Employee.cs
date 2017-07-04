@@ -22,6 +22,7 @@ namespace HRONLib
             EmplDocumentation = new ObservableCollection<EmplDocumentation>();
             EmplFiles = new ObservableCollection<EmplFiles>();
             EmplCDC = new ObservableCollection<EmplCDC>();
+            EmplNotes = new ObservableCollection<EmplNotes>();
         }
 
         [Key]
@@ -80,7 +81,13 @@ namespace HRONLib
 
         public string emplMobileNumberPrivate { get; set; }
 
+        public string emplEmailPrivate { get; set; }
+
         public byte[] emplPhoto { get; set; }
+
+        public string emplEmailWork { get; set; }
+
+        public string emplSamAccountName { get; set; }
 
         public virtual baBusinessUnitID baBusinessUnitID { get; set; }
 
@@ -104,11 +111,17 @@ namespace HRONLib
 
         public virtual baWorkPlace baWorkPlace { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public string FullName { get { return emplLastName + " " + emplName; } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmplCompanyRights> EmplCompanyRights { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmplFamily> EmplFamily { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmplNotes> EmplNotes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmplFunctions> EmplFunctions { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,8 +27,11 @@ namespace HRON
                 string basePath = System.IO.Path.GetTempPath() + "\\HR";
                 if (Directory.Exists(basePath))
                     Directory.Delete(basePath, true);
+
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<HRONLib.HRONEntities, HRONLib.Migrations.Configuration>());
             }
             catch (Exception) { }
         }
     }
+
 }

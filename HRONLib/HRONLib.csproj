@@ -127,14 +127,15 @@
     <Compile Include="Entities\baWorkflows.cs" />
     <Compile Include="Entities\EmplCDC.cs" />
     <Compile Include="Entities\EmplFringeBenefitDetail.cs" />
+    <Compile Include="Entities\EmplNotes.cs" />
     <Compile Include="Entities\EmplWorkflows.cs" />
     <Compile Include="Entities\EmplSalary.cs" />
     <Compile Include="Entities\EmplSalaryFringeBenefit.cs" />
     <Compile Include="Entities\WFApprovals.cs" />
     <Compile Include="HRONEntities.cs" />
-    <Compile Include="Migrations\201704211910099_***REMOVED***.cs" />
-    <Compile Include="Migrations\201704211910099_***REMOVED***.Designer.cs">
-      <DependentUpon>201704211910099_***REMOVED***.cs</DependentUpon>
+    <Compile Include="Migrations\201704211910099_GruberInternalDip.cs" />
+    <Compile Include="Migrations\201704211910099_GruberInternalDip.Designer.cs">
+      <DependentUpon>201704211910099_GruberInternalDip.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201704211925012_StartingFromDate.cs" />
     <Compile Include="Migrations\201704211925012_StartingFromDate.Designer.cs">
@@ -228,6 +229,22 @@
     <Compile Include="Migrations\201705121907198_EmployeeImage.Designer.cs">
       <DependentUpon>201705121907198_EmployeeImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706292041152_mailPrivate.cs" />
+    <Compile Include="Migrations\201706292041152_mailPrivate.Designer.cs">
+      <DependentUpon>201706292041152_mailPrivate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706301650078_emplNotes.cs" />
+    <Compile Include="Migrations\201706301650078_emplNotes.Designer.cs">
+      <DependentUpon>201706301650078_emplNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707040737044_EmployeeNewFields.cs" />
+    <Compile Include="Migrations\201707040737044_EmployeeNewFields.Designer.cs">
+      <DependentUpon>201707040737044_EmployeeNewFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707041618360_emplNotes_identity.cs" />
+    <Compile Include="Migrations\201707041618360_emplNotes_identity.Designer.cs">
+      <DependentUpon>201707041618360_emplNotes_identity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -245,8 +262,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704211910099_***REMOVED***.resx">
-      <DependentUpon>201704211910099_***REMOVED***.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704211910099_GruberInternalDip.resx">
+      <DependentUpon>201704211910099_GruberInternalDip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704211925012_StartingFromDate.resx">
       <DependentUpon>201704211925012_StartingFromDate.cs</DependentUpon>
@@ -317,9 +334,24 @@
     <EmbeddedResource Include="Migrations\201705121907198_EmployeeImage.resx">
       <DependentUpon>201705121907198_EmployeeImage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706292041152_mailPrivate.resx">
+      <DependentUpon>201706292041152_mailPrivate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706301650078_emplNotes.resx">
+      <DependentUpon>201706301650078_emplNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707040737044_EmployeeNewFields.resx">
+      <DependentUpon>201707040737044_EmployeeNewFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707041618360_emplNotes_identity.resx">
+      <DependentUpon>201707041618360_emplNotes_identity.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="clearEmployee.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets" />

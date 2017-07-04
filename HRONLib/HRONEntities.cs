@@ -48,8 +48,8 @@ namespace HRONLib
         public virtual DbSet<EmplExpirations> EmplExpirations { get; set; }
         public virtual DbSet<EmplFringeBenefitDetail> EmplFringeBenefitDetail { get; set; }
         public virtual DbSet<EmplSalaryFringeBenefit> EmplSalaryFringeBenefit { get; set; }
-
         public virtual DbSet<Config> Config { get; set; }
+        public virtual DbSet<EmplNotes> EmplNotes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -159,6 +159,12 @@ namespace HRONLib
                 .HasMany(e => e.EmplSalary)
                 .WithRequired(e => e.Employee)
                 .HasForeignKey(e => e.salEmplID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.EmplNotes)
+                .WithRequired(e => e.Employee)
+                .HasForeignKey(e => e.noteEmplID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Employee>()

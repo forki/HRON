@@ -5,6 +5,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HRON"
+             xmlns:localView="clr-namespace:HRON.Views.EmployeeViews"
              xmlns:helper="clr-namespace:HRON.Views.Helper"
              xmlns:emplViews="clr-namespace:HRON.Views.EmployeeViews"
              xmlns:localLib="clr-namespace:HRONLib;assembly=HRONLib"
@@ -15,6 +16,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="1750" d:DesignWidth="1412" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <Style TargetType="{x:Type StackPanel}" x:Key="VisibleOnHoverNoNewRow">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsMouseOver}" Value="True" />
+                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsNewItem}" Value="False" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
         <helper:EnumMatchToBooleanConverter x:Key="enumConverter" />
         <CollectionViewSource x:Key="employeeViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:Employee}, CreateList=True}"/>
         <CollectionViewSource x:Key="employeeEmplFamilyViewSource" Source="{Binding EmplFamily, Source={StaticResource employeeViewSource}}"/>
@@ -28,22 +41,33 @@
         <helper:VisibilityConverter x:Key="VisibilityConverter" />
         <CollectionViewSource x:Key="employeeEmplDocumentationViewSource" Source="{Binding EmplDocumentation, Source={StaticResource employeeViewSource}}"/>
         <CollectionViewSource x:Key="baDocumentationViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baDocumentation}, CreateList=True}"/>
+        <CollectionViewSource x:Key="emplNotesViewSource" Source="{Binding EmplNotes, Source={StaticResource employeeViewSource}}" />
         <CollectionViewSource x:Key="emplCDCViewSource" Source="{Binding EmplCDC, Source={StaticResource employeeViewSource}}" >
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="cdcStartingDate" Direction="Descending"></scm:SortDescription>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="baCDCViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:baCDC}, CreateList=True}"/>
-        <DataGridComboBoxColumn x:Key="cdcColumn" x:Name="cdcColumn" ItemsSource="{Binding baCDC, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding cdc}" Header="CDC" Width="SizeToCells" DisplayMemberPath="cdcDescription" MinWidth="100"/>
+        <DataGridComboBoxColumn x:Key="cdcColumn" x:Name="cdcColumn" SelectedItemBinding="{Binding cdc}" Header="CDC" Width="SizeToCells" DisplayMemberPath="cdcDescription" MinWidth="100"/>
         <DataGridComboBoxColumn x:Key="workplaceColumn" x:Name="workplaceColumn" ItemsSource="{Binding baWorkPlace, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding EmplWorkplace}" Header="Workplace" Width="SizeToCells" DisplayMemberPath="workPlaceName" MinWidth="100"/>
-        <DataGridComboBoxColumn x:Key="expColumn" x:Name="expColumn" ItemsSource="{Binding baExpiration, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedItemBinding="{Binding baExpiration}" Header="Expiration" Width="SizeToCells" DisplayMemberPath="expDescription" MinWidth="100"/>
+        <DataGridComboBoxColumn x:Key="expColumn" x:Name="expColumn" SelectedItemBinding="{Binding baExpiration}" Header="Expiration" Width="SizeToCells" DisplayMemberPath="expDescription" MinWidth="100"/>
         <CollectionViewSource x:Key="emplExpirationsViewSource" d:DesignSource="{d:DesignInstance {x:Type localLib:EmplExpirations}, CreateList=True}"/>
+        <DataTemplate x:Key="InfoTemplate">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Style="{StaticResource VisibleOnHoverNoNewRow}">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Click="InfoButton_Click">
+                    <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{x:Static localView:EmployeeEdit.saveCommand}" Executed="saveCommandExecuted"/>
+    </UserControl.CommandBindings>
 
     <DockPanel AllowDrop="True" Drop="DockPanel_Drop" Name="OuterDockPanel">
         <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Center" Orientation="Horizontal">
             <ToolBar>
-                <Button Click="save_click" Style="{StaticResource MaterialDesignRaisedButton}">
+                <Button Command="{x:Static localView:EmployeeEdit.saveCommand}" Style="{StaticResource MaterialDesignRaisedButton}">
                     <materialDesign:PackIcon Kind="ContentSave"/>
                 </Button>
                 <Button Name="startWorkflow" Click="Workflow_Click" >
@@ -85,20 +109,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid.Resources>
-                    <Style TargetType="{x:Type StackPanel}" x:Key="VisibleOnHoverNoNewRow">
-                        <Setter Property="Visibility" Value="Hidden"/>
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsMouseOver}" Value="True" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsNewItem}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Resources>
 
                 <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
 
@@ -122,17 +132,7 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn x:Name="famInfo" Width="*" MinWidth="200">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Style="{StaticResource VisibleOnHoverNoNewRow}">
-                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click">
-                                                        <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
-                                                    </Button>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn  Header="Info" Width="Auto" MinWidth="20" CellTemplate="{StaticResource InfoTemplate}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Expander>
@@ -157,17 +157,7 @@
                                     <DataGridTextColumn x:Name="salCostWithBonusYearColumn" Binding="{Binding salCostWithBonusYear}" Header="{StaticResource EmplloyeeWindowSalaryCostFullYear}" Width="SizeToHeader"/>
                                     <DataGridTextColumn x:Name="salEmplIDColumn" Binding="{Binding salEmplID}" Header="sal Empl ID" Width="SizeToHeader" Visibility="Collapsed"/>
                                     <DataGridTextColumn x:Name="salIDColumn" Binding="{Binding salID}" Header="sal ID" Width="SizeToHeader" Visibility="Collapsed"/>
-                                    <DataGridTemplateColumn x:Name="salInfo" Width="*" MinWidth="200">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Style="{StaticResource VisibleOnHoverNoNewRow}">
-                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="FamiliyInfoButton_Click">
-                                                        <materialDesign:PackIcon Kind="History"></materialDesign:PackIcon>
-                                                    </Button>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn  Header="Info" Width="Auto" MinWidth="20" CellTemplate="{StaticResource InfoTemplate}" />
                                 </DataGrid.Columns>
                                 <DataGrid.RowDetailsTemplate>
                                     <DataTemplate>
@@ -231,7 +221,7 @@
                         </Expander>
                     </materialDesign:Card>
                     <materialDesign:Card Margin="5">
-                        <Expander IsExpanded="True" Name="CDCExpander">
+                        <Expander Name="CDCExpander">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal" >
                                     <Button Margin="5" Visibility="{Binding ElementName=CDCExpander, Path=IsExpanded, Converter={StaticResource VisibilityConverter}}" Click="AddCDCButton_Click">
@@ -254,6 +244,7 @@
                                         </DataGridTemplateColumn>
                                         <DataGridTextColumn x:Name="cdcEndDateColumn" Header="cdc End Date" Width="SizeToHeader" Binding="{Binding cdcEndDate, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
                                         <DataGridTextColumn x:Name="cdcPercColumn" Header="%" Width="SizeToCells" Binding="{Binding Percentage}" IsReadOnly="True"/>
+                                        <DataGridTemplateColumn  Header="Info" Width="Auto" MinWidth="20" CellTemplate="{StaticResource InfoTemplate}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <Separator/>
@@ -263,9 +254,30 @@
                                             <StaticResource ResourceKey="cdcColumn"/>
                                             <StaticResource ResourceKey="workplaceColumn"/>
                                             <DataGridTextColumn x:Name="cdcPercentageColumn" Binding="{Binding cdcPercentage}" Header="CDC Percentage" Width="SizeToHeader" />
+                                            <DataGridTemplateColumn  Header="Info" Width="Auto" MinWidth="20" CellTemplate="{StaticResource InfoTemplate}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Margin="5">
+                        <Expander Name="NotesExpander">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="Note" Height="24" Width="24" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="10" Text="{StaticResource EmplloyeeWindowNotes}"/>
+                                </StackPanel>
+                            </Expander.Header>
+                            <StackPanel Orientation="Horizontal" DataContext="{Binding Source={StaticResource emplNotesViewSource}}">
+
+                                <DataGrid x:Name="emplNoteDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="noteNOTEColumn" Header="Note" Width="Auto" MinWidth="500" Binding="{Binding noteNOTE}"/>
+                                        <DataGridTemplateColumn  Header="Info" Width="Auto" MinWidth="20" CellTemplate="{StaticResource InfoTemplate}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </StackPanel>
                         </Expander>
                     </materialDesign:Card>
@@ -351,8 +363,8 @@
                                     </Grid.RowDefinitions>
                                     <Label Content="{StaticResource employeeTableColumnemplTimeTypeID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
                                     <ComboBox x:Name="emplTimeTypeIDComboBox" Grid.Column="1" SelectedValue="{Binding emplTimeTypeID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120" />
-                                    <Label Content="{StaticResource employeeTableColumnemplTimePercentage}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="emplTimePercentageTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding emplTimePercentage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                                    <Label Content="{StaticResource employeeTableColumnemplTimePercentage}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center" Visibility="{Binding SelectedItem.timeTypeNeedsTimeSpec, ElementName=emplTimeTypeIDComboBox, Converter={StaticResource VisibilityConverter}}"/>
+                                    <TextBox x:Name="emplTimePercentageTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding emplTimePercentage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Visibility="{Binding SelectedItem.timeTypeNeedsTimeSpec, ElementName=emplTimeTypeIDComboBox, Converter={StaticResource VisibilityConverter}}"/>
                                 </Grid>
                             </Expander>
                         </materialDesign:Card>
@@ -380,14 +392,6 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Label Content="{StaticResource employeeTableColumnemplCdcID}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0" Height="26" Width="77"/>
-                                    <ComboBox x:Name="emplCdcIDComboBox" Grid.Column="1" Grid.Row="0" SelectedValue="{Binding emplCdcID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="0" VerticalAlignment="Center" Width="120">
-                                        <ComboBox.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <VirtualizingStackPanel/>
-                                            </ItemsPanelTemplate>
-                                        </ComboBox.ItemsPanel>
-                                    </ComboBox>
                                     <Label Content="{StaticResource employeeTableColumnemplCountryID}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="0" Width="99"/>
                                     <ComboBox x:Name="emplCountryIDComboBox" Grid.Column="1" Grid.Row="1" SelectedValue="{Binding emplCountryID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="120">
                                         <ComboBox.ItemsPanel>
@@ -585,46 +589,55 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Label Content="{StaticResource employeeTableColumnemplID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
                             <Label x:Name="emplIDLabel" Content="{Binding emplID}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center"/>
                             <TextBox x:Name="emplKeyTextBox" Grid.Column="2" Height="24" Margin="3,4" Text="{Binding emplKey, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <Label Content="{StaticResource employeeTableColumnemplFirstAndLastName}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplLastNameTextBox" Grid.Column="1" Height="24" Margin="3,4,10,4" Grid.Row="1" Text="{Binding emplLastName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplNameTextBox" Grid.Column="2" Height="24" Margin="3,4" Grid.Row="1" Text="{Binding emplName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <Label Content="{StaticResource employeeTableColumnemplGender}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
+                            <Label Content="{StaticResource employeeTableColumnemplSamAccountName}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplSamAccountNameTextBox" Grid.Column="1" Height="22" Margin="3,5,10,5" IsReadOnly="False" Grid.Row="1" Text="{Binding emplSamAccountName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplFirstAndLastName}" Grid.Column="0" HorizontalAlignment="Left" Margin="3,1,0,5" Grid.Row="2" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplLastNameTextBox" Grid.Column="1" Height="24" Margin="3,4,10,4" Grid.Row="2" Text="{Binding emplLastName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplNameTextBox" Grid.Column="2" Height="24" Margin="3,4" Grid.Row="2" Text="{Binding emplName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplEmailWork}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplEmailWorkTextBox" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Margin="3,5,10,5" Grid.Row="3" Text="{Binding emplEmailWork, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplGender}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4">
                                 <RadioButton  HorizontalAlignment="Right" Content="{StaticResource employeeFormGenderMasculin}" GroupName="gender" IsChecked="{Binding emplGender, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=M}" VerticalAlignment="Center"></RadioButton>
                                 <RadioButton HorizontalAlignment="Right" Margin="10 0 0 0" Content="{StaticResource employeeFormGenderFeminin}" GroupName="gender" IsChecked="{Binding emplGender, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=F}" VerticalAlignment="Center"></RadioButton>
                             </StackPanel>
                             <!--<TextBox x:Name="emplGenderTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding emplGender, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>-->
-                            <Label Content="{StaticResource employeeTableColumnemplBirthPlaceDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplBirthPlaceTextBox" Grid.Column="1" Height="24" Margin="3,4,10,4" Grid.Row="4" Text="{Binding emplBirthPlace, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <DatePicker x:Name="emplBirthDayDatePicker" Grid.Column="2" HorizontalAlignment="Left" Margin="3" Grid.Row="4" SelectedDate="{Binding emplBirthDay, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <Label Content="{StaticResource employeeTableColumnemplFiscalCode}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplFiscalCodeTextBox" Grid.Column="1" Height="24" Margin="3" Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding emplFiscalCode, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <Label Content="{StaticResource employeeTableColumnemplNationalityID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="emplNationalityIDComboBox" Grid.Column="1" SelectedValue="{Binding emplNationalityID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="Auto" Margin="3,3,10,3" Grid.Row="7" VerticalAlignment="Center">
+                            <Label Content="{StaticResource employeeTableColumnemplBirthPlaceDate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplBirthPlaceTextBox" Grid.Column="1" Height="24" Margin="3,4,10,4" Grid.Row="5" Text="{Binding emplBirthPlace, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <DatePicker x:Name="emplBirthDayDatePicker" Grid.Column="2" HorizontalAlignment="Left" Margin="3" Grid.Row="5" SelectedDate="{Binding emplBirthDay, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplFiscalCode}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplFiscalCodeTextBox" Grid.Column="1" Height="24" Margin="3" Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding emplFiscalCode, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplNationalityID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="emplNationalityIDComboBox" Grid.Column="1" SelectedValue="{Binding emplNationalityID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="Auto" Margin="3,3,10,3" Grid.Row="8" VerticalAlignment="Center">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel/>
                                     </ItemsPanelTemplate>
                                 </ComboBox.ItemsPanel>
                             </ComboBox>
-                            <Label Content="{StaticResource employeeTableColumnemplStudyTitleID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="25" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="emplStudyTitleIDComboBox" Grid.Column="1" SelectedValue="{Binding emplStudyTitleID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="Auto" Margin="3,3,10,3" Grid.Row="25" VerticalAlignment="Center">
+                            <Label Content="{StaticResource employeeTableColumnemplStudyTitleID}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="26" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="emplStudyTitleIDComboBox" Grid.Column="1" SelectedValue="{Binding emplStudyTitleID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="Auto" Margin="3,3,10,3" Grid.Row="26" VerticalAlignment="Center">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel/>
                                     </ItemsPanelTemplate>
                                 </ComboBox.ItemsPanel>
                             </ComboBox>
-                            <Label Content="{StaticResource employeeTableColumnemplFiscalCodePartner}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="26" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplFiscalCodePartnerTextBox" Grid.Column="1" Height="24" Margin="3,4,10,4" Grid.Row="26" Text="{Binding emplFiscalCodePartner, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
-                            <Label Content="{StaticResource employeeTableColumnemplLivingPlace}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="27" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplLivingPlaceTextBox" Grid.Column="1" Margin="3,4,10,4" Grid.Row="27" Text="{Binding emplLivingPlace, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                            <Label Content="{StaticResource employeeTableColumnemplMobileNumberPrivate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="28" VerticalAlignment="Center"/>
-                            <TextBox x:Name="emplMobileNumberPrivateTextBox" Grid.Column="1" Height="22" Margin="3,5,10,5" Grid.Row="28" Text="{Binding emplMobileNumberPrivate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplFiscalCodePartner}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="27" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplFiscalCodePartnerTextBox" Grid.Column="1" Grid.ColumnSpan="2" Height="24" Margin="3,4,10,4" Grid.Row="27" Text="{Binding emplFiscalCodePartner, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplLivingPlace}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="28" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplLivingPlaceTextBox" Grid.Column="1" Margin="3,4,10,4" Grid.Row="28" Text="{Binding emplLivingPlace, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                            <Label Content="{StaticResource employeeTableColumnemplMobileNumberPrivate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="29" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplMobileNumberPrivateTextBox" Grid.Column="1" Height="22" Margin="3,5,10,5" Grid.Row="29" Text="{Binding emplMobileNumberPrivate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                            <Label Content="{StaticResource employeeTableColumnemplEmailPrivate}" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="30" VerticalAlignment="Center"/>
+                            <TextBox x:Name="emplEmailPrivateTextBox" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Margin="3,5,10,5" Grid.Row="30" Text="{Binding emplEmailPrivate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
                         </Grid>
                     </Expander>
                 </materialDesign:Card>

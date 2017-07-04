@@ -161,7 +161,7 @@
               </p1:Delay>
             </p1:Sequence>
           </p1:PickBranch.Trigger>
-          <ha:SendEmail result="{x:Null}" sap2010:WorkflowViewState.IdRef="SendEmail_1" body="BASTA" subject="Ok - Fertig" to="***REMOVED***" />
+          <ha:SendEmail result="{x:Null}" sap2010:WorkflowViewState.IdRef="SendEmail_1" body="BASTA" subject="Ok - Fertig" to="guenther.erb@gruber-logistics.com" />
         </p1:PickBranch>
         <p1:PickBranch DisplayName="Branch2" sap2010:WorkflowViewState.IdRef="PickBranch_2">
           <p1:PickBranch.Trigger>

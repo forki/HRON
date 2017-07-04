@@ -131,7 +131,7 @@
           </local:StartApproval>
         </If.Then>
       </If>
-      <local:StartApproval Body="Bitte PC vorbereiten" DisplayName="StartApproval IT" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1" Mail="***REMOVED***" ReminderHeader="Reminder!" Subject="PC vorbereiten">
+      <local:StartApproval Body="Bitte PC vorbereiten" DisplayName="StartApproval IT" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="HRWorkflowService.Activities.Approve.StartApproval_1" Mail="guenther.erb@gruber-logistics.com" ReminderHeader="Reminder!" Subject="PC vorbereiten">
         <local:StartApproval.MailPrincipal>
           <InArgument x:TypeArguments="x:String">
             <mca:CSharpValue x:TypeArguments="x:String">mailPrincipal</mca:CSharpValue>

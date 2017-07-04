@@ -7,13 +7,13 @@ namespace HRONLib.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class GruberInternalDip : IMigrationMetadata
+    public sealed partial class mailPrivate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(GruberInternalDip));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(mailPrivate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704211910099_GruberInternalDip"; }
+            get { return "201706292041152_mailPrivate"; }
         }
         
         string IMigrationMetadata.Source
