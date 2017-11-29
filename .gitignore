@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # DEBUG files
 **/*.debug.config
+# RELEASE files
+**/*.release.config
